@@ -1,0 +1,46 @@
+package com.zxdc.utils.library.http;
+
+public class HandlerConstant {
+    public static final int REQUST_ERROR = 10000;
+    public static final int GET_DATA_ERROR=10001;
+    public static final int MAP_LOCATION_SUCCESS=10002;
+    public static final int GET_ACCESS_TOKEN_SUCCESS=10003;
+    public static final int GET_SMS_CODE_SUCCESS=10004;
+    public static final int LOGIN_SUCCESS=10005;
+    public static final int GET_LOCATION_BIKE_SUCCESS=10007;
+    public static final int GET_VERSION_SUCCESS=10008;
+    public static final int DOWNLOAD_SUCCESS=10009;
+    public static final int DOWNLOAD_PRORESS=10010;
+    public static final int RENT_BIKE_SUCCESS=10011;
+    public static final int GET_ORDER_BY_SCAN_SUCCESS=10012;
+    public static final int GET_DIY_LIST_SUCCESS=10013;
+    public static final int SET_DIY_SUCCESS=10014;
+    public static final int GET_USER_INFO_SUCCESS=10015;
+    public static final int GET_PARKING_SUCCESS=10017;
+    public static final int BALANCE_ORDER_SUCCESS=10019;
+    public static final int REFRESH_ORDER_SUCCESS=10020;
+    public static final int UPLOAD_FILE_SUCCESS=10022;
+    public static final int GET_BIKE_DETAILS_SUCCESS=10023;
+    public static final int RENT_BIKE_FAIL=10024;
+    public static final int RECHARGE_SUCCESS=10025;
+    public static final int WITHDRAWAL_SUCCESS=10027;
+    public static final int GET_REFUND_MONEY_SUCCESS=10028;
+    public static final int WITHDRAWAL_DETAILS_SUCCESS=10029;
+    public static final int WITHDRAWAL_DETAILS_SUCCESS2=10030;
+    public static final int FAULT_UPLOAD_SUCCESS=10031;
+    public static final int REPORT_SUCCESS=10032;
+    public static final int PARKING_SUCCESS=10033;
+    public static final int GET_MAIN_NEWS_SUCCESS=10034;
+    public static final int DISSMISS_DAZZLE_LEAD = 10035;
+    public static final int FIND_DAZZLE_SUCCESS = 10036;
+    public static final int SET_DAZZLE_SUCCESS = 10037;
+    public static final int FIND_DAZZLE_LIST_SUCCESS = 10038;
+    public static final int ADD_MY_DAZZLE_SUCCESS = 10039;
+    public static final int UPLOAD_MY_DAZZLE_SUCCESS = 10040;
+    public static final int GET_MY_UPLOAD_DAZZLE_SUCCESS = 10041;
+    public static final int GET_MORE_DAZZLE_SUCCESS = 10042;
+    public static final int AREA_IS_HIDE_SUCCESS=10044;
+    public static final int GET_VIPINFO_SUCCESS=10045;
+    public static final int IS_HIDE_SUCCESS=10056;
+    public static final int VIP_RECHARGE_SUCCESS=10057;
+}

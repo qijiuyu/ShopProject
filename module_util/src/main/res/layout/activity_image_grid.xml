@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="TextFields"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/head"
+        android:layout_margin="8dp"
+        android:horizontalSpacing="8dp"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:verticalSpacing="8dp"
+        android:layout_marginBottom="70dp" >
+    </GridView>
+
+    <com.youmai.project.view.ClickTextView
+          android:id="@+id/bt"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+          android:text="确定"
+          android:textColor="@android:color/white"
+          android:textSize="15sp"
+          android:gravity="center"
+          android:background="@color/color_FF4081"
+        android:layout_marginBottom="10dp"
+          android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
