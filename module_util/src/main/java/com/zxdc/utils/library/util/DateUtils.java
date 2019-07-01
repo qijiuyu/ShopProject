@@ -1,7 +1,6 @@
 package com.zxdc.utils.library.util;
 
 import android.text.TextUtils;
-import com.blankj.utilcode.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -188,13 +187,11 @@ public class DateUtils {
      */
     public static long convertToLong(String date, String format) {
         try {
-            if (!StringUtils.isEmpty(date)) {
-                if (TextUtils.isEmpty(format)) {
-                    format = "yyyy-MM-dd HH:mm:ss";
-                }
-                SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.getDefault());
-                return formatter.parse(date).getTime();
+            if (TextUtils.isEmpty(format)) {
+                format = "yyyy-MM-dd HH:mm:ss";
             }
+            SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.getDefault());
+            return formatter.parse(date).getTime();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,1 +1,1 @@
-include ':app', ':module_util'
+include ':app', ':module_util', ':vitamio'

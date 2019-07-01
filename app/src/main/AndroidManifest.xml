@@ -16,18 +16,32 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
+        android:name=".application.APPAplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".TabActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.main.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.type.TypeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.business.BusinessActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.shopping.ShoppingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.UserActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.video.PlayVideoActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
     </application>
 
 </manifest>

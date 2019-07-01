@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@mipmap/head_icon"
+                android:fitsSystemWindows="true">
+
+                <LinearLayout
+                    android:layout_width="267dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_search">
+
+                    <ImageView
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="7dp"
+                        android:src="@mipmap/search"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请输入关键字搜索"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_999999"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"/>
+
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/main_news"/>
+
+                    <ImageView
+                        android:id="@+id/img_news"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:src="@mipmap/red_icon"/>
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/main_title"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:src="@mipmap/main_line"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <com.zxdc.utils.library.view.ClickLinearLayout
+                    android:id="@+id/lin_mc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="40.5dp"
+                        android:layout_height="40.5dp"
+                        android:src="@mipmap/mochuang"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="磨床"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"/>
+
+                </com.zxdc.utils.library.view.ClickLinearLayout>
+
+                <com.zxdc.utils.library.view.ClickLinearLayout
+                    android:id="@+id/lin_pj"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="40.5dp"
+                        android:layout_height="40.5dp"
+                        android:src="@mipmap/peijian"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="配件商城"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"/>
+
+                </com.zxdc.utils.library.view.ClickLinearLayout>
+
+                <com.zxdc.utils.library.view.ClickLinearLayout
+                    android:id="@+id/lin_bx"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="40.5dp"
+                        android:layout_height="40.5dp"
+                        android:src="@mipmap/baoxiu"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="在线报修"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"/>
+
+                </com.zxdc.utils.library.view.ClickLinearLayout>
+
+                <com.zxdc.utils.library.view.ClickLinearLayout
+                    android:id="@+id/lin_zz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="40.5dp"
+                        android:layout_height="40.5dp"
+                        android:src="@mipmap/zengzhi"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="增值服务"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"/>
+
+                </com.zxdc.utils.library.view.ClickLinearLayout>
+
+                <com.zxdc.utils.library.view.ClickLinearLayout
+                    android:id="@+id/lin_zl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="40.5dp"
+                        android:layout_height="40.5dp"
+                        android:src="@mipmap/zuling"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="融资租赁"
+                        android:textSize="11sp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center"/>
+
+                </com.zxdc.utils.library.view.ClickLinearLayout>
+
+            </LinearLayout>
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="166dp"
+                android:layout_marginTop="15dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:src="@mipmap/jxzt"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner2"
+                android:layout_width="match_parent"
+                android:layout_height="166dp"
+                android:layout_marginTop="25dp"/>
+
+
+            <!-- 新品推荐-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:src="@mipmap/xptj"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.zxdc.utils.library.view.MyGridView
+                android:id="@+id/gv_xptj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:numColumns="3"/>
+
+
+            <!-- 人气推荐-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:src="@mipmap/rqtj"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.zxdc.utils.library.view.MeasureListView
+                android:id="@+id/rq_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:layout_marginTop="20dp"/>
+
+            <!-- 热门配件-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:src="@mipmap/rmpj"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.zxdc.utils.library.view.MyGridView
+                android:id="@+id/gv_rmpj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:numColumns="2"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

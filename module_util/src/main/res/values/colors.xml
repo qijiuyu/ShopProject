@@ -10,4 +10,5 @@
     <color name="half_transparent">#80000000</color>
     <!-- 透明 -->
     <color name="transparent">#00000000</color>
+    <color name="color_FF4081">#FF4081</color>
 </resources>
