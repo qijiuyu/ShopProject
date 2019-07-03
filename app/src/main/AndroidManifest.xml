@@ -54,6 +54,12 @@
         <activity android:name=".activity.main.fault.EditJCActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.zzfu.ZzfuTypeActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PeiJianTypeActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.pjsc.PeiJianListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.AddressListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.AddAddressActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.SelectRegionActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.shopping.PayOrderActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.pjsc.PeiJianDetailsActivity"  android:screenOrientation="portrait"/>
 
 
         <activity android:name=".activity.video.PlayVideoActivity"

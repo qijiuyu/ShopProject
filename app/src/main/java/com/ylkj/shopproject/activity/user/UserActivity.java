@@ -94,6 +94,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                  break;
             //收货地址
             case R.id.rel_shdz:
+                 setClass(AddressListActivity.class);
                  break;
             //企业信息
             case R.id.rel_qyxx:

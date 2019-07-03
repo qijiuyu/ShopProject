@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/half_transparent">
+
+    <RelativeLayout
+        android:id="@+id/rel_moren"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_moren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="默认排序"
+            android:textSize="15sp"
+            android:textColor="@color/color_666666"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="34.5dp"/>
+
+        <ImageView
+            android:id="@+id/img_moren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@mipmap/correct"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="35dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_xinpin"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_xinpin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新品排序"
+            android:textSize="15sp"
+            android:textColor="@color/color_666666"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="34.5dp"/>
+
+        <ImageView
+            android:id="@+id/img_xinpin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@mipmap/correct"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="35dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

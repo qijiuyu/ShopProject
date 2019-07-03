@@ -13,7 +13,9 @@ import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.type.JCDetailsActivity;
 import com.ylkj.shopproject.adapter.main.SearchResultAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.MyGridView;
+import com.zxdc.utils.library.view.MyRefreshLayout;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 
 /**
@@ -24,6 +26,7 @@ public class SearchResultActivity extends BaseActivity implements View.OnClickLi
     private TextView tvJC,tvPJ;
     private ImageView imgJC,imgPJ;
     private RecyclerView recyclerView;
+    private MyRefreshLayout mRefreshLayout;
     private SearchResultAdapter searchResultAdapter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,10 @@ public class SearchResultActivity extends BaseActivity implements View.OnClickLi
         tvPJ=findViewById(R.id.tv_pj);
         imgJC=findViewById(R.id.img_jc);
         imgPJ=findViewById(R.id.img_pj);
+        mRefreshLayout=findViewById(R.id.re_list);
         recyclerView=findViewById(R.id.listView);
+        //刷新加载
+        mRefreshLayout.setMyRefreshLayoutListener(this);
         tvJC.setOnClickListener(this);
         tvPJ.setOnClickListener(this);
         findViewById(R.id.lin_search).setOnClickListener(this);
@@ -51,7 +57,8 @@ public class SearchResultActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
-         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));//网格布局
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
+         recyclerView.setLayoutManager(gridLayoutManager);//网格布局
         recyclerView.setAdapter(searchResultAdapter);
 
     }
@@ -95,6 +102,5 @@ public class SearchResultActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onLoadMore(View view) {
-
     }
 }

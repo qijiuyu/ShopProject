@@ -165,6 +165,12 @@
    -keep class sun.misc.Unsafe { *; }
    -keep class net.edaibu.easywalking.bean.** { *; }
 
+   #百度地图
+      -keep class com.baidu.** {*;}
+      -keep class mapsdkvi.com.** {*;}
+      -keep class vi.com.gdi.bgl.**{*;}
+      -dontwarn com.baidu.**
+
 
 
 

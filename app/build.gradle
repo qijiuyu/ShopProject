@@ -11,10 +11,38 @@ android {
         targetSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+
+    }
+
+    signingConfigs {
+        keyConfig {
+            storeFile file("HTM.jks")
+            storePassword "123456"
+            keyAlias "HTM"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
+        //开发环境
+        debug {
+            //实现自动签名
+            signingConfig signingConfigs.keyConfig
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            signingConfig signingConfigs.keyConfig
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

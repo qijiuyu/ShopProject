@@ -50,7 +50,7 @@ public class PeiJianTypeActivity extends BaseActivity {
     @Subscribe
     public void onEvent(EventBusType eventBusType){
         if(eventBusType.getStatus()== EventStatus.PJSC_TYPE){
-
+            setClass(PeiJianListActivity.class);
         }
     }
 

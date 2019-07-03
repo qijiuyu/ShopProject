@@ -83,4 +83,25 @@ public class DialogUtil {
         mPopuwindow.showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM, 0,0);
         return mPopuwindow;
     }
+
+
+    /**
+     * 在某个控件下面
+     * @param view
+     * @param view2
+     * @return
+     */
+    public static PopupWindow showBottom(View view,View view2){
+        PopupWindow mPopuwindow = new PopupWindow(view,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        ColorDrawable cd = new ColorDrawable(Color.argb(0, 0, 0, 0));
+        mPopuwindow.setBackgroundDrawable(cd);
+        mPopuwindow.setOutsideTouchable(true);
+        mPopuwindow.setFocusable(false);
+        mPopuwindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
+        mPopuwindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        mPopuwindow.showAsDropDown(view2);
+        return mPopuwindow;
+    }
 }
