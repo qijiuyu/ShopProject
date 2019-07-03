@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp">
+
+        <com.zxdc.utils.library.view.OvalImage2Views
+            android:id="@+id/item_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop">
+        </com.zxdc.utils.library.view.OvalImage2Views>
+
+        <com.zxdc.utils.library.view.ClickImageView
+            android:id="@+id/img_delete"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@mipmap/delete_img"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

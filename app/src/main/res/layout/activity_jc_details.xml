@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/color_F9F9F9">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="311dp">
+            </com.youth.banner.Banner>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="13dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:id="@+id/tv_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="功能介绍"
+                    android:textColor="@color/color_36C7B5"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="平台信息"
+                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="149dp"
+                android:background="@drawable/white_share"
+                android:layout_marginTop="13.5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="颜色"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="11dp"/>
+
+                <TextView
+                    android:id="@+id/tv_color_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="6"
+                    android:textColor="@color/color_37C7B5"
+                    android:textSize="17sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="11dp"/>
+
+                <com.ylkj.shopproject.view.HorizontalListView
+                    android:id="@+id/list_color"
+                    android:layout_below="@id/tv_color_money"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </com.ylkj.shopproject.view.HorizontalListView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_share"
+                android:layout_marginTop="13.5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="类型描述"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="11dp"/>
+
+                <TextView
+                    android:id="@+id/tv_type_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="1000"
+                    android:textColor="@color/color_37C7B5"
+                    android:textSize="17sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="11dp"/>
+
+                <com.zxdc.utils.library.view.MyGridView
+                    android:id="@+id/gv_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_type_money"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:numColumns="2"
+                    android:layout_marginBottom="15dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_share"
+                android:layout_marginTop="13.5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="名称"
+                android:textSize="17sp"
+                android:textColor="@color/color_33333"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="11dp"/>
+
+                <com.zxdc.utils.library.view.MeasureListView
+                    android:id="@+id/list_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp">
+                </com.zxdc.utils.library.view.MeasureListView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/write_back"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="详情"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+   <LinearLayout
+       android:id="@+id/lin"
+       android:layout_width="157.5dp"
+       android:layout_height="66.5dp"
+       android:background="@mipmap/type_no_select"
+       android:layout_centerHorizontal="true"
+       android:orientation="vertical">
+
+       <TextView
+           android:id="@+id/tv_name"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="机械师"
+           android:textColor="@color/color_666666"
+           android:textSize="16sp"
+           android:layout_marginLeft="23dp"
+           android:layout_marginTop="14dp"/>
+
+       <TextView
+           android:id="@+id/tv_des"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="我是描述"
+           android:textSize="10sp"
+           android:textColor="@color/color_999999"
+           android:layout_marginLeft="23dp"
+           android:layout_marginTop="5dp"/>
+
+   </LinearLayout>
+
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.ylkj.shopproject.activity.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -8,10 +9,17 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.fault.AddFaultActivity;
+import com.ylkj.shopproject.activity.main.news.MainNewsActivity;
 import com.ylkj.shopproject.activity.main.persenter.MainPersenter;
+import com.ylkj.shopproject.activity.main.pjsc.PeiJianTypeActivity;
+import com.ylkj.shopproject.activity.main.search.SearchActivity;
+import com.ylkj.shopproject.activity.main.zzfu.ZzfuTypeActivity;
+import com.ylkj.shopproject.activity.user.login.RegisterActivity;
 import com.ylkj.shopproject.adapter.main.HotPartsAdapter;
 import com.ylkj.shopproject.adapter.main.NewsRecommendedAdapter;
 import com.ylkj.shopproject.adapter.main.SentimentRecommendedAdapter;
+import com.ylkj.shopproject.util.MyImgLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -61,6 +69,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.lin_bx).setOnClickListener(this);
         findViewById(R.id.lin_zz).setOnClickListener(this);
         findViewById(R.id.lin_zl).setOnClickListener(this);
+        findViewById(R.id.lin_search).setOnClickListener(this);
+        findViewById(R.id.rel_news).setOnClickListener(this);
         imgList.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
         imgList.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
         imgList.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
@@ -81,18 +91,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()){
             //磨床
             case R.id.lin_mc:
+                Intent intent=new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
                  break;
             //配件商城
             case R.id.lin_pj:
+                 setClass(PeiJianTypeActivity.class);
                  break;
             //在线报修
             case R.id.lin_bx:
+                 setClass(AddFaultActivity.class);
                  break;
             //增值服务
             case R.id.lin_zz:
+                 setClass(ZzfuTypeActivity.class);
                 break;
             //融资租赁
             case R.id.lin_zl:
+                 break;
+            //搜索
+            case R.id.lin_search:
+                 setClass(SearchActivity.class);
+                 break;
+            //消息
+            case R.id.rel_news:
+                 setClass(MainNewsActivity.class);
                  break;
 
         }
@@ -105,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         //设置轮播的动画效果,里面有很多种特效,可以都看看效果。
         banner.setBannerAnimation(Transformer.ZoomOutSlide);
         //设置图片加载器，图片加载器在下方
-        banner.setImageLoader(new Imgloader());
+        banner.setImageLoader(new MyImgLoader());
         //设置图片集合
         banner.setImages(imgList);
         //设置轮播间隔时间
@@ -123,11 +146,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         banner.start();
     }
 
-
-
-    private class Imgloader extends ImageLoader {
-        public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load((String) path).into(imageView);
-        }
-    }
 }

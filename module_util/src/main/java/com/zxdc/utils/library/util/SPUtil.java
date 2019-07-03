@@ -14,7 +14,9 @@ public class SPUtil {
 
     private SharedPreferences shar;
     private Editor editor;
-    public final static String USERMESSAGE = "zxdc";
+    public final static String USERMESSAGE = "hao_te_man";
+    //搜索的关键字
+    public final static String SEARCH_KEY="SEARCH_KEY";
     private static SPUtil sharUtil = null;
     public static Gson gson=new Gson();
     @SuppressLint("WrongConstant")

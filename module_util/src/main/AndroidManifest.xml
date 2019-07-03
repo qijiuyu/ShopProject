@@ -12,9 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <activity android:name=".Activity.selectphoto.BigPhotoActivity"/>
-        <activity android:name=".Activity.selectphoto.ImageGridActivity"/>
-
     </application>
 
 </manifest>

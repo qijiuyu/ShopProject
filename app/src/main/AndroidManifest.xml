@@ -31,11 +31,31 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.user.login.RegisterActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.login.LoginActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.login.ForgetPwdActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.MainActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.type.TypeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.business.BusinessActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.shopping.ShoppingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.UserActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.news.MainNewsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.news.NewsDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.search.SearchActivity"  android:screenOrientation="portrait"  android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.main.search.SearchResultActivity"  android:screenOrientation="portrait"  android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.type.TypeDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.type.TypeListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.type.JCDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.showimg.ShowImgActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.fault.AddFaultActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.selectphoto.ImageGridActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.selectphoto.BigPhotoActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.fault.SelectJCActivity"  android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.main.fault.EditJCActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.zzfu.ZzfuTypeActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.pjsc.PeiJianTypeActivity"  android:screenOrientation="portrait"/>
+
+
         <activity android:name=".activity.video.PlayVideoActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTop"

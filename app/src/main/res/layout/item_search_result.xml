@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true">
+
+        <com.zxdc.utils.library.view.OvalImage2Views
+            android:id="@+id/img_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/aa"/>
+
+        <ImageView
+            android:id="@+id/img_pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/pt_bg"
+            android:layout_alignParentRight="true"/>
+
+        <com.ylkj.shopproject.view.TileView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2人拼团"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rel"
+        android:layout_centerHorizontal="true"
+        android:text="非愿意性莫笑"
+        android:textSize="11sp"
+        android:textColor="@color/color_33333"
+        android:layout_marginTop="7dp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textSize="10sp"
+            android:textColor="@color/color_999999"
+            android:layout_alignBottom="@+id/tv_money"/>
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2000"
+            android:textSize="16sp"
+            android:textColor="@color/color_37C7B5"
+            android:layout_marginLeft="5dp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

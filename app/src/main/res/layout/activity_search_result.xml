@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="35dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_search"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ed_search"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="11.5dp"
+                android:layout_height="11.5dp"
+                android:src="@mipmap/search"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:hint="请输入关键字搜索"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/tv_jc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="81.5dp"
+            android:text="机床"
+            android:textColor="@color/color_37C7B5"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_pj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="82dp"
+            android:layout_alignParentRight="true"
+            android:text="配件"
+            android:textColor="@color/color_666666"
+            android:textSize="15sp"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp">
+
+        <ImageView
+            android:id="@+id/img_jc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="94.45dp"
+            android:src="@mipmap/click_sj"/>
+
+        <ImageView
+            android:id="@+id/img_pj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="94.45dp"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:src="@mipmap/click_sj"/>
+
+    </RelativeLayout>
+
+    <com.zxdc.utils.library.view.MyRefreshLayout
+        android:id="@+id/re_list"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.zxdc.utils.library.view.MyRefreshLayout>
+
+</LinearLayout>
