@@ -53,7 +53,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
 	@Override
 	public int getItemCount() {
-		return 10;
+		return 9;
 	}
 
 	public class MyHolder extends RecyclerView.ViewHolder {

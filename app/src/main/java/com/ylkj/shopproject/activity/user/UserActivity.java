@@ -1,11 +1,22 @@
 package com.ylkj.shopproject.activity.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.user.address.AddressListActivity;
+import com.ylkj.shopproject.activity.user.after.AfterActivity;
+import com.ylkj.shopproject.activity.user.collection.MyCollectionActivity;
+import com.ylkj.shopproject.activity.user.evaluation.EvaluationActivity;
+import com.ylkj.shopproject.activity.user.fault.FaultListActivity;
+import com.ylkj.shopproject.activity.user.order.OrderActivity;
+import com.ylkj.shopproject.activity.user.setting.SettingActivity;
+import com.ylkj.shopproject.activity.user.tuan.MyTuanActivity;
+import com.ylkj.shopproject.activity.user.yhq.MyYhqActivity;
+import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.view.CircleImageView;
 
@@ -55,33 +66,43 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()){
             //全部订单
             case R.id.tv_all_order:
+                 intentOrder(0);
                  break;
              //待付款
             case R.id.tv_dfk:
+                 intentOrder(1);
                  break;
             //待发货
             case R.id.tv_dfh:
+                 intentOrder(2);
                  break;
             //待收货
             case R.id.tv_dsh:
+                 intentOrder(3);
                  break;
             //待评价
             case R.id.tv_dpj:
+                 setClass(EvaluationActivity.class);
                  break;
             //售后
             case R.id.tv_sh:
+                 setClass(AfterActivity.class);
                  break;
            //我的拼团
             case R.id.rel_pt:
+                 setClass(MyTuanActivity.class);
                  break;
             //我的维修记录
             case R.id.rel_wxjl:
+                 setClass(FaultListActivity.class);
                  break;
             //我的优惠券
             case R.id.rel_yhq:
+                 setClass(MyYhqActivity.class);
                  break;
             //我的收藏
             case R.id.rel_sc:
+                 setClass(MyCollectionActivity.class);
                  break;
             //我的交流
             case R.id.rel_jl:
@@ -91,6 +112,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                  break;
             //增票资质
             case R.id.rel_zpzz:
+                 setClass(EditZpzzActivity.class);
                  break;
             //收货地址
             case R.id.rel_shdz:
@@ -101,6 +123,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                  break;
             //设置
             case R.id.rel_setting:
+                 setClass(SettingActivity.class);
                  break;
             //客服
             case R.id.img_customer:
@@ -109,5 +132,16 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
             case R.id.img_news:
                  break;
         }
+    }
+
+
+    /**
+     * 跳转到订单
+     * @param type
+     */
+    private void intentOrder(int type){
+        Intent intent=new Intent(this,OrderActivity.class);
+        intent.putExtra("type",type);
+        startActivity(intent);
     }
 }

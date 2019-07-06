@@ -41,6 +41,9 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
         searchResultAdapter=new SearchResultAdapter(this,null,new SearchResultAdapter.OnItemClickListener(){
             public void onItemClick(int position) {
                 setClass(PeiJianDetailsActivity.class);
+
+                //这是进入拼团详情界面
+//                setClass(PinTuanDetailsActivity.class);
             }
         });
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);

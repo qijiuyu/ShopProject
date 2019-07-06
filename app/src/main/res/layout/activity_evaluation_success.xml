@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="评价成功"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/success_icon"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="非常感谢您的评价"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"/>
+
+
+    <com.zxdc.utils.library.view.ClickTextView
+        android:layout_width="280dp"
+        android:layout_height="44dp"
+        android:background="@drawable/btn_register"
+        android:text="返回首页"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="164.5dp"/>
+
+</LinearLayout>

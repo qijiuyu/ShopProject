@@ -1,4 +1,4 @@
-package com.ylkj.shopproject.activity.user;
+package com.ylkj.shopproject.activity.user.address;
 
 import android.content.Intent;
 import android.os.Bundle;

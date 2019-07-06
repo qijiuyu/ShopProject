@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="增票资质"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F9F9F9">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="261dp"
+            android:background="@drawable/white_share"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17.5dp"
+                android:layout_marginLeft="17dp"
+                android:text="单位名称"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"/>
+
+            <TextView
+                android:id="@+id/tv_unit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115.5dp"
+                android:layout_marginTop="17.5dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:textSize="14sp"
+                android:textColor="@color/color_999999"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="57.5dp"
+                android:layout_marginLeft="17dp"
+                android:text="纳税人识别号"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"/>
+
+            <TextView
+                android:id="@+id/tv_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115.5dp"
+                android:layout_marginTop="57.5dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:textSize="14sp"
+                android:textColor="@color/color_999999"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="97.5dp"
+                android:layout_marginLeft="17dp"
+                android:text="注册地址"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115.5dp"
+                android:layout_marginTop="97.5dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:textSize="14sp"
+                android:textColor="@color/color_999999"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="137.5dp"
+                android:layout_marginLeft="17dp"
+                android:text="电话号码"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"/>
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115.5dp"
+                android:layout_marginTop="137.5dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:textSize="14sp"
+                android:textColor="@color/color_999999"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="179.5dp"
+                android:layout_marginLeft="17dp"
+                android:text="开户银行"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"/>
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115.5dp"
+                android:layout_marginTop="179.5dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:textSize="14sp"
+                android:textColor="@color/color_999999"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="219.5dp"
+                android:layout_marginLeft="17dp"
+                android:text="银行账号"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"/>
+
+            <TextView
+                android:id="@+id/tv_back_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115.5dp"
+                android:layout_marginTop="219.5dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:textSize="14sp"
+                android:textColor="@color/color_999999"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_F9F9F9">
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:scrollbars="none">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:textSize="14sp"
+             android:text="维修单信息"
+             android:textColor="@color/color_999999"
+             android:gravity="center_vertical"
+             android:layout_marginLeft="14.5dp"/>
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="100dp"
+             android:background="@drawable/white_share">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="维修单号"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:id="@+id/tv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20161206007"
+                android:textSize="15sp"
+                android:textColor="@color/color_33333"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="15dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_E1E1E1"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="创建时间"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="65dp"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016-12-06 10:50"
+                android:textSize="15sp"
+                android:textColor="@color/color_33333"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="65dp"
+                android:layout_marginRight="15dp"/>
+
+         </RelativeLayout>
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:textSize="14sp"
+             android:text="故障信息"
+             android:textColor="@color/color_999999"
+             android:gravity="center_vertical"
+             android:layout_marginLeft="14.5dp"/>
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="100dp"
+             android:background="@drawable/white_share">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="机型名称"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:id="@+id/tv_jx_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="机型名称"
+                android:textSize="15sp"
+                android:textColor="@color/color_33333"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="15dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_E1E1E1"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="机龄"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="65dp"/>
+
+            <TextView
+                android:id="@+id/tv_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3年"
+                android:textSize="15sp"
+                android:textColor="@color/color_33333"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="65dp"
+                android:layout_marginRight="15dp"/>
+
+         </RelativeLayout>
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@drawable/white_share"
+             android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="高志涵"
+                android:textColor="@color/color_33333"
+                android:textSize="15sp"
+                android:layout_marginTop="14.5dp"
+                android:layout_marginLeft="14.5dp"/>
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15652733759"
+                android:textSize="15sp"
+                android:textColor="@color/color_33333"
+                android:layout_marginLeft="82.5dp"
+                android:layout_marginTop="14.5dp"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中国-北京市-北京市-朝阳区  东十里堡路1号未来时大厦"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp"
+                android:lines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="43.5dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="15dp"/>
+
+         </RelativeLayout>
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:textSize="14sp"
+             android:text="问题描述"
+             android:textColor="@color/color_999999"
+             android:gravity="center_vertical"
+             android:layout_marginLeft="14.5dp"/>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:background="@drawable/white_share">
+
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="如果你无法简洁的表达你的想法，那只说明你还不够"
+                android:textSize="15sp"
+                android:textColor="@color/color_33333"
+                android:layout_margin="14.5dp"/>
+
+            <com.zxdc.utils.library.view.MyGridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:numColumns="3"/>
+
+         </LinearLayout>
+
+      </LinearLayout>
+
+   </ScrollView>
+
+</LinearLayout>

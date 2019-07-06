@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="密码重置"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rel"
+        android:orientation="vertical"
+        android:background="@color/color_F9F9F9">
+
+        <TextView
+            android:id="@+id/tv_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="您登录的当前账号135****2344点击获取验证码"
+            android:textColor="@color/color_33333"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入验证进行密码重置。"
+            android:textColor="@color/color_33333"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/white_share"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="25dp">
+
+           <EditText
+               android:id="@+id/et_code"
+               android:layout_width="120dp"
+               android:layout_height="wrap_content"
+               android:hint="请输入验证码"
+               android:textSize="14sp"
+               android:textColor="@color/color_33333"
+               android:background="@null"
+               android:layout_marginLeft="15dp"
+               android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/tv_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取验证码"
+                android:textSize="16sp"
+                android:textColor="@color/color_151515"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"/>
+            
+            <View
+                android:layout_width="0.7dp"
+                android:layout_height="12dp"
+                android:background="@color/color_D8D8D8"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="108dp"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/white_share"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="25dp">
+
+            <EditText
+                android:id="@+id/et_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入新密码"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"
+                android:background="@null"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <com.zxdc.utils.library.view.ClickTextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/btn_register"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="53dp"
+            android:text="确定"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

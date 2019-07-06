@@ -1,4 +1,4 @@
-package com.ylkj.shopproject.activity.user;
+package com.ylkj.shopproject.activity.user.address;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

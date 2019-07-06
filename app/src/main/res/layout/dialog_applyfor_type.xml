@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/half_transparent">
+
+    <TextView
+        android:id="@+id/tv_hh"
+        android:layout_width="271.5dp"
+        android:layout_height="46dp"
+        android:text="换货"
+        android:textSize="15sp"
+        android:textColor="@color/color_666666"
+        android:paddingLeft="34.5dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="93.5dp"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tv_th"
+        android:layout_width="271.5dp"
+        android:layout_height="46dp"
+        android:text="退货"
+        android:textSize="15sp"
+        android:textColor="@color/color_666666"
+        android:paddingLeft="34.5dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="93.5dp"
+        android:background="@android:color/white"/>
+
+</LinearLayout>

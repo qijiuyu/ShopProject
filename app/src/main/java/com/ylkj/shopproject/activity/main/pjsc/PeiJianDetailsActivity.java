@@ -80,6 +80,7 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  break;
             //立即购买
             case R.id.tv_buy:
+                 setClass(PlaceOrderActivity.class);
                  break;
         }
     }

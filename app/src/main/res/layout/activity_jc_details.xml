@@ -35,8 +35,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="功能介绍"
-                    android:textColor="@color/color_36C7B5"
-                    android:textSize="18sp"
+                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
                     android:gravity="center"/>
 
                 <TextView

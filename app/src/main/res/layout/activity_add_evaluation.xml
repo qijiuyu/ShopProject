@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="评价"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:paddingBottom="50dp"
+        android:layout_below="@id/rel">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/color_F9F9F9">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@android:color/white"
+                android:layout_marginTop="10dp">
+
+                <com.zxdc.utils.library.view.OvalImage2Views
+                    android:id="@+id/img_icon"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@mipmap/aa"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的商品的标题"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_marginLeft="115dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:lines="2"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="115dp"
+                    android:layout_marginTop="67dp"
+                    android:text="6000"
+                    android:textColor="@color/color_37C7B5"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/tv_old_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单6500"
+                    android:textSize="11sp"
+                    android:textColor="@color/color_999999"
+                    android:layout_marginLeft="115dp"
+                    android:layout_marginTop="91dp"/>
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="x1"
+                    android:textColor="@color/color_33333"
+                    android:textSize="14sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="69dp"
+                    android:layout_marginRight="10dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="@android:color/white"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="星级评价"
+                    android:textColor="@color/color_666666"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"/>
+
+                <ImageView
+                    android:id="@+id/img_x1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/yes_xing"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="93dp"/>
+
+                <ImageView
+                    android:id="@+id/img_x2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/no_xing"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="112dp"/>
+
+                <ImageView
+                    android:id="@+id/img_x3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/no_xing"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="131.5dp"/>
+
+                <ImageView
+                    android:id="@+id/img_x4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/no_xing"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="151dp"/>
+
+                <ImageView
+                    android:id="@+id/img_x5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/no_xing"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="170.5dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@android:color/white">
+
+                <EditText
+                    android:layout_width="345dp"
+                    android:layout_height="wrap_content"
+                    android:minLines="6"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/color_F9F9F9"
+                    android:hint="请输入评价信息"
+                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:gravity="top"/>
+
+                <com.zxdc.utils.library.view.MyGridView
+                    android:id="@+id/gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:numColumns="3"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.zxdc.utils.library.view.ClickTextView
+        android:id="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/color_37C7B5"
+        android:text="提交评价"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

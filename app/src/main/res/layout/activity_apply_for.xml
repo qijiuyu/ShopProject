@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/rel_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="售后申请"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rel_head"
+        android:paddingBottom="55dp"
+        android:scrollbars="none"
+        android:background="@color/color_F9F9F9">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务类型"
+                android:textColor="@color/color_33333"
+                android:textSize="17sp"
+                android:layout_marginLeft="17.5dp"
+                android:layout_marginTop="14dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rel_type"
+                android:layout_width="271.5dp"
+                android:layout_height="35dp"
+                android:background="@drawable/white_share"
+                android:layout_marginLeft="93.5dp"
+                android:layout_marginTop="8.5dp">
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请选择售后方式"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_999999"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="11.5dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/after_down"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="355dp"
+                android:layout_height="114.5dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/white_share">
+
+                <com.zxdc.utils.library.view.OvalImage2Views
+                    android:id="@+id/img_icon"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@mipmap/aa"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="斜进式高精数控外圆磨床P90高度数控集成"
+                    android:textColor="@color/color_33333"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginTop="12.5dp"
+                    android:lines="2"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥6,000"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_37C7B5"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginLeft="110dp"/>
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" × 1"
+                    android:textColor="@color/color_33333"
+                    android:textSize="14sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="72dp"
+                    android:layout_marginRight="10dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="181dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/white_share">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="问题描述"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/et_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="4"
+                    android:background="@null"
+                    android:hint="请输入问题描述的信息"
+                    android:textColor="@color/color_33333"
+                    android:textSize="12sp"
+                    android:layout_margin="10dp"
+                    android:gravity="top"/>
+
+            </LinearLayout>
+            
+            <RelativeLayout
+                android:id="@+id/rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_share"
+                android:layout_marginTop="300dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <com.zxdc.utils.library.view.MyGridView
+                    android:id="@+id/gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:numColumns="3"/>
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:background="@drawable/white_share"
+                android:layout_below="@id/rel"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="寄回地址"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_444444"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="门店名称   北京因联科技有限公司"
+                    android:textColor="@color/color_33333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="51.5dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="寄回地址   北京市朝阳区东十里铺1号未来时大厦1201"
+                    android:textColor="@color/color_33333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="89dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <com.zxdc.utils.library.view.ClickTextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_37C7B5"
+        android:text="确认提交"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"/>
+
+</RelativeLayout>

@@ -55,11 +55,37 @@
         <activity android:name=".activity.main.zzfu.ZzfuTypeActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PeiJianTypeActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PeiJianListActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.AddressListActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.AddAddressActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.SelectRegionActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.address.AddressListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.address.AddAddressActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.address.SelectRegionActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.shopping.PayOrderActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PeiJianDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.pjsc.PlaceOrderActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.tuan.MyTuanActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.pjsc.PinTuanStatusActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.yhq.MyYhqActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.yhq.GetYhqActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.collection.MyCollectionActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.zpzz.EditZpzzActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.zpzz.ZpzzActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.setting.SettingActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.setting.UpdatePwdActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.setting.FeedBackActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.setting.UpdateMobileActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.order.OrderActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.order.OrderDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.after.AfterActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.after.ApplyForActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.after.ApplyForSuccessActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.after.ApplyForDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.evaluation.EvaluationActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.evaluation.AddEvaluationActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.evaluation.EvaluationDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.evaluation.EvaluationSuccessActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.fault.FaultListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.fault.FaultDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.fault.FaultEvaluationActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.fault.FaultEvaluationDetailsActivity"  android:screenOrientation="portrait"/>
 
 
         <activity android:name=".activity.video.PlayVideoActivity"

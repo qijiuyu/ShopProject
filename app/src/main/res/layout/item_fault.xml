@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/color_F9F9F9">
+
+
+    <RelativeLayout
+        android:layout_width="345dp"
+        android:layout_height="162.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/white_share">
+
+       <TextView
+           android:id="@+id/tv_code"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="维修单号：20161206001"
+           android:textColor="@color/color_37C7B5"
+           android:textSize="13sp"
+           android:drawableRight="@mipmap/blue_next"
+           android:drawablePadding="10dp"
+           android:layout_marginTop="12dp"
+           android:layout_marginLeft="14.5dp"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待确认"
+            android:textSize="13sp"
+            android:textColor="@color/color_CE5798"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14.5dp"
+            android:layout_marginTop="14dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@color/color_E1E1E1"
+            android:layout_marginTop="42dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="故障描述："
+            android:textColor="@color/color_666666"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="58dp"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="研究了油浸式变压器温度计故障的产生机理,对常见故障现象进行"
+            android:textSize="15sp"
+            android:textColor="@color/color_33333"
+            android:layout_marginTop="58dp"
+            android:layout_marginLeft="99.5dp"
+            android:layout_marginRight="13dp"
+            android:lines="2"
+            android:ellipsize="end"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@color/color_E1E1E1"
+            android:layout_marginTop="120.5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="创建时间：2019.04.05"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="133.5dp"/>
+
+        <TextView
+            android:id="@+id/tv_update_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最新更改时间：2019.04.05"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="133.5dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
