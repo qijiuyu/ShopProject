@@ -92,14 +92,18 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
      */
     private void addTabKey(){
         String keys= SPUtil.getInstance(this).getString(SPUtil.SEARCH_KEY);
-        Map<String,String> keyMap;
         if(!TextUtils.isEmpty(keys)){
-            keyMap=SPUtil.gson.fromJson(keys,Map.class);
-        }else{
-            keyMap=new HashMap<>();
+            keyList=SPUtil.gson.fromJson(keys,List.class);
         }
-        keyMap.put(strKey,strKey);
-        SPUtil.getInstance(this).addString(SPUtil.SEARCH_KEY,SPUtil.gson.toJson(keyMap));
+        //清除重复关键字
+        for (int i=0,len=keyList.size();i<len;i++){
+            if(keyList.get(i).equals(strKey)){
+                keyList.remove(i);
+                break;
+            }
+        }
+        keyList.add(strKey);
+        SPUtil.getInstance(this).addString(SPUtil.SEARCH_KEY,SPUtil.gson.toJson(keyList));
     }
 
 
@@ -109,14 +113,11 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
     private void showKyes(){
         String keys= SPUtil.getInstance(this).getString(SPUtil.SEARCH_KEY);
         if(!TextUtils.isEmpty(keys)) {
-            Map<String, String> keyMap = SPUtil.gson.fromJson(keys, Map.class);
-            Set<String> setKey = keyMap.keySet();
-            for (String key : setKey) {
-                 keyList.add(keyMap.get(key));
-            }
+            keyList=SPUtil.gson.fromJson(keys,List.class);
             searchAdapter=new SearchAdapter(this, keyList, new SearchAdapter.onClick() {
                 public void delete(int position) {
                     keyList.remove(position);
+                    SPUtil.getInstance(SearchActivity.this).addString(SPUtil.SEARCH_KEY,SPUtil.gson.toJson(keyList));
                     searchAdapter.notifyDataSetChanged();
                 }
             });

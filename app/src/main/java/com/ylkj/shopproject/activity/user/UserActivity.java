@@ -40,6 +40,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     private void initView(){
         imgUser=findViewById(R.id.img_user);
         tvName=findViewById(R.id.tv_name);
+        imgUser.setOnClickListener(this);
         findViewById(R.id.img_customer).setOnClickListener(this);
         findViewById(R.id.tv_dfk).setOnClickListener(this);
         findViewById(R.id.tv_dfh).setOnClickListener(this);
@@ -64,6 +65,10 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //我的资料
+            case R.id.img_user:
+                 setClass(UserInfoActivity.class);
+                 break;
             //全部订单
             case R.id.tv_all_order:
                  intentOrder(0);

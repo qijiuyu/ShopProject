@@ -86,6 +86,9 @@
         <activity android:name=".activity.user.fault.FaultDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.fault.FaultEvaluationActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.fault.FaultEvaluationDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.UserInfoActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.business.ReportActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.business.AddBusinessActivity"  android:screenOrientation="portrait"/>
 
 
         <activity android:name=".activity.video.PlayVideoActivity"

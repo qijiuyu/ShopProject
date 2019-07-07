@@ -1,13 +1,11 @@
 package com.ylkj.shopproject.activity.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
+import android.widget.ScrollView;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.fault.AddFaultActivity;
 import com.ylkj.shopproject.activity.main.news.MainNewsActivity;
@@ -24,16 +22,15 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.loader.ImageLoader;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MeasureListView;
 import com.zxdc.utils.library.view.MyGridView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener,View.OnTouchListener{
+    private ScrollView scrollView;
     private Banner banner,banner2;
     private MeasureListView rqListView;
     private MainPersenter mainPersenter;
@@ -59,11 +56,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      * 初始化控件
      */
     private void initView(){
+        scrollView=findViewById(R.id.scrollView);
         banner=findViewById(R.id.banner);
         banner2=findViewById(R.id.banner2);
         xpGird=findViewById(R.id.gv_xptj);
         rmGird=findViewById(R.id.gv_rmpj);
         rqListView=findViewById(R.id.rq_list);
+        scrollView.setOnTouchListener(this);
         findViewById(R.id.lin_mc).setOnClickListener(this);
         findViewById(R.id.lin_pj).setOnClickListener(this);
         findViewById(R.id.lin_bx).setOnClickListener(this);
@@ -84,6 +83,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         hotPartsAdapter=new HotPartsAdapter(this);
         rmGird.setAdapter(hotPartsAdapter);
+
     }
 
     @Override
@@ -146,4 +146,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         banner.start();
     }
 
+
+    /**
+     * 监听scrollview下滑底部
+     */
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                int scrollY = v.getScrollY();
+                int height = v.getHeight();
+                int scrollViewMeasuredHeight = scrollView.getChildAt(0).getMeasuredHeight();
+                if ((scrollY + height) == scrollViewMeasuredHeight) {
+                    ToastUtil.showLong("111");
+                }
+                break;
+
+        }
+        return false;
+    }
 }

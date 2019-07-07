@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="举报操作"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_sq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="90.5dp"
+        android:layout_marginLeft="16.5dp">
+
+        <ImageView
+            android:id="@+id/img_sq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/report_yes"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="色情广告"
+            android:textSize="15sp"
+            android:textColor="@color/color_666666"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10.5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_sr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="139.5dp"
+        android:layout_marginLeft="16.5dp">
+
+        <ImageView
+            android:id="@+id/img_sr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/report_no"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="骚扰广告"
+            android:textSize="15sp"
+            android:textColor="@color/color_666666"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10.5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_mm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="188.5dp"
+        android:layout_marginLeft="16.5dp">
+
+        <ImageView
+            android:id="@+id/img_mm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/report_no"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="谩骂"
+            android:textSize="15sp"
+            android:textColor="@color/color_666666"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10.5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="237.5dp"
+        android:layout_marginLeft="16.5dp">
+
+        <ImageView
+            android:id="@+id/img_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/report_no"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其它"
+            android:textSize="15sp"
+            android:textColor="@color/color_666666"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10.5dp"/>
+
+    </LinearLayout>
+    
+    <com.zxdc.utils.library.view.ClickTextView
+        android:layout_width="345dp"
+        android:layout_height="45dp"
+        android:text="确定"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:background="@drawable/btn_register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="340dp"/>
+
+</RelativeLayout>

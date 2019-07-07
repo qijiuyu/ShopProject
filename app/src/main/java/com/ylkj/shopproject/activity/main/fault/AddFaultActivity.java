@@ -16,6 +16,7 @@ import com.ylkj.shopproject.activity.selectphoto.bean.Bimp;
 import com.ylkj.shopproject.activity.selectphoto.bean.ImageItem;
 import com.ylkj.shopproject.adapter.selectphoto.GridImageAdapter;
 import com.ylkj.shopproject.util.PicturesUtil;
+import com.ylkj.shopproject.util.SelectPhoto;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.view.MyGridView;
 import com.zxdc.utils.library.view.OvalImage2Views;
@@ -97,12 +98,12 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
              //选择名牌照片
             case R.id.img_fault:
                  imgType=0;
-                 addFaultPersenter.selectPhoto();
+                 SelectPhoto.selectPhoto(this);
                  break;
             //选择机床照片
             case R.id.img_fault2:
                   imgType=1;
-                  addFaultPersenter.selectPhoto();
+                  SelectPhoto.selectPhoto(this);
                  break;
             //提交
             case R.id.tv_confirm:
@@ -119,28 +120,28 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             //返回拍照图片
-            case AddFaultPersenter.CODE_CAMERA_REQUEST:
+            case SelectPhoto.CODE_CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
-                    File tempFile = new File(AddFaultPersenter.pai);
+                    File tempFile = new File(SelectPhoto.pai);
                     if (tempFile.isFile()) {
-                        addFaultPersenter.cropRawPhoto(Uri.fromFile(tempFile));
+                        SelectPhoto.cropRawPhoto(Uri.fromFile(tempFile),this);
                     }
                 }
                 break;
             //返回相册选择图片
-            case AddFaultPersenter.CODE_GALLERY_REQUEST:
+            case SelectPhoto.CODE_GALLERY_REQUEST:
                 if (data != null) {
-                    addFaultPersenter.cropRawPhoto(data.getData());
+                    SelectPhoto.cropRawPhoto(data.getData(),this);
                 }
                 break;
             //返回裁剪的图片
-            case AddFaultPersenter.CODE_RESULT_REQUEST:
-                 final File f = new File(AddFaultPersenter.crop);
+            case SelectPhoto.CODE_RESULT_REQUEST:
+                 final File f = new File(SelectPhoto.crop);
                  if(imgType==0){
-                     mpCropPath=AddFaultPersenter.crop;
+                     mpCropPath=SelectPhoto.crop;
                      Glide.with(AddFaultActivity.this).load(Uri.fromFile(f)).into(imgFault1);
                  }else{
-                     jcCropPath=AddFaultPersenter.crop;
+                     jcCropPath=SelectPhoto.crop;
                      Glide.with(AddFaultActivity.this).load(Uri.fromFile(f)).into(imgFault2);
                  }
                 break;
