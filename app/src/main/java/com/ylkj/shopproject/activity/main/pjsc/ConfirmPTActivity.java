@@ -8,22 +8,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.persenter.ConfirmPTPersenter;
 import com.ylkj.shopproject.activity.shopping.PayOrderActivity;
 import com.ylkj.shopproject.activity.user.address.AddressListActivity;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.view.OvalImage2Views;
 
 /**
- * 确认下单
+ * 确认拼团下单
  */
-public class PlaceOrderActivity extends BaseActivity implements View.OnClickListener{
+public class ConfirmPTActivity extends BaseActivity implements View.OnClickListener{
 
     private OvalImage2Views imgIcon;
     private TextView tvTitle,tvTime,tvMoney,tvDmMoney,tvNum,tvYfMoney,tvFP,tvYHQ,tvMoney2,tvYfMoney2,tvYhMoney,tvTotalMoney;
     private EditText etDes;
+    private ConfirmPTPersenter confirmPTPersenter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
+        confirmPTPersenter=new ConfirmPTPersenter(this);
         initView();
     }
 
@@ -63,6 +66,7 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
                  break;
             //选择发票
             case R.id.lin_fp:
+                 confirmPTPersenter.showFPDialog();
                  break;
              //选择优惠券
             case R.id.tv_yhq:

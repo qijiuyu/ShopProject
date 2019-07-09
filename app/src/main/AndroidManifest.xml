@@ -60,7 +60,7 @@
         <activity android:name=".activity.user.address.SelectRegionActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.shopping.PayOrderActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PeiJianDetailsActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.main.pjsc.PlaceOrderActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.pjsc.ConfirmPTActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.tuan.MyTuanActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PinTuanStatusActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.yhq.MyYhqActivity"  android:screenOrientation="portrait"/>
@@ -89,6 +89,9 @@
         <activity android:name=".activity.user.UserInfoActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.business.ReportActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.business.AddBusinessActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.company.EditCompanyActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.business.SearchBusinessActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.business.MyBusinessActivity"  android:screenOrientation="portrait"/>
 
 
         <activity android:name=".activity.video.PlayVideoActivity"
@@ -96,6 +99,27 @@
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <!-- 微信 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
     </application>
 

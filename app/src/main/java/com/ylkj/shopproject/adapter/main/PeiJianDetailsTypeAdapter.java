@@ -13,9 +13,6 @@ import com.zxdc.utils.library.view.MyGridView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 订单消息
- */
 public class PeiJianDetailsTypeAdapter extends BaseAdapter {
 
 	private Context context;

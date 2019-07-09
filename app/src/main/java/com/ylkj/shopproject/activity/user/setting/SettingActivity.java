@@ -1,12 +1,16 @@
 package com.ylkj.shopproject.activity.user.setting;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.util.DataCleanManager;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.util.ToastUtil;
+import com.zxdc.utils.library.util.Util;
 
 /**
  * 设置界面
@@ -34,6 +38,20 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.rel_about).setOnClickListener(this);
         findViewById(R.id.tv_log_out).setOnClickListener(this);
         findViewById(R.id.lin_back).setOnClickListener(this);
+
+        //显示版本号
+        tvVersion.setText(Util.getVersionName(this));
+
+        //显示缓存
+        try {
+            long cacheSize = DataCleanManager.getFolderSize(getCacheDir());
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                cacheSize += DataCleanManager.getFolderSize(getExternalCacheDir());
+            }
+            tvCache.setText(DataCleanManager.getFormatSize(cacheSize).toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -46,6 +64,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                  break;
             //清除缓存
             case R.id.rel_clear_cache:
+                 DataCleanManager.cleanApplicationData(this,null);
+                 ToastUtil.showLong("清除缓存成功！");
+                 tvCache.setText("0.0M");
                  break;
             //重置密码
             case R.id.rel_update_pwd:
@@ -66,4 +87,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                  break;
         }
     }
+
+
 }

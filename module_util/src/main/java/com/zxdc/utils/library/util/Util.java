@@ -2,6 +2,7 @@ package com.zxdc.utils.library.util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,5 +142,24 @@ public class Util extends ClassLoader {
     public static String format(String s){
         String str=s.replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？|-]", "");
         return str;
+    }
+
+    /**
+     * 获取当前系统的版本名称
+     *
+     * @return
+     */
+    public static String getVersionName(Context mContext) {
+        try {
+            // 获取packagemanager的实例
+            PackageManager packageManager = mContext.getPackageManager();
+            // getPackageName()是你当前类的包名，0代表是获取版本信息
+            PackageInfo packInfo = packageManager.getPackageInfo(mContext.getPackageName(), 0);
+            String version = packInfo.versionName;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

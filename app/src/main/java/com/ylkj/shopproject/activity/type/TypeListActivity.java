@@ -45,6 +45,7 @@ public class TypeListActivity extends BaseActivity implements MyRefreshLayoutLis
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));//网格布局
         recyclerView.setAdapter(searchResultAdapter);
+        //返回
         findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TypeListActivity.this.finish();

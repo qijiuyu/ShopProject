@@ -52,4 +52,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':module_util')
     compile project(':vitamio')
+    compile files('libs/alipaySdk-20180601.jar')
+    compile files('libs/wechat-sdk-android-with-mta-1.0.2.jar')
 }

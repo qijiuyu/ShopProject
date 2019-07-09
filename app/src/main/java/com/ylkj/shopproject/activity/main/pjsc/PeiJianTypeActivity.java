@@ -2,9 +2,11 @@ package com.ylkj.shopproject.activity.main.pjsc;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ListView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.search.SearchActivity;
 import com.ylkj.shopproject.adapter.main.PeiJianDataAdapter;
 import com.ylkj.shopproject.adapter.main.PeiJianTypeAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
@@ -17,10 +19,12 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * 配件商城分类
  */
-public class PeiJianTypeActivity extends BaseActivity {
+public class PeiJianTypeActivity extends BaseActivity implements View.OnClickListener{
 
     private ListView listType,listData;
+    //左边分类的adapter
     private PeiJianTypeAdapter peiJianTypeAdapter;
+    //右边分类下的数据的adapter
     private PeiJianDataAdapter peiJianDataAdapter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +40,27 @@ public class PeiJianTypeActivity extends BaseActivity {
     private void initView(){
         listType=findViewById(R.id.list_type);
         listData=findViewById(R.id.list_data);
+        findViewById(R.id.lin_back).setOnClickListener(this);
+        findViewById(R.id.lin_search).setOnClickListener(this);
         peiJianTypeAdapter=new PeiJianTypeAdapter(this,null);
         listType.setAdapter(peiJianTypeAdapter);
 
         peiJianDataAdapter=new PeiJianDataAdapter(this,null);
         listData.setAdapter(peiJianDataAdapter);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            //进入搜索界面
+            case R.id.lin_search:
+                setClass(SearchActivity.class);
+                break;
+            case R.id.lin_back:
+                finish();
+                break;
+        }
     }
 
 

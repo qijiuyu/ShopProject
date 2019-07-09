@@ -9,7 +9,9 @@ import android.widget.TextView;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.user.address.AddressListActivity;
 import com.ylkj.shopproject.activity.user.after.AfterActivity;
+import com.ylkj.shopproject.activity.user.business.MyBusinessActivity;
 import com.ylkj.shopproject.activity.user.collection.MyCollectionActivity;
+import com.ylkj.shopproject.activity.user.company.EditCompanyActivity;
 import com.ylkj.shopproject.activity.user.evaluation.EvaluationActivity;
 import com.ylkj.shopproject.activity.user.fault.FaultListActivity;
 import com.ylkj.shopproject.activity.user.order.OrderActivity;
@@ -111,6 +113,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                  break;
             //我的交流
             case R.id.rel_jl:
+                 setClass(MyBusinessActivity.class);
                  break;
             //机构认证
             case R.id.rel_jgrz:
@@ -125,6 +128,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                  break;
             //企业信息
             case R.id.rel_qyxx:
+                 setClass(EditCompanyActivity.class);
                  break;
             //设置
             case R.id.rel_setting:

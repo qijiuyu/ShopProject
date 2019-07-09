@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.widget.ListView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.adapter.user.GetYhqAdapter;
 import com.ylkj.shopproject.adapter.user.MyYhqAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
 
@@ -14,7 +15,7 @@ import com.zxdc.utils.library.base.BaseActivity;
 public class GetYhqActivity extends BaseActivity {
 
     private ListView listView;
-    private MyYhqAdapter myYhqAdapter;
+    private GetYhqAdapter getYhqAdapter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_yhq);
@@ -24,7 +25,7 @@ public class GetYhqActivity extends BaseActivity {
 
     private void initView(){
         listView=findViewById(R.id.listview);
-        myYhqAdapter=new MyYhqAdapter(this,null);
-        listView.setAdapter(myYhqAdapter);
+        getYhqAdapter=new GetYhqAdapter(this,null);
+        listView.setAdapter(getYhqAdapter);
     }
 }

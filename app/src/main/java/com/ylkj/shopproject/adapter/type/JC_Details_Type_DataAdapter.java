@@ -15,15 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 分类
+ * 分类里面的选项
  */
-public class JCDetailsTypeAdapter extends BaseAdapter {
+public class JC_Details_Type_DataAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<String> list=new ArrayList<>();
 	//选中类型的下标
 	public int index=-1;
-	public JCDetailsTypeAdapter(Context context, List<String> list) {
+	public JC_Details_Type_DataAdapter(Context context, List<String> list) {
 		super();
 		this.context = context;
 	}
@@ -69,7 +69,7 @@ public class JCDetailsTypeAdapter extends BaseAdapter {
 		holder.lin.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				index=(int)v.getTag();
-				JCDetailsTypeAdapter.this.notifyDataSetChanged();
+				JC_Details_Type_DataAdapter.this.notifyDataSetChanged();
 			}
 		});
 		return view;

@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.main.fault;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -31,6 +32,10 @@ public class EditJCActivity extends BaseActivity {
                     ToastUtil.showLong("请输入机型名称！");
                     return;
                 }
+                Intent intent=new Intent();
+                intent.putExtra("name",name);
+                setResult(200,intent);
+                EditJCActivity.this.finish();
             }
         });
 

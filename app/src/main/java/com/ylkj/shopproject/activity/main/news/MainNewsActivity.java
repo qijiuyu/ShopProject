@@ -10,8 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.main.news.fragment.AppNewsFragment;
-import com.ylkj.shopproject.activity.main.news.fragment.OrderNewsFragment;
+import com.ylkj.shopproject.activity.main.fragment.AppNewsFragment;
+import com.ylkj.shopproject.activity.main.fragment.OrderNewsFragment;
 import com.ylkj.shopproject.view.PagerSlidingTabStrip;
 import com.zxdc.utils.library.base.BaseActivity;
 /**

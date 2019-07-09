@@ -10,4 +10,8 @@
     <string name="loading">正在加载...</string>
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
+    <string name="payment_success">支付成功</string>
+    <string name="payment_failed">支付失败</string>
+    <string name="paymnet_canceled">支付取消</string>
+    <string name="payment_has_been_cancelled">已取消支付！</string>
 </resources>

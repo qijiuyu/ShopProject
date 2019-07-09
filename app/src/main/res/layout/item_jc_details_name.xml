@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingBottom="16dp">
+
+
+    <ImageView
+        android:id="@+id/img_select"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:src="@mipmap/pt_success"
+        android:layout_marginLeft="26.5dp"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="高精密数控外圆磨床"
+        android:textSize="15sp"
+        android:textColor="@color/color_33333"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="60dp"/>
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:text="￥1,000"
+        android:textColor="@color/color_37C7B5"
+        android:textSize="15sp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="起"
+        android:textSize="12sp"
+        android:textColor="@color/color_999999"
+        android:layout_toRightOf="@id/tv_money"
+        android:layout_alignBottom="@id/tv_money"
+        android:layout_marginLeft="5dp"/>
+
+</RelativeLayout>

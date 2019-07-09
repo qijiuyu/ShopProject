@@ -1,33 +1,33 @@
 package com.ylkj.shopproject.activity.main.search;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.type.JCDetailsActivity;
-import com.ylkj.shopproject.adapter.main.SearchResultAdapter;
-import com.zxdc.utils.library.base.BaseActivity;
-import com.zxdc.utils.library.util.LogUtils;
-import com.zxdc.utils.library.view.MyGridView;
-import com.zxdc.utils.library.view.MyRefreshLayout;
-import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 
+import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.fragment.JiChuangFragment;
+import com.ylkj.shopproject.activity.main.fragment.PeiJianFragment;
+import com.ylkj.shopproject.view.PagerSlidingTabStrip;
+import com.zxdc.utils.library.base.BaseActivity;
 /**
  * 搜索结果页， 机床，配件
  */
-public class SearchResultActivity extends BaseActivity implements View.OnClickListener,MyRefreshLayoutListener {
+public class SearchResultActivity extends BaseActivity{
 
-    private TextView tvJC,tvPJ;
-    private ImageView imgJC,imgPJ;
-    private RecyclerView recyclerView;
-    private MyRefreshLayout mRefreshLayout;
-    private SearchResultAdapter searchResultAdapter;
+    private PagerSlidingTabStrip tabs;
+    private DisplayMetrics dm;
+    private ViewPager pager;
+    //机床列表
+    private JiChuangFragment jiChuangFragment=new JiChuangFragment();
+    //配件列表
+    private PeiJianFragment peiJianFragment=new PeiJianFragment();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
@@ -36,71 +36,77 @@ public class SearchResultActivity extends BaseActivity implements View.OnClickLi
 
 
     /**
-     * 初始化控件
+     * 初始化
      */
     private void initView(){
-        tvJC=findViewById(R.id.tv_jc);
-        tvPJ=findViewById(R.id.tv_pj);
-        imgJC=findViewById(R.id.img_jc);
-        imgPJ=findViewById(R.id.img_pj);
-        mRefreshLayout=findViewById(R.id.re_list);
-        recyclerView=findViewById(R.id.listView);
-        //刷新加载
-        mRefreshLayout.setMyRefreshLayoutListener(this);
-        tvJC.setOnClickListener(this);
-        tvPJ.setOnClickListener(this);
-        findViewById(R.id.lin_search).setOnClickListener(this);
-        findViewById(R.id.lin_back).setOnClickListener(this);
-        searchResultAdapter=new SearchResultAdapter(this,null,new SearchResultAdapter.OnItemClickListener(){
-            public void onItemClick(int position) {
-                setClass(JCDetailsActivity.class);
+        dm = getResources().getDisplayMetrics();
+        pager =  findViewById(R.id.pager);
+        tabs =  findViewById(R.id.tabs);
+        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        pager.setOffscreenPageLimit(2);
+        tabs.setViewPager(pager);
+        setTabsValue();
+
+        //进入搜索界面
+        findViewById(R.id.lin_search).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setClass(SearchActivity.class);
             }
         });
-
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
-         recyclerView.setLayoutManager(gridLayoutManager);//网格布局
-        recyclerView.setAdapter(searchResultAdapter);
-
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            //机床
-            case R.id.tv_jc:
-                tvJC.setTextSize(18);
-                tvJC.setTextColor(getResources().getColor(R.color.color_37C7B5));
-                tvPJ.setTextSize(15);
-                tvPJ.setTextColor(getResources().getColor(R.color.color_666666));
-                imgJC.setVisibility(View.VISIBLE);
-                imgPJ.setVisibility(View.GONE);
-                break;
-            //配件
-            case R.id.tv_pj:
-                tvJC.setTextSize(15);
-                tvJC.setTextColor(getResources().getColor(R.color.color_666666));
-                tvPJ.setTextSize(18);
-                tvPJ.setTextColor(getResources().getColor(R.color.color_37C7B5));
-                imgJC.setVisibility(View.GONE);
-                imgPJ.setVisibility(View.VISIBLE);
+    /**
+     * 对PagerSlidingTabStrip的各项属性进行赋值。
+     */
+    private void setTabsValue() {
+        // 设置Tab是自动填充满屏幕的
+        tabs.setShouldExpand(true);
+        // 设置Tab的分割线是透明的
+        tabs.setDividerColor(Color.TRANSPARENT);
+        // 设置Tab底部线的高度
+        tabs.setUnderlineHeight((int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 1, dm));
+        // 设置Tab Indicator的高度
+        tabs.setIndicatorHeight((int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 2, dm));
+        // 设置Tab标题文字的大小
+        tabs.setTextSize((int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP, 14, dm));
+        // 设置Tab Indicator的颜色
+        tabs.setIndicatorColorResource(R.color.color_37C7B5);
+        // 设置选中Tab文字的颜色 (这是我自定义的一个方法)
+        tabs.setTextColorResource(R.color.color_33333);
+        tabs.setSelectedTextColorResource(R.color.color_37C7B5);
+        // 取消点击Tab时的背景色
+        tabs.setTabBackground(0);
+    }
 
-                break;
-            case R.id.lin_search:
-                 setClass(SearchActivity.class);
-                 break;
-            case R.id.lin_back:
-                 finish();
-                 break;
+    public class MyPagerAdapter extends FragmentPagerAdapter {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
-    }
 
-    @Override
-    public void onRefresh(View view) {
+        private final String[] titles = { "机床","配件"};
 
-    }
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
 
-    @Override
-    public void onLoadMore(View view) {
+        @Override
+        public int getCount() {
+            return titles.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if(position==0){
+                return jiChuangFragment;
+            }else{
+                return peiJianFragment;
+            }
+        }
     }
 }

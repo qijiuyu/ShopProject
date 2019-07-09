@@ -55,69 +55,18 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <com.ylkj.shopproject.view.PagerSlidingTabStrip
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp">
+        android:layout_height="45dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@android:color/white"/>
 
-        <TextView
-            android:id="@+id/tv_jc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="81.5dp"
-            android:text="机床"
-            android:textColor="@color/color_37C7B5"
-            android:textSize="18sp"
-            android:layout_centerVertical="true"/>
-
-        <TextView
-            android:id="@+id/tv_pj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="82dp"
-            android:layout_alignParentRight="true"
-            android:text="配件"
-            android:textColor="@color/color_666666"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp">
+        android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/img_jc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="94.45dp"
-            android:src="@mipmap/click_sj"/>
-
-        <ImageView
-            android:id="@+id/img_pj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="94.45dp"
-            android:layout_alignParentRight="true"
-            android:visibility="gone"
-            android:src="@mipmap/click_sj"/>
-
-    </RelativeLayout>
-
-    <com.zxdc.utils.library.view.MyRefreshLayout
-        android:id="@+id/re_list"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </com.zxdc.utils.library.view.MyRefreshLayout>
 
 </LinearLayout>

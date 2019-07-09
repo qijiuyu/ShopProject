@@ -19,7 +19,7 @@ public class TileView extends android.support.v7.widget.AppCompatTextView {
 
     protected void onDraw(Canvas canvas) {
         //倾斜度45,上下左右居中
-        canvas.rotate(10, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+        canvas.rotate(10, (float) (getMeasuredWidth() / 2.5), (float) (getMeasuredHeight() / 2.5));
         super.onDraw(canvas);
     }
 }

@@ -167,7 +167,7 @@
                    android:id="@+id/listView"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="77dp"
+                   android:layout_marginTop="70dp"
                    android:layout_marginLeft="60dp"
                    android:layout_marginRight="60dp">
                </android.support.v7.widget.RecyclerView>
@@ -212,7 +212,7 @@
    <com.zxdc.utils.library.view.ClickTextView
        android:layout_width="match_parent"
        android:layout_height="44dp"
-       android:background="@color/color_37C7B5"
+       android:background="@drawable/btn_register"
        android:text="查看订单"
        android:textColor="@android:color/white"
        android:textSize="14sp"

@@ -1,29 +1,25 @@
-package com.ylkj.shopproject.activity.main.news.fragment;
+package com.ylkj.shopproject.activity.main.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.main.pjsc.PinTuanStatusActivity;
-import com.ylkj.shopproject.adapter.main.OrderNewsAdapter;
-import com.ylkj.shopproject.adapter.user.MyTuanAdapter;
+import com.ylkj.shopproject.adapter.main.AppNewsAdapter;
 import com.zxdc.utils.library.base.BaseFragment;
 import com.zxdc.utils.library.view.MyRefreshLayout;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 
 /**
- * 订单消息
+ * 平台消息
  */
-public class OrderNewsFragment extends BaseFragment implements MyRefreshLayoutListener {
+public class AppNewsFragment extends BaseFragment implements MyRefreshLayoutListener {
 
     private MyRefreshLayout mRefreshLayout;
     private ListView listView;
-    private OrderNewsAdapter orderNewsAdapter;
+    private AppNewsAdapter appNewsAdapter;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -36,8 +32,8 @@ public class OrderNewsFragment extends BaseFragment implements MyRefreshLayoutLi
         //刷新加载
         mRefreshLayout.setMyRefreshLayoutListener(this);
 
-        orderNewsAdapter=new OrderNewsAdapter(mActivity,null);
-        listView.setAdapter(orderNewsAdapter);
+        appNewsAdapter=new AppNewsAdapter(mActivity,null);
+        listView.setAdapter(appNewsAdapter);
         return view;
     }
 

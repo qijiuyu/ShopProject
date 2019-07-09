@@ -18,9 +18,14 @@ import com.ylkj.shopproject.adapter.selectphoto.GridImageAdapter;
 import com.ylkj.shopproject.util.PicturesUtil;
 import com.ylkj.shopproject.util.SelectPhoto;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.util.DateUtils;
 import com.zxdc.utils.library.view.MyGridView;
 import com.zxdc.utils.library.view.OvalImage2Views;
+import com.zxdc.utils.library.view.time.TimePickerView;
+
 import java.io.File;
+import java.util.Date;
+
 /**
  * 在线报修
  */
@@ -39,6 +44,8 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
      * jcCropPath：机床剪裁的图片
      */
     private String mpCropPath,jcCropPath;
+    //时间选择器
+    private TimePickerView timePickerView;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fault);
@@ -63,6 +70,7 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
         imgFault1.setOnClickListener(this);
         imgFault2.setOnClickListener(this);
         tvJxName.setOnClickListener(this);
+        tvTime.setOnClickListener(this);
         findViewById(R.id.tv_add_jx).setOnClickListener(this);
         findViewById(R.id.tv_confirm).setOnClickListener(this);
         findViewById(R.id.lin_back).setOnClickListener(this);
@@ -95,6 +103,12 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
                  intent.setClass(this,EditJCActivity.class);
                  startActivityForResult(intent,200);
                  break;
+            //选择出厂日期
+            case R.id.tv_time:
+                 //初始化时间选择器
+                 addFaultPersenter.initCustomTimePicker(tvTime);
+                 addFaultPersenter.showTime(tvTime);
+                 break;
              //选择名牌照片
             case R.id.img_fault:
                  imgType=0;
@@ -119,6 +133,11 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            //返回自定义的机型名称
+            case 200:
+                 final String name=data.getStringExtra("name");
+                 tvJxName.setText(name);
+                 break;
             //返回拍照图片
             case SelectPhoto.CODE_CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
@@ -167,5 +186,4 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
 
         }
     }
-
 }

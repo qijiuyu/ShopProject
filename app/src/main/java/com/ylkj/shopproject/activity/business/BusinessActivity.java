@@ -52,6 +52,12 @@ public class BusinessActivity extends BaseActivity {
                 setClass(AddBusinessActivity.class);
             }
         });
+
+        findViewById(R.id.img_search).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setClass(SearchBusinessActivity.class);
+            }
+        });
     }
 
 

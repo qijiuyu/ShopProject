@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="12"
+        android:textSize="23sp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="12.5dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_month"
+        android:layout_width="23.5dp"
+        android:layout_height="35dp"
+        android:gravity="bottom"
+        android:text="5月"
+        android:textSize="12sp"
+        android:textColor="@color/color_120000"
+        android:layout_marginLeft="42.5dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回朝阳天街的路上 ,突然车子坏了，领里的朋友看到帮忙转发一下，谢谢。  "
+        android:textColor="@color/color_33313E"
+        android:textSize="14sp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_content"
+        android:text="#分类名称#"
+        android:textSize="12sp"
+        android:textColor="@color/color_37C7B5"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_content"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="8.5dp"
+        android:drawableLeft="@mipmap/location"
+        android:text="北京国家会议中心国家园…"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp"
+        android:drawablePadding="7dp"
+        android:lines="1"
+        android:ellipsize="end"/>
+
+    <com.zxdc.utils.library.view.MyGridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_location"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:numColumns="3"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="120km   09-09 丨 12：00"
+        android:textSize="12sp"
+        android:textColor="@color/color_999999"
+        android:layout_below="@id/gridview"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_F7F7F7"
+        android:layout_below="@id/tv_time"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Obves、高峰、张鹏、张志峰、李晓峰、张伍德"
+            android:textColor="@color/color_37C7B5"
+            android:textSize="12sp"
+            android:drawableLeft="@mipmap/dz_icon"
+            android:drawablePadding="7dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_E7E7E7"
+            android:layout_marginTop="10dp"/>
+
+        <com.zxdc.utils.library.view.MeasureListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+        </com.zxdc.utils.library.view.MeasureListView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/color_F7F7F7"
+        android:layout_below="@id/lin"/>
+
+</RelativeLayout>

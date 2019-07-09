@@ -1,124 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@android:color/white">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginTop="35dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white">
 
-        <LinearLayout
-            android:id="@+id/lin_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="35dp">
+
+            <LinearLayout
+                android:id="@+id/lin_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp">
+
+                <ImageView
+                    android:layout_width="9.5dp"
+                    android:layout_height="18dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/back_icon"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="分类名称"
+                android:textColor="@color/color_33333"
+                android:textSize="18sp"/>
 
             <ImageView
-                android:layout_width="9.5dp"
+                android:id="@+id/img_search"
+                android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginRight="20dp"
-                android:src="@mipmap/back_icon"/>
+                android:src="@mipmap/search"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="分类名称"
-            android:textColor="@color/color_33333"
-            android:textSize="18sp"/>
 
-        <ImageView
-            android:id="@+id/img_search"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@mipmap/search"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"/>
+        <RelativeLayout
+            android:id="@+id/rel"
+            android:layout_width="match_parent"
+            android:layout_height="57dp">
 
-    </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/lin_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="34.5dp">
 
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="默认"
+                    android:textColor="@color/color_666666"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/down_sj"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_screening"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="34.5dp">
+
+                <TextView
+                    android:id="@+id/tv_screening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="筛选"
+                    android:textColor="@color/color_666666"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/screening"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/color_F8F8F8"/>
+
+        <com.zxdc.utils.library.view.MyRefreshLayout
+            android:id="@+id/re_list"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.zxdc.utils.library.view.MyRefreshLayout>
+
+    </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/rel"
-        android:layout_width="match_parent"
-        android:layout_height="57dp">
-
-        <LinearLayout
-            android:id="@+id/lin_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="34.5dp">
-
-            <TextView
-                android:id="@+id/tv_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="默认"
-                android:textColor="@color/color_666666"
-                android:textSize="15sp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/down_sj"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center_vertical"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lin_screening"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="34.5dp">
-
-            <TextView
-                android:id="@+id/tv_screening"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="筛选"
-                android:textColor="@color/color_666666"
-                android:textSize="15sp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/screening"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center_vertical"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/color_F8F8F8"/>
-
-    <com.zxdc.utils.library.view.MyRefreshLayout
-        android:id="@+id/re_list"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
+        android:id="@+id/left_menu"
+        android:layout_gravity="right"
+        android:layout_width="335dp"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listView"
+        <fragment
+            android:id="@+id/id_left_menu"
+            android:name="com.ylkj.shopproject.activity.main.fragment.ScreeningFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true" />
 
-    </com.zxdc.utils.library.view.MyRefreshLayout>
+    </RelativeLayout>
 
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

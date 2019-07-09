@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ylkj.shopproject.R;
+import com.zxdc.utils.library.view.OvalImage2Views;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,15 @@ public class MyTuanAdapter extends BaseAdapter {
 		if(view==null){
 			holder = new ViewHolder(); 
 			view = LayoutInflater.from(context).inflate(R.layout.item_my_tuan, null);
+			holder.imgIcon=view.findViewById(R.id.img_shopping);
+			holder.tvPTNum=view.findViewById(R.id.tv_pt_num);
+			holder.tvTitle=view.findViewById(R.id.tv_title);
+			holder.tvTitle=view.findViewById(R.id.tv_time);
+			holder.tvMoney=view.findViewById(R.id.tv_money);
+			holder.tvDMMoney=view.findViewById(R.id.tv_dm_money);
+			holder.tvNum=view.findViewById(R.id.tv_num);
+			holder.tvYFMoney=view.findViewById(R.id.tv_yf_money);
+			holder.tvStatus=view.findViewById(R.id.tv_statu);
 			view.setTag(holder);
 		}else{
 			holder=(ViewHolder)view.getTag();
@@ -53,7 +64,7 @@ public class MyTuanAdapter extends BaseAdapter {
 
 
 	private class ViewHolder{
-		private TextView tvName,tvMobile,tvType,tvAddress,tvUpdate,tvDelete;
-		private ImageView imgSelect;
+		private OvalImage2Views imgIcon;
+		private TextView tvPTNum,tvTitle,tvTime,tvMoney,tvDMMoney,tvNum,tvYFMoney,tvStatus;
 	 }
 }

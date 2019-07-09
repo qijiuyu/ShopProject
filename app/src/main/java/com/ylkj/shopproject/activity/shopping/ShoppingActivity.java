@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.pjsc.ConfirmPTActivity;
 import com.ylkj.shopproject.adapter.shopping.ShoppingAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
 
@@ -36,6 +37,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
         tvMoney=findViewById(R.id.tv_total_money);
         tvPlay=findViewById(R.id.tv_play);
         listView=findViewById(R.id.listView);
+        tvPlay.setOnClickListener(this);
         tvUpdate.setOnClickListener(this);
         imgSelect.setOnClickListener(this);
 
@@ -57,7 +59,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
                  break;
             //结算或删除
             case R.id.tv_play:
-                 setClass(PayOrderActivity.class);
+                 setClass(ConfirmPTActivity.class);
                  break;
 
         }
