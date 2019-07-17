@@ -112,15 +112,6 @@
                 android:paddingBottom="11dp"
                 android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="名称"
-                android:textSize="17sp"
-                android:textColor="@color/color_33333"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="11dp"/>
-
                 <com.zxdc.utils.library.view.MeasureListView
                     android:id="@+id/list_name"
                     android:layout_width="match_parent"

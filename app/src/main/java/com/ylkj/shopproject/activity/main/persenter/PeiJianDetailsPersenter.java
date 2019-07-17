@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
@@ -19,6 +20,7 @@ import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
 import java.util.List;
@@ -39,7 +41,11 @@ public class PeiJianDetailsPersenter {
             switch (msg.what){
                 //获取配件商品详情接口
                 case HandlerConstant.GET_PJ_DETAILS_SUCCESS:
-                     final PJGoodDetails pjGoodDetails= (PJGoodDetails) msg.obj;
+                     final String message= (String) msg.obj;
+                     if(TextUtils.isEmpty(message)){
+                         break;
+                     }
+                     final PJGoodDetails pjGoodDetails= SPUtil.gson.fromJson(message,PJGoodDetails.class);
                      if(null==pjGoodDetails){
                          break;
                      }

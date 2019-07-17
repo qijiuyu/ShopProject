@@ -13,14 +13,16 @@ import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.util.SelectPhoto;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.UploadImg;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
-import com.zxdc.utils.library.util.BitMapUtil;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * 我的资料
  */
@@ -28,12 +30,16 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     private CircleImageView imgUser;
     private EditText etNick,etDes;
-    //头像地址
-    private String imgPath;
+    //头像文件
+    private File file;
+    private String nick,des,imgPath;
+    //用户个人资料对象
+    private UserInfo userInfo;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
         initView();
+        showData();
     }
 
 
@@ -49,6 +55,20 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.lin_back).setOnClickListener(this);
     }
 
+    /**
+     * 展示个人信息
+     */
+    private void showData(){
+        userInfo= (UserInfo) getIntent().getSerializableExtra("userInfo");
+        if(null==userInfo){
+            return;
+        }
+        etNick.setText(userInfo.getData().getNickname());
+        etDes.setText(userInfo.getData().getIntroduction());
+        imgPath=userInfo.getData().getImgurl();
+        Glide.with(this).load(imgPath).centerCrop().error(R.mipmap.default_icon).into(imgUser);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -59,9 +79,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                  break;
             //保存
             case R.id.tv_save:
-                 final String nick=etNick.getText().toString().trim();
-                 final String des=etDes.getText().toString().trim();
-                if(TextUtils.isEmpty(imgPath)){
+                 nick=etNick.getText().toString().trim();
+                 des=etDes.getText().toString().trim();
+                if(null==file && null==userInfo){
                     ToastUtil.showLong("请选择头像！");
                     return;
                 }
@@ -73,8 +93,11 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                      ToastUtil.showLong("请输入您的简介！");
                      return;
                  }
-                DialogUtil.showProgress(this,"数据设置中");
-                HttpMethod.editUser(nick,imgPath,des,handler);
+                 if(TextUtils.isEmpty(imgPath)){
+                     uploadImg();
+                 }else{
+                    setUserInfo();
+                 }
                  break;
             case R.id.lin_back:
                  finish();
@@ -87,6 +110,21 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         public boolean handleMessage(Message msg) {
             DialogUtil.closeProgress();
             switch (msg.what){
+                //图片上传成功
+                case HandlerConstant.UPLOAD_IMG_SUCCESS:
+                      final UploadImg uploadImg= (UploadImg) msg.obj;
+                      if(null==uploadImg){
+                          break;
+                      }
+                      if(uploadImg.isSussess() && uploadImg.getData().length>0){
+                          imgPath=uploadImg.getData()[0];
+                          //设置用户资料
+                          setUserInfo();
+                      }else{
+                          ToastUtil.showLong(uploadImg.getDesc());
+                      }
+                      break;
+                //数据设置回执
                 case HandlerConstant.EDIT_USER_SUCCESS:
                       final UserInfo userInfo= (UserInfo) msg.obj;
                       if(null==userInfo){
@@ -130,16 +168,33 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 break;
             //返回裁剪的图片
             case SelectPhoto.CODE_RESULT_REQUEST:
-                 final File f = new File(SelectPhoto.crop);
-                 if(f.isFile()){
-                     //生成base64字符串
-                     imgPath= BitMapUtil.getBase64Str(SelectPhoto.crop);
-                     Glide.with(UserInfoActivity.this).load(Uri.fromFile(f)).into(imgUser);
+                 file = new File(SelectPhoto.crop);
+                 if(file.isFile()){
+                     imgPath=null;
+                     Glide.with(UserInfoActivity.this).load(Uri.fromFile(file)).into(imgUser);
                  }
                  break;
             default:
                 break;
 
         }
+    }
+
+    /**
+     * 上传图片
+     */
+    private void uploadImg(){
+        DialogUtil.showProgress(this,"数据设置中");
+        List<File> list=new ArrayList<>();
+        list.add(file);
+        HttpMethod.uploadImg(1,list,handler);
+    }
+
+    /**
+     * 设置用户资料
+     */
+    private void setUserInfo(){
+        DialogUtil.showProgress(UserInfoActivity.this,"数据设置中");
+        HttpMethod.editUser(nick,imgPath,des,handler);
     }
 }

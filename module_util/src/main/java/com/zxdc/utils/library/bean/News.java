@@ -24,6 +24,7 @@ public class News extends BaseBean {
         private String content;
         private String createtime;
         private String detail;
+        private int momentid;
 
         public int getId() {
             return id;
@@ -55,6 +56,14 @@ public class News extends BaseBean {
 
         public void setDetail(String detail) {
             this.detail = detail;
+        }
+
+        public int getMomentid() {
+            return momentid;
+        }
+
+        public void setMomentid(int momentid) {
+            this.momentid = momentid;
         }
     }
 }

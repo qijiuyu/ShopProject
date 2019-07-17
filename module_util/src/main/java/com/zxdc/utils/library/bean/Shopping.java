@@ -59,6 +59,8 @@ public class Shopping extends BaseBean {
         private double price;
         //商品规格值
         private String specsvalue;
+        //是否选择(0:否 1:是)
+        private int isselect;
 
         public int getCartid() {
             return cartid;
@@ -122,6 +124,14 @@ public class Shopping extends BaseBean {
 
         public void setSpecsvalue(String specsvalue) {
             this.specsvalue = specsvalue;
+        }
+
+        public int getIsselect() {
+            return isselect;
+        }
+
+        public void setIsselect(int isselect) {
+            this.isselect = isselect;
         }
     }
 }

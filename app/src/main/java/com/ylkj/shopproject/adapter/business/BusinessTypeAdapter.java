@@ -24,7 +24,7 @@ public class BusinessTypeAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return list==null ? 0 : list.size();
+		return list==null ? 0 : list.size()-3;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class BusinessTypeAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-		ZzfuType.dataBean dataBean=list.get(position);
+		ZzfuType.dataBean dataBean=list.get(position+3);
 		holder.tvName.setText(dataBean.getName());
 		return view;
 	}

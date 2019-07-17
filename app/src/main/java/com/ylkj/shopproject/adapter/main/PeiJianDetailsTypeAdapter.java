@@ -52,7 +52,6 @@ public class PeiJianDetailsTypeAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-
 		final PJGoodDetails.proSpecsBean proSpecsBean=list.get(position);
 		holder.tvName.setText(proSpecsBean.getSpecsname());
 

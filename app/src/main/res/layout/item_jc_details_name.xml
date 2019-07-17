@@ -8,7 +8,6 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="名称"
         android:textSize="17sp"
         android:textColor="@color/color_33333"
         android:layout_marginLeft="15dp"

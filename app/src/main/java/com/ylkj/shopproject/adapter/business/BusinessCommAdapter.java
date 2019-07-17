@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.bean.Business;
+import com.zxdc.utils.library.bean.BusinessDetails;
 import com.zxdc.utils.library.view.CircleImageView;
 import java.util.List;
 /**
@@ -16,8 +19,8 @@ import java.util.List;
 public class BusinessCommAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<Business.Common> list;
-	public BusinessCommAdapter(Context context, List<Business.Common> list) {
+	private List<BusinessDetails.Common> list;
+	public BusinessCommAdapter(Context context, List<BusinessDetails.Common> list) {
 		super();
 		this.context = context;
 		this.list=list;
@@ -52,9 +55,18 @@ public class BusinessCommAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-		Business.Common common=list.get(position);
+		BusinessDetails.Common common=list.get(position);
 		holder.tvName.setText(common.getNickname());
 		holder.tvContent.setText(common.getContent());
+		String createTime=common.getCreatetime().substring(2,7)+" | "+common.getCreatetime().substring(11,16);
+		holder.tvTime.setText(createTime);
+
+		//显示图片
+		String imgUrl=common.getImgurl();
+		holder.imgUser.setTag(R.id.imageid,imgUrl);
+		if(holder.imgUser.getTag(R.id.imageid)!=null && imgUrl==holder.imgUser.getTag(R.id.imageid)){
+			Glide.with(context).load(imgUrl).override(42,42).centerCrop().into(holder.imgUser);
+		}
 		return view;
 	}
 

@@ -3,20 +3,23 @@ package com.zxdc.utils.library.http;
 import android.os.Handler;
 import android.text.TextUtils;
 
+import com.zxdc.utils.library.bean.Certification;
+import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.Business;
+import com.zxdc.utils.library.bean.BusinessDetails;
 import com.zxdc.utils.library.bean.BusinessMsg;
 import com.zxdc.utils.library.bean.City;
 import com.zxdc.utils.library.bean.Collection;
 import com.zxdc.utils.library.bean.Coupon;
-import com.zxdc.utils.library.bean.JCGoodDetails;
 import com.zxdc.utils.library.bean.Login;
+import com.zxdc.utils.library.bean.MyOrder;
 import com.zxdc.utils.library.bean.News;
-import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.bean.PJGoodList;
 import com.zxdc.utils.library.bean.PJType;
+import com.zxdc.utils.library.bean.SearchGood;
 import com.zxdc.utils.library.bean.Shopping;
 import com.zxdc.utils.library.bean.Type;
 import com.zxdc.utils.library.bean.UploadImg;
@@ -68,6 +71,25 @@ public class HttpMethod extends BaseRequst {
         Http.getRetrofit().create(HttpApi.class).register(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REGISTER_SUCCESS, response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 忘记密码
+     */
+    public static void forgetPwd(String mobile,String password,String smscode, final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("mobile", mobile);
+        map.put("password", password);
+        map.put("smscode",smscode);
+        Http.getRetrofit().create(HttpApi.class).forgetPwd(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.FORGET_PWD_SUCCESS, response.body());
             }
             public void onFailure(Call<BaseBean> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
@@ -364,7 +386,7 @@ public class HttpMethod extends BaseRequst {
         Map<String, String> map = new HashMap<>();
         map.put("protype",protype);
         map.put("classid",classid);
-        map.put("index",String.valueOf(page));
+        map.put("page",String.valueOf(page));
         map.put("size","20");
         Http.getRetrofit().create(HttpApi.class).getPJGoodList(map).enqueue(new Callback<PJGoodList>() {
             public void onResponse(Call<PJGoodList> call, Response<PJGoodList> response) {
@@ -540,11 +562,11 @@ public class HttpMethod extends BaseRequst {
     public static void delMoreCar(String ids,final Handler handler) {
         Map<String, String> map = new HashMap<>();
         map.put("ids",ids);
-        Http.getRetrofit().create(HttpApi.class).delMoreCar(map).enqueue(new Callback<BaseBean>() {
-            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
-                BaseRequst.sendMessage(handler, HandlerConstant.DEL_MORE_CAR_SUCCESS, response.body());
+        Http.getRetrofit().create(HttpApi.class).delMoreCar(map).enqueue(new Callback<Shopping>() {
+            public void onResponse(Call<Shopping> call, Response<Shopping> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_CAR_LIST_SUCCESS, response.body());
             }
-            public void onFailure(Call<BaseBean> call, Throwable t) {
+            public void onFailure(Call<Shopping> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });
@@ -557,11 +579,11 @@ public class HttpMethod extends BaseRequst {
     public static void delCar(String id,final Handler handler) {
         Map<String, String> map = new HashMap<>();
         map.put("id",id);
-        Http.getRetrofit().create(HttpApi.class).delCar(map).enqueue(new Callback<BaseBean>() {
-            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
-                BaseRequst.sendMessage(handler, HandlerConstant.DEL_MORE_CAR_SUCCESS, response.body());
+        Http.getRetrofit().create(HttpApi.class).delCar(map).enqueue(new Callback<Shopping>() {
+            public void onResponse(Call<Shopping> call, Response<Shopping> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_CAR_LIST_SUCCESS, response.body());
             }
-            public void onFailure(Call<BaseBean> call, Throwable t) {
+            public void onFailure(Call<Shopping> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });
@@ -607,16 +629,17 @@ public class HttpMethod extends BaseRequst {
      * 获取配件商品详情接口
      */
     public static void getPJDetails(String spuid,final Handler handler) {
-        Map<String, String> map = new HashMap<>();
-        map.put("spuid",spuid);
-        Http.getRetrofit().create(HttpApi.class).getPJDetails(map).enqueue(new Callback<PJGoodDetails>() {
-            public void onResponse(Call<PJGoodDetails> call, Response<PJGoodDetails> response) {
-                BaseRequst.sendMessage(handler, HandlerConstant.GET_PJ_DETAILS_SUCCESS, response.body());
-            }
-            public void onFailure(Call<PJGoodDetails> call, Throwable t) {
-                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
-            }
-        });
+//        Map<String, String> map = new HashMap<>();
+//        map.put("spuid",spuid);
+//        Http.getRetrofit().create(HttpApi.class).getPJDetails(map).enqueue(new Callback<PJGoodDetails>() {
+//            public void onResponse(Call<PJGoodDetails> call, Response<PJGoodDetails> response) {
+//                BaseRequst.sendMessage(handler, HandlerConstant.GET_PJ_DETAILS_SUCCESS, response.body());
+//            }
+//            public void onFailure(Call<PJGoodDetails> call, Throwable t) {
+//                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+//            }
+//        });
+        Http.getMonth(HttpConstant.GET_PJ_GOOD_DETAILS+"?spuid="+spuid,handler,HandlerConstant.GET_PJ_DETAILS_SUCCESS);
     }
 
 
@@ -642,16 +665,17 @@ public class HttpMethod extends BaseRequst {
      * 获取机床商品详情
      */
     public static void getJCDetails(int spuid,final Handler handler) {
-        Map<String, String> map = new HashMap<>();
-        map.put("spuid",String.valueOf(spuid));
-        Http.getRetrofit().create(HttpApi.class).getJCDetails(map).enqueue(new Callback<JCGoodDetails>() {
-            public void onResponse(Call<JCGoodDetails> call, Response<JCGoodDetails> response) {
-                BaseRequst.sendMessage(handler, HandlerConstant.GET_JC_DETAILS_SUCCESS, response.body());
-            }
-            public void onFailure(Call<JCGoodDetails> call, Throwable t) {
-                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
-            }
-        });
+//        Map<String, String> map = new HashMap<>();
+//        map.put("spuid",String.valueOf(spuid));
+//        Http.getRetrofit().create(HttpApi.class).getJCDetails(map).enqueue(new Callback<JCGoodDetails>() {
+//            public void onResponse(Call<JCGoodDetails> call, Response<JCGoodDetails> response) {
+//                BaseRequst.sendMessage(handler, HandlerConstant.GET_JC_DETAILS_SUCCESS, response.body());
+//            }
+//            public void onFailure(Call<JCGoodDetails> call, Throwable t) {
+//                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+//            }
+//        });
+        Http.getMonth(HttpConstant.GET_JC_DETAILS+"?spuid="+spuid,handler,HandlerConstant.GET_JC_DETAILS_SUCCESS);
     }
 
 
@@ -710,7 +734,7 @@ public class HttpMethod extends BaseRequst {
     public static void MyCoupon(int type, int index, final int handlerIndex, final Handler handler) {
         Map<String, String> map = new HashMap<>();
         map.put("type",String.valueOf(type));
-        map.put("index",String.valueOf(index));
+        map.put("page",String.valueOf(index));
         map.put("size","20");
         Http.getRetrofit().create(HttpApi.class).MyCoupon(map).enqueue(new Callback<Coupon>() {
             public void onResponse(Call<Coupon> call, Response<Coupon> response) {
@@ -731,7 +755,7 @@ public class HttpMethod extends BaseRequst {
         if(!TextUtils.isEmpty(spuid)){
             map.put("spuid",spuid);
         }
-        map.put("index",String.valueOf(index));
+        map.put("page",String.valueOf(index));
         map.put("size","20");
         Http.getRetrofit().create(HttpApi.class).getCouponList(map).enqueue(new Callback<Coupon>() {
             public void onResponse(Call<Coupon> call, Response<Coupon> response) {
@@ -869,4 +893,170 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+    /**
+     * 我的交流
+     */
+    public static void myBusiness(int page,final int index,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("page",String.valueOf(page));
+        map.put("size","20");
+        Http.getRetrofit().create(HttpApi.class).myBusiness(map).enqueue(new Callback<Business>() {
+            public void onResponse(Call<Business> call, Response<Business> response) {
+                BaseRequst.sendMessage(handler, index, response.body());
+            }
+            public void onFailure(Call<Business> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 设置机构认证
+     */
+    public static void setInst(String instname,String address,String proname,String name,String phone,String licenseimg,String permitimg,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("instname",instname);
+        map.put("address",address);
+        map.put("proname",proname);
+        map.put("name",name);
+        map.put("phone",phone);
+        map.put("licenseimg",licenseimg);
+        map.put("permitimg",permitimg);
+        Http.getRetrofit().create(HttpApi.class).setInst(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.SET_INST_SUCCESS, response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 生意圈详情
+     */
+    public static void businessDetails(int momentid,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("momentid",String.valueOf(momentid));
+        Http.getRetrofit().create(HttpApi.class).businessDetails(map).enqueue(new Callback<BusinessDetails>() {
+            public void onResponse(Call<BusinessDetails> call, Response<BusinessDetails> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.BUSINESS_DETAILS_SUCCESS, response.body());
+            }
+            public void onFailure(Call<BusinessDetails> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 我的订单
+     */
+    public static void getMyOrder(int status,int page,final int index,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        if(status!=-1){
+            map.put("status",String.valueOf(status));
+        }
+        map.put("page",String.valueOf(page));
+        map.put("size","20");
+        Http.getRetrofit().create(HttpApi.class).getMyOrder(map).enqueue(new Callback<MyOrder>() {
+            public void onResponse(Call<MyOrder> call, Response<MyOrder> response) {
+                BaseRequst.sendMessage(handler, index, response.body());
+            }
+            public void onFailure(Call<MyOrder> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 关键字搜索分页查询接口
+     */
+    public static void searchGoods(int type,String name,int page,final int index,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("type",String.valueOf(type));
+        map.put("name",name);
+        map.put("page",String.valueOf(page));
+        map.put("size","20");
+        Http.getRetrofit().create(HttpApi.class).searchGoods(map).enqueue(new Callback<SearchGood>() {
+            public void onResponse(Call<SearchGood> call, Response<SearchGood> response) {
+                BaseRequst.sendMessage(handler, index, response.body());
+            }
+            public void onFailure(Call<SearchGood> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 修改单个商品选择状态接口
+     */
+    public static void selectCar(int id,String sel,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id",String.valueOf(id));
+        map.put("sel",sel);
+        Http.getRetrofit().create(HttpApi.class).selectCar(map).enqueue(new Callback<Shopping>() {
+            public void onResponse(Call<Shopping> call, Response<Shopping> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_CAR_LIST_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Shopping> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 修改多个商品选择状态接口
+     */
+    public static void selectCarList(String ids,String sel,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("ids",ids);
+        map.put("sel",sel);
+        Http.getRetrofit().create(HttpApi.class).selectCarList(map).enqueue(new Callback<Shopping>() {
+            public void onResponse(Call<Shopping> call, Response<Shopping> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_CAR_LIST_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Shopping> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 查询用户增票资质信息
+     */
+    public static void getZpzz(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).getZpzz(map).enqueue(new Callback<Zpzz>() {
+            public void onResponse(Call<Zpzz> call, Response<Zpzz> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_ZPZZ_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Zpzz> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 查询认证机构信息
+     */
+    public static void getCertifiCation(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).getCertifiCation(map).enqueue(new Callback<Certification>() {
+            public void onResponse(Call<Certification> call, Response<Certification> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_CERTIFICATION_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Certification> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
 }

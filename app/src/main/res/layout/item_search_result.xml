@@ -42,7 +42,9 @@
         android:text="非愿意性莫笑"
         android:textSize="11sp"
         android:textColor="@color/color_33333"
-        android:layout_marginTop="7dp"/>
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

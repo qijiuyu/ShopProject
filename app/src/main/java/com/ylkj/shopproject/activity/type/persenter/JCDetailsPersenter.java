@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -19,8 +20,11 @@ import com.youth.banner.loader.ImageLoader;
 import com.zxdc.utils.library.bean.JCGoodDetails;
 import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.http.HandlerConstant;
+import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.http.base.Http;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,7 +48,11 @@ public class JCDetailsPersenter {
             switch (msg.what){
                 //获取机床商品详情回执
                 case HandlerConstant.GET_JC_DETAILS_SUCCESS:
-                      final JCGoodDetails jcGoodDetails= (JCGoodDetails) msg.obj;
+                      final String message= (String) msg.obj;
+                      if(TextUtils.isEmpty(message)){
+                          break;
+                      }
+                      final JCGoodDetails jcGoodDetails= SPUtil.gson.fromJson(message,JCGoodDetails.class);
                       if(null==jcGoodDetails){
                           break;
                       }

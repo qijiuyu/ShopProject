@@ -19,6 +19,7 @@ import com.ylkj.shopproject.adapter.business.BusinessImgAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.Business;
+import com.zxdc.utils.library.bean.BusinessDetails;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -37,7 +38,9 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
     private MeasureListView listView;
     private EditText etComm;
     //详情对象
-    private Business.DataBean dataBean;
+    private BusinessDetails.DataBean dataBean;
+    //生意圈id
+    private int id;
     //发布过的图片的adapter
     private BusinessImgAdapter businessImgAdapter;
     //评论的adapter
@@ -46,13 +49,15 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_details);
         initView();
-        showData();
+        //生意圈详情
+        businessDetails();
     }
 
     /**
      * 初始化
      */
     private void initView(){
+        id=getIntent().getIntExtra("id",0);
         imgUser=findViewById(R.id.img_user);
         tvCompany=findViewById(R.id.tv_company);
         tvContent=findViewById(R.id.tv_content);
@@ -74,37 +79,20 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
         findViewById(R.id.lin_back).setOnClickListener(this);
     }
 
-    /**
-     * 展示详情数据
-     */
-    private void showData(){
-        dataBean= (Business.DataBean) getIntent().getSerializableExtra("dataBean");
-        Glide.with(this).load(dataBean.getUserimg()).override(42,42).centerCrop().into(imgUser);
-        tvCompany.setText(dataBean.getCompanyname());
-        tvContent.setText(dataBean.getContent());
-        tvType.setText("#"+dataBean.getTypename()+"#");
-        tvLocation.setText(dataBean.getAddress());
-        tvTime.setText(dataBean.getDistance()+"km    "+dataBean.getCreatetime());
-        tvCommNum.setText("最新评论（"+dataBean.getCommentcount()+"）");
-        tvDzNum.setText(String.valueOf(dataBean.getPraiselist().length));
-        tvPlNum.setText(String.valueOf(dataBean.getCommentcount()));
-        if(dataBean.getIstop()==1){
-            tvTop.setVisibility(View.VISIBLE);
-        }
-        //展示发布过的图片
-        businessImgAdapter=new BusinessImgAdapter(this,dataBean.getImglist());
-        gridView.setAdapter(businessImgAdapter);
-
-        //评论列表
-        businessCommAdapter=new BusinessCommAdapter(this,dataBean.getCommentlist());
-        listView.setAdapter(businessCommAdapter);
-    }
-
-
     private Handler handler=new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
             DialogUtil.closeProgress();
             switch (msg.what){
+                //查询详情回执
+                case HandlerConstant.BUSINESS_DETAILS_SUCCESS:
+                      final BusinessDetails businessDetails= (BusinessDetails) msg.obj;
+                      if(businessDetails.isSussess()){
+                          dataBean=businessDetails.getData();
+                          showData();
+                      }else{
+                          ToastUtil.showLong(businessDetails.getDesc());
+                      }
+                      break;
                 //点赞回执
                 case HandlerConstant.LIKE_BUSINESS_SUCCESS:
                      final BaseBean baseBean= (BaseBean) msg.obj;
@@ -168,9 +156,48 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
 
 
     /**
+     * 展示详情数据
+     */
+    private void showData(){
+        Glide.with(this).load(dataBean.getUserimg()).override(42,42).centerCrop().into(imgUser);
+        tvCompany.setText(dataBean.getCompanyname());
+        tvContent.setText(dataBean.getContent());
+        tvType.setText("#"+dataBean.getTypename()+"#");
+        tvLocation.setText(dataBean.getAddress());
+        String createTime=dataBean.getCreatetime().substring(2,7)+" | "+dataBean.getCreatetime().substring(11,16);
+        tvTime.setText(dataBean.getDistance()+"km    "+createTime);
+        tvCommNum.setText("最新评论（"+dataBean.getCommentcount()+"）");
+        tvDzNum.setText(String.valueOf(dataBean.getPraiselist().length));
+        tvPlNum.setText(String.valueOf(dataBean.getCommentcount()));
+        if(dataBean.getIstop()==1){
+            tvTop.setVisibility(View.VISIBLE);
+        }
+        //展示发布过的图片
+        businessImgAdapter=new BusinessImgAdapter(this,dataBean.getImglist());
+        gridView.setAdapter(businessImgAdapter);
+
+        //评论列表
+        businessCommAdapter=new BusinessCommAdapter(this,dataBean.getCommentlist());
+        listView.setAdapter(businessCommAdapter);
+    }
+
+
+    /**
+     * 生意圈详情
+     */
+    private void businessDetails(){
+        DialogUtil.showProgress(this,"数据加载中");
+        HttpMethod.businessDetails(id,handler);
+    }
+
+
+    /**
      * 点赞生意圈
      */
     private void likeBusiness(){
+        if(null==dataBean){
+            return;
+        }
         DialogUtil.showProgress(this,"点赞中");
         HttpMethod.likeBusiness(dataBean.getId(),handler);
     }
@@ -179,6 +206,9 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
      * 评论生意圈
      */
     private void addComment(String content){
+        if(null==dataBean){
+            return;
+        }
         DialogUtil.showProgress(this,"评论中");
         HttpMethod.addComment(dataBean.getId(),content,handler);
     }

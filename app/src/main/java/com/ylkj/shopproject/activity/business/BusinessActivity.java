@@ -62,6 +62,8 @@ public class BusinessActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
+        imgPic=findViewById(R.id.img_trip);
+        tvNum=findViewById(R.id.tv_num);
         dm = getResources().getDisplayMetrics();
         pager =  findViewById(R.id.pager);
         tabs =  findViewById(R.id.tabs);
@@ -88,6 +90,12 @@ public class BusinessActivity extends BaseActivity {
         findViewById(R.id.img_search).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setClass(SearchBusinessActivity.class);
+            }
+        });
+        //进入消息界面
+        findViewById(R.id.rel_trip).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setClass(BusinessNewsActivity.class);
             }
         });
     }

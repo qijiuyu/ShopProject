@@ -19,9 +19,6 @@ public class ShoppingPersenter {
 
     private Activity activity;
 
-    //要删除的商品id
-    private String ids;
-
     public ShoppingPersenter(Activity activity){
         this.activity=activity;
     }
@@ -41,17 +38,6 @@ public class ShoppingPersenter {
                       }else{
                           ToastUtil.showLong(shopping.getDesc());
                       }
-                      break;
-                //删除商品回执
-                case HandlerConstant.DEL_MORE_CAR_SUCCESS:
-                      final BaseBean baseBean= (BaseBean) msg.obj;
-                      if(null==baseBean){
-                          break;
-                      }
-                      if(baseBean.isSussess()){
-                          EventBus.getDefault().post(new EventBusType(EventStatus.DEL_CAR,ids));
-                      }
-                      ToastUtil.showLong(baseBean.getDesc());
                       break;
                 case HandlerConstant.REQUST_ERROR:
                      ToastUtil.showLong(activity.getString(R.string.net_error));
@@ -73,17 +59,24 @@ public class ShoppingPersenter {
     /**
      * 删除购物车
      */
-    public void delete(Map<Integer,Integer> map){
-        StringBuffer stringBuffer=new StringBuffer();
-        for (Integer key : map.keySet()) {
-             stringBuffer.append(key+",");
+    public void delete(Shopping shopping){
+        int num = 0;
+        StringBuffer ids=new StringBuffer();
+        for (int i=0;i<shopping.getData().getCartInfos().size();i++){
+              if(shopping.getData().getCartInfos().get(i).getIsselect()==1){
+                  num++;
+                  ids.append(shopping.getData().getCartInfos().get(i).getCartid()+",");
+              }
         }
-        ids=stringBuffer.subSequence(0,stringBuffer.length()-1).toString();
+        if(num==0){
+            ToastUtil.showLong("请选择要删除的商品！");
+            return;
+        }
         DialogUtil.showProgress(activity,"删除商品中");
-        if(map.size()==1){
-            HttpMethod.delCar(ids,handler);
+        if(num==1){
+            HttpMethod.delCar(ids.substring(0,ids.length()-1).toString(),handler);
         }else{
-            HttpMethod.delMoreCar(ids,handler);
+            HttpMethod.delMoreCar(ids.substring(0,ids.length()-1),handler);
         }
     }
 
@@ -92,5 +85,35 @@ public class ShoppingPersenter {
      */
     public void changeCount(Shopping.goodList goodList){
         HttpMethod.changeCount(String.valueOf(goodList.getCartid()),goodList.getProcount(),handler);
+    }
+
+
+    /**
+     * 修改单个商品选择状态接口
+     */
+    public void selectCar(int carId,Shopping shopping){
+        String sel="1";
+        for (int i=0;i<shopping.getData().getCartInfos().size();i++){
+              if(carId==shopping.getData().getCartInfos().get(i).getCartid()){
+                  if(shopping.getData().getCartInfos().get(i).getIsselect()==1){
+                      sel="0";
+                  }
+                  break;
+              }
+        }
+        DialogUtil.showProgress(activity,"数据加载中");
+        HttpMethod.selectCar(carId,sel,handler);
+    }
+
+    /**
+     * 修改多个商品选择状态接口
+     */
+    public void selectCarList(Shopping shopping){
+        StringBuffer stringBuffer=new StringBuffer();
+        for (int i=0;i<shopping.getData().getCartInfos().size();i++){
+              stringBuffer.append(shopping.getData().getCartInfos().get(i).getCartid()+",");
+        }
+        DialogUtil.showProgress(activity,"数据加载中");
+        HttpMethod.selectCarList(stringBuffer.substring(0,stringBuffer.toString().length()-1),"1",handler);
     }
 }

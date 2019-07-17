@@ -8,11 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.pjsc.PeiJianDetailsActivity;
 import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.view.MyGridView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 配件商品详情----商品类型中规格的item
@@ -68,6 +71,13 @@ public class PJDetailsTypeDataAdapter extends BaseAdapter {
 		holder.tvName.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				index=(int)v.getTag();
+				final PJGoodDetails.proSpecsVal proSpecsVal=list.get(index);
+				if(PeiJianDetailsActivity.skuid!=0){
+					if(PeiJianDetailsActivity.skuid!=proSpecsVal.getSkuid()){
+						return;
+					}
+				}
+				PeiJianDetailsActivity.skuid=proSpecsVal.getSkuid();
 				PJDetailsTypeDataAdapter.this.notifyDataSetChanged();
 			}
 		});

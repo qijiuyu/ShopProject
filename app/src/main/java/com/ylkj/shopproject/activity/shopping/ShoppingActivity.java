@@ -38,6 +38,8 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
     private ShoppingPersenter shoppingPersenter;
     //购物车数据对象
     private Shopping shopping;
+    //总价格
+    private String totalMoney;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
@@ -46,8 +48,6 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
         //实例化MVP
         shoppingPersenter=new ShoppingPersenter(this);
         initView();
-        //查询购物车数据
-        shoppingPersenter.getCarList();
     }
 
 
@@ -75,17 +75,16 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
                   if(status.equals("编辑")){
                       tvUpdate.setText("完成");
                       tvPlay.setText("删除");
+                      tvMoney.setVisibility(View.GONE);
                   }else{
                       tvUpdate.setText("编辑");
                       tvPlay.setText("结算");
+                      tvMoney.setVisibility(View.VISIBLE);
                   }
                  break;
             //全选
             case R.id.img_select:
-                 if(null==shoppingAdapter){
-                     return;
-                 }
-                 shoppingAdapter.setIsAllSelect();
+                 shoppingPersenter.selectCarList(shopping);
                  break;
             //结算或删除
             case R.id.tv_play:
@@ -93,14 +92,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
                   if(play.equals("结算")){
                       setClass(ConfirmPTActivity.class);
                   }else{
-                      if(null==shoppingAdapter){
-                          return;
-                      }
-                      if(shoppingAdapter.idsMap.size()==0){
-                          ToastUtil.showLong("请选择要删除的商品！");
-                      }else{
-                          shoppingPersenter.delete(shoppingAdapter.idsMap);
-                      }
+                      shoppingPersenter.delete(shopping);
                   }
                  break;
 
@@ -116,32 +108,33 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             //获取购物车数据
             case EventStatus.GET_CAR_LIST:
                  shopping= (Shopping) eventBusType.getObject();
-                 tvMoney.setText(Html.fromHtml("总计：<font color='#36C7B5'>¥"+ Util.setDouble(shopping.getData().getAllmoney(),2)+"</font>"));
+                 totalMoney=Util.setDouble(shopping.getData().getAllmoney(),2);
+                 tvMoney.setText(Html.fromHtml("总计：<font color='#36C7B5'>¥"+ totalMoney+"</font>"));
                  shoppingAdapter=new ShoppingAdapter(this,shopping.getData().getCartInfos());
                  listView.setAdapter(shoppingAdapter);
-                 break;
-            //删除购物车商品
-            case EventStatus.DEL_CAR:
-                 final String id= (String) eventBusType.getObject();
-                 String[] ids=id.split(",");
-                 for (int i=0;i<ids.length;i++){
-                      for (int j=0;j<shopping.getData().getCartInfos().size();j++){
-                           if(Integer.parseInt(ids[i])==shopping.getData().getCartInfos().get(j).getCartid()){
-                               shopping.getData().getCartInfos().remove(j);
-                               continue;
-                           }
-                      }
-                 }
-                 shoppingAdapter.notifyDataSetChanged();
                  break;
             //修改商品数量
             case EventStatus.CHANGE_CAR_COUNT:
                  final Shopping.goodList goodList= (Shopping.goodList) eventBusType.getObject();
                  shoppingPersenter.changeCount(goodList);
                  break;
+            //购物车选中了哪几个
+            case EventStatus.SELECT_CAR_GOODS:
+                  final int carId= (int) eventBusType.getObject();
+                  shoppingPersenter.selectCar(carId,shopping);
+                  break;
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(null!=shopping && shopping.getData().getCartInfos().size()>0){
+            return;
+        }
+        //查询购物车数据
+        shoppingPersenter.getCarList();
+    }
 
     @Override
     protected void onDestroy() {

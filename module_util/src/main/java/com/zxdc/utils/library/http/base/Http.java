@@ -10,6 +10,7 @@ import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.util.Constant;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.SPUtil;
 
 import java.io.File;
@@ -85,7 +86,7 @@ public class Http {
         if(null!=list){
             for (int i=0;i<list.size();i++){
                 RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), list.get(i));
-                builder.addFormDataPart(fileKey, list.get(i).getName(), body);
+                builder.addFormDataPart(fileKey+i, list.get(i).getName(), body);
             }
         }
         for (String key : map.keySet()) {
@@ -158,15 +159,17 @@ public class Http {
             if(TextUtils.isEmpty(url)){
                 return;
             }
-            Request request = new Request.Builder().url(url).build();
+            Request request = new Request.Builder().url(Http.baseUrl + url).build();
             Call call = new OkHttpClient.Builder().readTimeout(60 * 5, TimeUnit.SECONDS).build().newCall(request);
             call.enqueue(new Callback() {
                 public void onFailure(Call call, IOException e) {
-                    sendMessage(null,mHandler,index);
+                    sendMessage(null,mHandler,HandlerConstant.REQUST_ERROR);
                 }
                 public void onResponse(Call call, Response response) throws IOException {
                     if(response.body()!=null){
-                        sendMessage(response.body().string(),mHandler,index);
+                        String message=response.body().string();
+                        LogUtils.e(message);
+                        sendMessage(message,mHandler,index);
                     }
                 }
             });

@@ -92,7 +92,8 @@ public class BusinessAdapter extends BaseAdapter {
 		holder.tvContent.setText(dataBean.getContent());
 		holder.tvType.setText("#"+dataBean.getTypename()+"#");
 		holder.tvLocation.setText(dataBean.getAddress());
-		holder.tvTime.setText(dataBean.getDistance()+"km    "+dataBean.getCreatetime());
+		String createTime=dataBean.getCreatetime().substring(2,7)+" | "+dataBean.getCreatetime().substring(11,16);
+		holder.tvTime.setText(dataBean.getDistance()+"km    "+createTime);
 
 		//是否置顶
 		if(dataBean.getIstop()==1){

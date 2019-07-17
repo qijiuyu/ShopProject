@@ -1,12 +1,15 @@
 package com.ylkj.shopproject.activity.business;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.user.business.MyBusinessActivity;
 import com.ylkj.shopproject.adapter.business.BusinessNewsAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.News;
@@ -84,6 +87,14 @@ public class BusinessNewsActivity extends BaseActivity  implements MyRefreshLayo
             }else{
                 businessNewsAdapter.notifyDataSetChanged();
             }
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    News.DataBean dataBean=listAll.get(position);
+                    Intent intent=new Intent(BusinessNewsActivity.this, BusinessDetailsActivity.class);
+                    intent.putExtra("id",dataBean.getMomentid());
+                    startActivity(intent);
+                }
+            });
             if(list.size()<20){
                 mRefreshLayout.setIsLoadingMoreEnabled(false);
             }

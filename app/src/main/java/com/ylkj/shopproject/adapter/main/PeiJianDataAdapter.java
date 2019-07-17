@@ -47,7 +47,6 @@ public class PeiJianDataAdapter extends BaseAdapter {
 			view = LayoutInflater.from(context).inflate(R.layout.item_pj_data, null);
 			holder.tvName=view.findViewById(R.id.tv_name);
 			holder.gridView=view.findViewById(R.id.gv_img);
-			holder.lin=view.findViewById(R.id.lin);
 			view.setTag(holder);
 		}else{
 			holder=(ViewHolder)view.getTag();
@@ -57,23 +56,13 @@ public class PeiJianDataAdapter extends BaseAdapter {
 		holder.tvName.setText(children.getName());
 		peiJianDataImgAdapter=new PeiJianDataImgAdapter(context,children.getChildren());
 		holder.gridView.setAdapter(peiJianDataImgAdapter);
-
-		//点击进入列表
-		holder.lin.setTag(children);
-		holder.lin.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				PJType.Children children= (PJType.Children) v.getTag();
-				Intent intent=new Intent(context,PeiJianListActivity.class);
-				intent.putExtra("typeId",children.getPid());
-				context.startActivity(intent);
-			}
-		});
+		holder.gridView.setClickable(false);
+		holder.gridView.setPressed(false);
 		return view;
 	}
 
 
 	private class ViewHolder{
-		private LinearLayout lin;
 		private TextView tvName;
 		private MyGridView gridView;
 	 }

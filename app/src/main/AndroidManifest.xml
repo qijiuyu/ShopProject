@@ -101,6 +101,7 @@
         <activity android:name=".activity.main.zzfu.ZzfwDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.business.BusinessDetailsActivity"  android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".activity.business.BusinessNewsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.certification.CertificationActivity"  android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.video.PlayVideoActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"

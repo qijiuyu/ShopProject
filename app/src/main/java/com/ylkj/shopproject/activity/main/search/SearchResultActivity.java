@@ -28,6 +28,8 @@ public class SearchResultActivity extends BaseActivity{
     private JiChuangFragment jiChuangFragment=new JiChuangFragment();
     //配件列表
     private PeiJianFragment peiJianFragment=new PeiJianFragment();
+    //要搜索的关键字
+    public static String keys;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
@@ -39,6 +41,7 @@ public class SearchResultActivity extends BaseActivity{
      * 初始化
      */
     private void initView(){
+        keys=getIntent().getStringExtra("keys");
         dm = getResources().getDisplayMetrics();
         pager =  findViewById(R.id.pager);
         tabs =  findViewById(R.id.tabs);

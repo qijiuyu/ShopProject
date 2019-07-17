@@ -57,6 +57,7 @@ public class LogInterceptor implements Interceptor {
         Map<String, String> requstMap = new HashMap<>();
         //添加token参数
         requstMap.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        LogUtils.e("token="+ SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         if (request.body().contentLength() > 0 && request.body() instanceof FormBody) {
             formBody = (FormBody) request.body();
             //把原来的参数添加到新的构造器，（因为没找到直接添加，所以就new新的）

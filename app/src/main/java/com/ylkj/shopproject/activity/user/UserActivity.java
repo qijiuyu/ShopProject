@@ -24,6 +24,7 @@ import com.ylkj.shopproject.activity.user.tuan.MyTuanActivity;
 import com.ylkj.shopproject.activity.user.yhq.MyYhqActivity;
 import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
@@ -38,6 +39,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
 
     private CircleImageView imgUser;
     private TextView tvName;
+    //用户个人信息对象
+    private UserInfo userInfo;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
@@ -81,16 +84,29 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
             switch (msg.what){
                 //查询用户资料回执
                 case HandlerConstant.GET_USER_SUCCESS:
-                    final UserInfo userInfo= (UserInfo) msg.obj;
+                    userInfo= (UserInfo) msg.obj;
                     if(null==userInfo){
                         break;
                     }
                     if(userInfo.isSussess()){
-                        showUserInfo(userInfo);
+                        showUserInfo();
                     }else{
                         ToastUtil.showLong(userInfo.getDesc());
                     }
                     break;
+                //查询认证机构信息回执
+                case HandlerConstant.GET_CERTIFICATION_SUCCESS:
+                      break;
+                //查询增票资质
+                case HandlerConstant.GET_ZPZZ_SUCCESS:
+                      final Zpzz zpzz= (Zpzz) msg.obj;
+                      if(null==zpzz){
+                          break;
+                      }
+                      if(zpzz.isSussess()){
+
+                      }
+                      break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(getString(R.string.net_error));
                     break;
@@ -107,6 +123,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
             //我的资料
             case R.id.img_user:
                  intent.setClass(this,UserInfoActivity.class);
+                 intent.putExtra("userInfo",userInfo);
                  startActivityForResult(intent,100);
                  break;
             //全部订单
@@ -197,7 +214,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     /**
      * 显示用户资料信息
      */
-    private void showUserInfo(UserInfo userInfo){
+    private void showUserInfo(){
         tvName.setText(userInfo.getData().getNickname());
         Glide.with(this).load(userInfo.getData().getImgurl()).centerCrop().error(R.mipmap.default_icon).into(imgUser);
     }
@@ -207,8 +224,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==100){
-            final UserInfo userInfo= (UserInfo) data.getSerializableExtra("userInfo");
-            showUserInfo(userInfo);
+            userInfo= (UserInfo) data.getSerializableExtra("userInfo");
+            showUserInfo();
         }
     }
 
@@ -217,5 +234,28 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
      */
     private void getUser(){
         HttpMethod.getUser(handler);
+    }
+
+    /**
+     * 获取增票资质信息
+     */
+    private void getZpzz(){
+        HttpMethod.getZpzz(handler);
+    }
+
+
+    /**
+     * 查询认证机构信息
+     */
+    public void getCertifiCation(){
+        HttpMethod.getCertifiCation(handler);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getZpzz();
+        getCertifiCation();
     }
 }

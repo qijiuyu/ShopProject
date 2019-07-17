@@ -47,4 +47,15 @@ public class HandlerConstant {
     public static final int GET_NEWS_SUCCESS2=1143;
     public static final int LIKE_BUSINESS_SUCCESS=1144;
     public static final int ADD_COMMENT_SUCCESS=1145;
+    public static final int MY_BUSINESS_SUCCESS1=1146;
+    public static final int MY_BUSINESS_SUCCESS2=1147;
+    public static final int SET_INST_SUCCESS=1148;
+    public static final int BUSINESS_DETAILS_SUCCESS=1149;
+    public static final int GET_MY_ORDER_SUCCESS1=1150;
+    public static final int GET_MY_ORDER_SUCCESS2=1151;
+    public static final int SEARCH_GOODS_SUCCESS1=1152;
+    public static final int SEARCH_GOODS_SUCCESS2=1153;
+    public static final int FORGET_PWD_SUCCESS=1154;
+    public static final int GET_ZPZZ_SUCCESS=1155;
+    public static final int GET_CERTIFICATION_SUCCESS=1156;
 }

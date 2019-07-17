@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.type.persenter.JCDetailsPersenter;
 import com.ylkj.shopproject.activity.showimg.ShowImgActivity;
 import com.ylkj.shopproject.adapter.type.JC_Details_Name_Adapter;
-import com.ylkj.shopproject.adapter.type.JC_Details_Name_Data_Adapter;
 import com.ylkj.shopproject.adapter.type.JC_Details_Type_Adapter;
 import com.ylkj.shopproject.adapter.type.SelectColorAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
@@ -23,10 +21,10 @@ import com.zxdc.utils.library.bean.JCGoodDetails;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.Util;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  * 机床详情页
  */
@@ -48,6 +46,10 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
     private int spuid;
     //商品详情对象
     private JCGoodDetails jcGoodDetails;
+    //展示类型数据的集合
+    private List<JCGoodDetails.machineAttrsList> typeList=new ArrayList<>();
+    //展示名称数据的集合
+    private List<JCGoodDetails.machineAttrsList> nameList=new ArrayList<>();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jc_details);
@@ -131,11 +133,22 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
         }
 
        //展示类型数据
-        jc_details_type_adapter=new JC_Details_Type_Adapter(this,jcGoodDetails.getData().getMachineAttrs());
+        for (int i=0;i<jcGoodDetails.getData().getMachineAttrs().size();i++){
+              if(jcGoodDetails.getData().getMachineAttrs().get(i).getDirection().equals("0")){
+                  typeList.add(jcGoodDetails.getData().getMachineAttrs().get(i));
+              }
+        }
+        jc_details_type_adapter=new JC_Details_Type_Adapter(this,typeList);
         listType.setAdapter(jc_details_type_adapter);
 
+
         //展示名称列表数据
-        jc_details_name_adapter=new JC_Details_Name_Adapter(this,jcGoodDetails.getData().getMachineAttrs());
+        for (int i=0;i<jcGoodDetails.getData().getMachineAttrs().size();i++){
+            if(jcGoodDetails.getData().getMachineAttrs().get(i).getDirection().equals("1")){
+                nameList.add(jcGoodDetails.getData().getMachineAttrs().get(i));
+            }
+        }
+        jc_details_name_adapter=new JC_Details_Name_Adapter(this,nameList);
         listName.setAdapter(jc_details_name_adapter);
     }
 

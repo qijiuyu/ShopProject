@@ -1,19 +1,24 @@
 package com.zxdc.utils.library.http;
 
+import com.zxdc.utils.library.bean.Certification;
+import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.Business;
+import com.zxdc.utils.library.bean.BusinessDetails;
 import com.zxdc.utils.library.bean.BusinessMsg;
 import com.zxdc.utils.library.bean.City;
 import com.zxdc.utils.library.bean.Collection;
 import com.zxdc.utils.library.bean.Coupon;
 import com.zxdc.utils.library.bean.JCGoodDetails;
 import com.zxdc.utils.library.bean.Login;
+import com.zxdc.utils.library.bean.MyOrder;
 import com.zxdc.utils.library.bean.News;
 import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.bean.PJGoodList;
 import com.zxdc.utils.library.bean.PJType;
+import com.zxdc.utils.library.bean.SearchGood;
 import com.zxdc.utils.library.bean.Shopping;
 import com.zxdc.utils.library.bean.Type;
 import com.zxdc.utils.library.bean.UserInfo;
@@ -139,11 +144,11 @@ public interface HttpApi {
 
     @FormUrlEncoded
     @POST(HttpConstant.DEL_MORE_CAR)
-    Call<BaseBean> delMoreCar(@FieldMap Map<String, String> map);
+    Call<Shopping> delMoreCar(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST(HttpConstant.DEL_CAR)
-    Call<BaseBean> delCar(@FieldMap Map<String, String> map);
+    Call<Shopping> delCar(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST(HttpConstant.CHANGE_COUNT)
@@ -204,4 +209,44 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.ADD_COMMENT)
     Call<BaseBean> addComment(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.MY_BUSINESS)
+    Call<Business> myBusiness(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.SET_INST)
+    Call<BaseBean> setInst(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.BUSINESS_DETAILS)
+    Call<BusinessDetails> businessDetails(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.MY_ORDER_LIST)
+    Call<MyOrder> getMyOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.SEARCH_GOODS)
+    Call<SearchGood> searchGoods(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.FORGET_PWD)
+    Call<BaseBean> forgetPwd(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.SELECT_CAR)
+    Call<Shopping> selectCar(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.SELECT_CAR_LIST)
+    Call<Shopping> selectCarList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ZPZZ)
+    Call<Zpzz> getZpzz(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_CERTIFICATION)
+    Call<Certification> getCertifiCation(@FieldMap Map<String, String> map);
 }

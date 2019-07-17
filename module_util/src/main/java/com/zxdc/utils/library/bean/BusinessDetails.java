@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 生意圈列表
+ * 生意圈详情
  */
-public class Business extends BaseBean {
+public class BusinessDetails extends BaseBean {
 
-    private List<DataBean> data;
+    private DataBean data;
 
-    public List<DataBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
@@ -26,7 +26,7 @@ public class Business extends BaseBean {
         //评论数
         private int commentcount;
         //评论集合
-        private List<Common> commentlist=new ArrayList<>();
+        private List<BusinessDetails.Common> commentlist=new ArrayList<>();
         //公司名称
         private String companyname;
         //生意圈内容
@@ -100,6 +100,14 @@ public class Business extends BaseBean {
             this.content = content;
         }
 
+        public String getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(String createtime) {
+            this.createtime = createtime;
+        }
+
         public String getDistance() {
             return distance;
         }
@@ -171,16 +179,7 @@ public class Business extends BaseBean {
         public void setUserimg(String userimg) {
             this.userimg = userimg;
         }
-
-        public String getCreatetime() {
-            return createtime;
-        }
-
-        public void setCreatetime(String createtime) {
-            this.createtime = createtime;
-        }
     }
-
 
     public static class Common implements Serializable{
         //评论的内容

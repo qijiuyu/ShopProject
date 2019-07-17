@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.main.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -80,8 +81,10 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
             lockKey(etKey);
             //保存搜索过的关键字
             addTabKey();
-
-            setClass(SearchResultActivity.class);
+            //跳转搜索页开始搜索
+            Intent intent=new Intent(this,SearchResultActivity.class);
+            intent.putExtra("keys",strKey);
+            startActivity(intent);
         }
         return false;
     }

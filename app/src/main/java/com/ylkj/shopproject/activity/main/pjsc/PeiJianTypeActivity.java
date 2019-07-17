@@ -106,6 +106,14 @@ public class PeiJianTypeActivity extends BaseActivity implements View.OnClickLis
         dataList=typeList.get(0).getChildren();
         peiJianDataAdapter=new PeiJianDataAdapter(PeiJianTypeActivity.this,dataList);
         listData.setAdapter(peiJianDataAdapter);
+        listData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PJType.Children children=dataList.get(position);
+                Intent intent=new Intent(PeiJianTypeActivity.this,PeiJianListActivity.class);
+                intent.putExtra("typeId",children.getPid());
+                startActivity(intent);
+            }
+        });
 
         //点击分类显示对应数据
         listType.setOnItemClickListener(new AdapterView.OnItemClickListener() {

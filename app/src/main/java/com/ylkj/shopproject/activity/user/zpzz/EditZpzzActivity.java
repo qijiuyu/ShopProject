@@ -11,22 +11,20 @@ import android.view.View;
 import android.widget.EditText;
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.main.persenter.AddFaultPersenter;
 import com.ylkj.shopproject.activity.user.persenter.ZpzzPersenter;
 import com.ylkj.shopproject.util.SelectPhoto;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.UploadImg;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
-import com.zxdc.utils.library.util.BitMapUtil;
 import com.zxdc.utils.library.util.DialogUtil;
-import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.OvalImage2Views;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 设置增票资质
  */
@@ -42,11 +40,15 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
      */
     private File yyFile,xkFile;
     private ZpzzPersenter zpzzPersenter;
+    private String unitName,code,address,mobile,bank,bankCode,spName,spMobile,spAddr;
+    //增票资质对象
+    private Zpzz zpzz;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editzpzz);
         zpzzPersenter=new ZpzzPersenter(this);
         initView();
+        showData();
     }
 
 
@@ -71,6 +73,32 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.lin_back).setOnClickListener(this);
     }
 
+    /**\
+     * 显示要编辑的数据
+     */
+    private void showData(){
+        zpzz= (Zpzz) getIntent().getSerializableExtra("zpzz");
+        if(null==zpzz){
+            return;
+        }
+        Zpzz.DataBean dataBean=zpzz.getData();
+        if(null==dataBean){
+            return;
+        }
+        etUnitName.setText(dataBean.getCompanyname());
+        etCode.setText(dataBean.getTaxnum());
+        etAddress.setText(dataBean.getLoginaddress());
+        etMobile.setText(dataBean.getLoginphone());
+        etBack.setText(dataBean.getBankname());
+        etBackCode.setText(dataBean.getBankcode());
+        Glide.with(this).load(dataBean.getLicenseimg()).override(107,107).centerCrop().into(imgOne);
+        Glide.with(this).load(dataBean.getPermitimg()).override(107,107).centerCrop().into(imgTwo);
+        etSpName.setText(dataBean.getName());
+        etSpMobile.setText(dataBean.getPhone());
+        etSpAddr.setText(dataBean.getAddress());
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -83,20 +111,15 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
                 SelectPhoto.selectPhoto(this);
                 break;
             case R.id.tv_submit:
-                List<File> list=new ArrayList<>();
-                list.add(yyFile);
-                list.add(xkFile);
-                HttpMethod.uploadImg(1,list,handler);
-
-                 final String unitName=etUnitName.getText().toString().trim();
-                 final String code=etCode.getText().toString().trim();
-                 final String address=etAddress.getText().toString().trim();
-                 final String mobile=etMobile.getText().toString().trim();
-                 final String bank=etBack.getText().toString().trim();
-                 final String bankCode=etBackCode.getText().toString().trim();
-                 final String spName=etSpName.getText().toString().trim();
-                 final String spMobile=etSpMobile.getText().toString().trim();
-                 final String spAddr=etSpAddr.getText().toString().trim();
+                 unitName=etUnitName.getText().toString().trim();
+                 code=etCode.getText().toString().trim();
+                 address=etAddress.getText().toString().trim();
+                 mobile=etMobile.getText().toString().trim();
+                 bank=etBack.getText().toString().trim();
+                 bankCode=etBackCode.getText().toString().trim();
+                 spName=etSpName.getText().toString().trim();
+                 spMobile=etSpMobile.getText().toString().trim();
+                 spAddr=etSpAddr.getText().toString().trim();
                  if(TextUtils.isEmpty(unitName)){
                      ToastUtil.showLong("请输入单位名称!");
                      return;
@@ -141,8 +164,8 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showLong("请输入收票人地址!");
                     return;
                 }
-//                DialogUtil.showProgress(this,"数据提交中");
-//                HttpMethod.add_zpzz(unitName,code,address,mobile,bank,bankCode,strBitmap1,strBitmap2,spName,spMobile,spAddr,handler);
+                //图片上传中
+                uploadImg();
                  break;
             case R.id.lin_back:
                  finish();
@@ -155,6 +178,15 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
         public boolean handleMessage(Message msg) {
             DialogUtil.closeProgress();
             switch (msg.what){
+                //图片上传成功
+                case HandlerConstant.UPLOAD_IMG_SUCCESS:
+                      final UploadImg uploadImg= (UploadImg) msg.obj;
+                      if(uploadImg.isSussess()){
+                          uploadData(uploadImg);
+                      }else{
+                          ToastUtil.showLong(uploadImg.getDesc());
+                      }
+                      break;
                 //回执
                 case HandlerConstant.ADD_ZPZZ_SUCCESS:
                      final BaseBean baseBean= (BaseBean) msg.obj;
@@ -207,6 +239,29 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
             default:
                 break;
 
+        }
+    }
+
+
+    /**
+     * 上传图片
+     */
+    private  void uploadImg(){
+        List<File> fileList=new ArrayList<>();
+        fileList.add(yyFile);
+        fileList.add(xkFile);
+        DialogUtil.showProgress(this,"数据提交中");
+        HttpMethod.uploadImg(1,fileList,handler);
+    }
+
+    /**
+     * 上传数据
+     */
+    private void uploadData(UploadImg uploadImg){
+        DialogUtil.showProgress(this,"数据提交中");
+        String[] imgs=uploadImg.getData();
+        if(imgs.length==2){
+            HttpMethod.add_zpzz(unitName,code,address,mobile,bank,bankCode,imgs[0],imgs[1],spName,spMobile,spAddr,handler);
         }
     }
 

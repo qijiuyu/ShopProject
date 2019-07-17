@@ -99,7 +99,7 @@ public class BusinessFragment extends BaseFragment implements MyRefreshLayoutLis
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Business.DataBean dataBean=listAll.get(position);
                     Intent intent=new Intent(mActivity, BusinessDetailsActivity.class);
-                    intent.putExtra("dataBean",dataBean);
+                    intent.putExtra("id",dataBean.getId());
                     startActivity(intent);
                 }
             });

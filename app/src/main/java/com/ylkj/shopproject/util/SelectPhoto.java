@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.Window;
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.util.FileUtils;
+import com.zxdc.utils.library.util.LogUtils;
+
 import java.io.File;
 
 /**
@@ -25,12 +27,14 @@ public class SelectPhoto {
     //裁剪
     public static final int CODE_RESULT_REQUEST = 0xa5;
     public static final String pai = FileUtils.getSdcardPath() + "pictures.jpg";
-    public static String crop = FileUtils.getSdcardPath();
+    //裁剪后的图片路径
+    public static String crop;
 
     /**
      * 选择照片
      */
     public static  void selectPhoto(final Activity activity){
+        crop = FileUtils.getSdcardPath()+System.currentTimeMillis()+".jpg";
         View view_choise = LayoutInflater.from(activity).inflate(R.layout.select_photo_dialog, null);
         final Dialog dialog  = new Dialog(activity, R.style.ActionSheetDialogStyle);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -68,7 +72,6 @@ public class SelectPhoto {
      * 裁剪原始的图片
      */
     public static void cropRawPhoto(Uri uri,Activity activity) {
-        crop=crop+System.currentTimeMillis()+".jpg";
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("output", Uri.fromFile(new File(crop)));

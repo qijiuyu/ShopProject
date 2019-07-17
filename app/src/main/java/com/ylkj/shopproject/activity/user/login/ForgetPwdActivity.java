@@ -91,6 +91,8 @@ public class ForgetPwdActivity extends BaseActivity implements View.OnClickListe
                     ToastUtil.showLong("请输入新密码!");
                     return;
                 }
+                DialogUtil.showProgress(this,"密码修改中");
+                HttpMethod.forgetPwd(mobile,pwd,code,handler);
                 break;
             case R.id.lin_back:
                 finish();
@@ -120,17 +122,15 @@ public class ForgetPwdActivity extends BaseActivity implements View.OnClickListe
                     }
                     break;
                 //修改密码回执
-                case HandlerConstant.UPDATE_PWD_SUCCESS:
+                case HandlerConstant.FORGET_PWD_SUCCESS:
                     baseBean= (BaseBean) msg.obj;
                     if(baseBean==null){
                         break;
                     }
                     if(baseBean.isSussess()){
-                        ToastUtil.showLong(baseBean.getDesc());
                         finish();
-                    }else{
-                        ToastUtil.showLong(baseBean.getDesc());
                     }
+                    ToastUtil.showLong(baseBean.getDesc());
                     break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(getString(R.string.net_error));

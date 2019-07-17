@@ -10,7 +10,7 @@ public class HttpConstant {
      public static final String IP = "http://htm.yl-mall.cn/";
 
     //获取短信验证码
-    public static final String GET_SMS_CODE = "app/api/sms/send";
+    public static final String GET_SMS_CODE = "api/app/sms/send";
 
     //注册接口
     public static final String REGISTER="api/app/user/register";
@@ -130,12 +130,42 @@ public class HttpConstant {
     public static final String REPORT="api/app/report/addreport";
 
     //获取消息列表接口
-    public static final String GET_MESSAGE="api/app/message/getMomentByPage";
+    public static final String GET_MESSAGE="api/app/message/getmessagebypage";
 
     //生意圈点赞
     public static final String DZ_BUSINESS="api/app/praise/dianzan";
 
     //添加评论
     public static final String ADD_COMMENT="api/app/moment/addcomment";
+
+    //我的交流
+    public static final String MY_BUSINESS="api/app/moment/getmymoment";
+
+    //设置机构认证
+    public static final String SET_INST="api/app/institution/setinst";
+
+    //获取生意圈详情
+    public static final String BUSINESS_DETAILS="api/app/moment/getMomentInfo";
+
+    //获取我的订单
+    public static final String MY_ORDER_LIST="api/app/order/getorder";
+
+    //查询商品
+    public static final String SEARCH_GOODS="api/app/searchspu/list";
+
+    //忘记密码
+    public static final String FORGET_PWD="api/app/user/forgetpassword";
+
+    //修改单个商品选择状态接口
+    public static final String SELECT_CAR="api/app/cart/selcart";
+
+    //修改多个商品选择状态接口
+    public static final String SELECT_CAR_LIST="api/app/cart/selcartlist";
+
+    //查询用户增票资质信息
+    public static final String GET_ZPZZ="api/app/invoicevat/show";
+
+    //查询认证机构信息
+    public static final String GET_CERTIFICATION="api/app/institution/show";
 
 }

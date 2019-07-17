@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.persenter.PeiJianListPersenter;
 import com.ylkj.shopproject.activity.main.search.SearchActivity;
+import com.ylkj.shopproject.adapter.main.PeiJianListAdapter;
 import com.ylkj.shopproject.adapter.main.SearchResultAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
@@ -32,7 +33,7 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
 
     private RecyclerView recyclerView;
     private MyRefreshLayout mRefreshLayout;
-    private SearchResultAdapter searchResultAdapter;
+    private PeiJianListAdapter peiJianListAdapter;
     private PeiJianListPersenter peiJianListPersenter;
     //侧滑菜单
     public static DrawerLayout mDrawerLayout;
@@ -116,7 +117,7 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
         if(pjGoodList.isSussess()){
             List<PJGoodList.GoodList> list=pjGoodList.getData();
             listAll.addAll(list);
-            searchResultAdapter=new SearchResultAdapter(this,listAll,new SearchResultAdapter.OnItemClickListener(){
+            peiJianListAdapter=new PeiJianListAdapter(this,listAll,new PeiJianListAdapter.OnItemClickListener(){
                 public void onItemClick(int position) {
                     setClass(PeiJianDetailsActivity.class);
 
@@ -124,7 +125,7 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
 //                setClass(PinTuanDetailsActivity.class);
                 }
             });
-            recyclerView.setAdapter(searchResultAdapter);
+            recyclerView.setAdapter(peiJianListAdapter);
             if(list.size()<20){
                 mRefreshLayout.setIsLoadingMoreEnabled(false);
             }

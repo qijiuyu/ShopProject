@@ -30,8 +30,6 @@ public class ShoppingAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<Shopping.goodList> list;
-	//保存选中的下标
-	public Map<Integer,Integer> idsMap=new HashMap<>();
 	public ShoppingAdapter(Context context, List<Shopping.goodList> list) {
 		super();
 		this.context = context;
@@ -85,25 +83,20 @@ public class ShoppingAdapter extends BaseAdapter {
 			Glide.with(context).load(imgUrl).override(90,90).centerCrop().into(holder.imgIcon);
 		}
 
-		if(idsMap.get(goodList.getCartid())!=null){
+		if(goodList.getIsselect()==1){
 			holder.imgSelect.setImageDrawable(context.getResources().getDrawable(R.mipmap.select_all));
 		}else{
 			holder.imgSelect.setImageDrawable(context.getResources().getDrawable(R.mipmap.jx_no_select));
 		}
 
 		/**
-		 * 按钮点击事件
+		 * 选择按钮点击事件
 		 */
 		holder.imgSelect.setTag(goodList.getCartid());
 		holder.imgSelect.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				final int index=(int)v.getTag();
-				if(idsMap.get(index)==null){
-					idsMap.put(index,index);
-				}else{
-					idsMap.remove(index);
-				}
-				ShoppingAdapter.this.notifyDataSetChanged();
+				final int cartId=(int)v.getTag();
+				EventBus.getDefault().post(new EventBusType(EventStatus.SELECT_CAR_GOODS,cartId));
 			}
 		});
 
@@ -133,19 +126,6 @@ public class ShoppingAdapter extends BaseAdapter {
 			}
 		});
 		return view;
-	}
-
-	/**
-	 * 设置是否全选
-	 */
-	public void setIsAllSelect(){
-		idsMap.clear();
-		if(idsMap.size()<list.size()){
-			for (int i=0;i<list.size();i++){
-				idsMap.put(list.get(i).getCartid(),list.get(i).getCartid());
-			}
-		}
-		ShoppingAdapter.this.notifyDataSetChanged();
 	}
 
 	private class ViewHolder{

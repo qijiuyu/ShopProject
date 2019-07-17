@@ -58,7 +58,7 @@ public class JC_Details_Name_Data_Adapter extends BaseAdapter {
 			view = LayoutInflater.from(context).inflate(R.layout.item_jc_details_name_data, null);
 			holder.imgSelect=view.findViewById(R.id.img_select);
 			holder.tvName=view.findViewById(R.id.tv_name);
-			holder.tvMoney=view.findViewById(R.id.tv_type_money);
+			holder.tvMoney=view.findViewById(R.id.tv_money);
 			view.setTag(holder);
 		}else{
 			holder=(ViewHolder)view.getTag();

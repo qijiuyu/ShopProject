@@ -29,9 +29,6 @@ public class EventStatus {
     //查询购物车数据
     public static final int GET_CAR_LIST=110;
 
-    //删除购物车
-    public static final int DEL_CAR=111;
-
     //修改购物车数量
     public static final int CHANGE_CAR_COUNT=112;
 
@@ -49,4 +46,7 @@ public class EventStatus {
 
     //领取优惠券
     public static final int TAKE_COUPON=117;
+
+    //购物车选中了几个
+    public static final int SELECT_CAR_GOODS=118;
 }

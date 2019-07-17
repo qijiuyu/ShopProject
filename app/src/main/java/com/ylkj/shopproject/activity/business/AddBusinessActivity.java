@@ -37,6 +37,7 @@ import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.BitMapUtil;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MyGridView;
@@ -202,6 +203,7 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
                         listFile.add(file1);
                     }
                 }
+                LogUtils.e(listFile.size()+"+++++++++++++++++++++");
                 HttpMethod.uploadImg(1,listFile,handler);
             }
         },100);
@@ -286,7 +288,7 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        LatLng latLng= (LatLng) SPUtil.getInstance(this).getObject(SPUtil.LATLNG,LatLng.class);
+        latLng= (LatLng) SPUtil.getInstance(this).getObject(SPUtil.LATLNG,LatLng.class);
         if(null!=latLng){
             reverseGeoCode(latLng);
         }

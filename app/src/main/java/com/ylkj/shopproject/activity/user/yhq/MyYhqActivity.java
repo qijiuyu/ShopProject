@@ -48,9 +48,17 @@ public class MyYhqActivity extends BaseActivity {
         tabs.setViewPager(pager);
         setTabsValue();
 
+        //领券中心
         findViewById(R.id.tv_get_yhq).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setClass(GetYhqActivity.class);
+            }
+        });
+
+        //返回
+        findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                MyYhqActivity.this.finish();
             }
         });
     }

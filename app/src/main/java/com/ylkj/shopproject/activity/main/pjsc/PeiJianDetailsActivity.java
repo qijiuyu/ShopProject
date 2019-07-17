@@ -15,6 +15,7 @@ import com.ylkj.shopproject.eventbus.EventStatus;
 import com.youth.banner.Banner;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.PJGoodDetails;
+import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.Util;
 import com.zxdc.utils.library.view.MeasureListView;
 
@@ -36,6 +37,10 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
     private PJGoodDetails pjGoodDetails;
     //商品数量
     private int num=1;
+    //商品id
+    private int spuid;
+    //商品分类中选中的规格skuid
+    public static int skuid;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peijian_details);
@@ -44,12 +49,15 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
         //实例化MVP
         peiJianDetailsPersenter=new PeiJianDetailsPersenter(this);
         initView();
+        peiJianDetailsPersenter.getPJDetails(spuid);
     }
 
     /**
      * 初始化
      */
     private void initView(){
+        skuid=0;
+        spuid=getIntent().getIntExtra("spuid",0);
         banner=findViewById(R.id.banner);
         tvName=findViewById(R.id.tv_name);
         tvDes=findViewById(R.id.tv_des);
@@ -98,7 +106,11 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
             //加入购物车
             case R.id.tv_add_shopping:
             case R.id.img_shopping:
-                 peiJianDetailsPersenter.addCar(pjGoodDetails.getData().getSpuid(),num);
+                 if(skuid==0){
+                     ToastUtil.showLong("请选择商品类型！");
+                     return;
+                 }
+                 peiJianDetailsPersenter.addCar(skuid,num);
                  break;
             //立即购买
             case R.id.tv_buy:

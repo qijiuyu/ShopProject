@@ -7,10 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.main.pjsc.PeiJianDetailsActivity;
 import com.ylkj.shopproject.activity.type.persenter.TypeListPersenter;
+import com.ylkj.shopproject.adapter.main.PeiJianListAdapter;
 import com.ylkj.shopproject.adapter.main.SearchResultAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
@@ -21,13 +20,10 @@ import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MyRefreshLayout;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 分类列表
  */
@@ -35,7 +31,7 @@ public class TypeListActivity extends BaseActivity implements MyRefreshLayoutLis
 
     private MyRefreshLayout mRefreshLayout;
     private RecyclerView recyclerView;
-    private SearchResultAdapter searchResultAdapter;
+    private PeiJianListAdapter peiJianListAdapter;
     //分类对象
     private Type.TypeBean typeBean;
     //MVP对象
@@ -87,7 +83,7 @@ public class TypeListActivity extends BaseActivity implements MyRefreshLayoutLis
         if(pjGoodList.isSussess()){
             List<PJGoodList.GoodList> list=pjGoodList.getData();
             listAll.addAll(list);
-            searchResultAdapter=new SearchResultAdapter(this,listAll,new SearchResultAdapter.OnItemClickListener(){
+            peiJianListAdapter=new PeiJianListAdapter(this,listAll,new PeiJianListAdapter.OnItemClickListener(){
                 public void onItemClick(int position) {
                     final PJGoodList.GoodList goodList=listAll.get(position);
                     Intent intent=new Intent(TypeListActivity.this,JCDetailsActivity.class);
@@ -98,7 +94,7 @@ public class TypeListActivity extends BaseActivity implements MyRefreshLayoutLis
 //                setClass(PinTuanDetailsActivity.class);
                 }
             });
-            recyclerView.setAdapter(searchResultAdapter);
+            recyclerView.setAdapter(peiJianListAdapter);
             if(list.size()<20){
                 mRefreshLayout.setIsLoadingMoreEnabled(false);
             }
