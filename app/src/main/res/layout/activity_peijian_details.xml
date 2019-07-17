@@ -46,7 +46,10 @@
                     android:text="我是描述"
                     android:textColor="@color/color_666666"
                     android:textSize="10sp"
-                    android:layout_marginLeft="38dp"/>
+                    android:layout_marginLeft="38dp"
+                    android:layout_marginRight="150dp"
+                    android:lines="1"
+                    android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/tv_new_money"
@@ -58,6 +61,17 @@
                     android:textColor="@color/color_37C7B5"
                     android:layout_marginLeft="38dp"
                     android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_old_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_2A2A2A"
+                    android:text="111"
+                    android:textSize="9sp"
+                    android:layout_toRightOf="@id/tv_new_money"
+                    android:layout_alignBottom="@id/tv_new_money"
+                    android:layout_marginLeft="10dp"/>
 
                 <TextView
                     android:id="@+id/tv_yf_money"

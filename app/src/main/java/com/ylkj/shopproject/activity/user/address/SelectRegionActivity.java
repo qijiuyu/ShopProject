@@ -42,7 +42,7 @@ public class SelectRegionActivity extends BaseActivity implements OnGetPoiSearch
         setContentView(R.layout.activity_select_region);
         initView();
         //开始定位
-        GetLocation.getInstance().setLocation(this,handler);
+//        GetLocation.getInstance().setLocation(this,handler);
     }
 
 
@@ -84,11 +84,11 @@ public class SelectRegionActivity extends BaseActivity implements OnGetPoiSearch
         // POI初始化搜索模块，注册搜索事件监听
         mPoiSearch = PoiSearch.newInstance();
         mPoiSearch.setOnGetPoiSearchResultListener(this);
-        PoiNearbySearchOption poiNearbySearchOption = new PoiNearbySearchOption();
-        poiNearbySearchOption.keyword("公司");
+        poiNearbySearchOption = new PoiNearbySearchOption();
+        poiNearbySearchOption.keyword("公司,家");
         poiNearbySearchOption.location(latLng);
-        poiNearbySearchOption.radius(200);  // 检索半径，单位是米
-        poiNearbySearchOption.pageCapacity(30);  // 默认每页10条
+        poiNearbySearchOption.radius(500);  // 检索半径，单位是米
+        poiNearbySearchOption.pageCapacity(50);  // 默认每页10条
         mPoiSearch.searchNearby(poiNearbySearchOption);  // 发起附近检索请求
     }
 

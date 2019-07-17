@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class BaseBean implements Serializable{
     private int code;
-    private String msg;
+    private String desc;
 
     public BaseBean(){}
 
@@ -20,16 +20,16 @@ public class BaseBean implements Serializable{
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public boolean isSussess() {
-        if (code == 200) {
+        if (code == 0) {
             return true;
         }
         return false;

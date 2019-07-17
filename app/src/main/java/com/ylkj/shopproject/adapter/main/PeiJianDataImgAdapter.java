@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
+import com.zxdc.utils.library.bean.PJType;
 import com.zxdc.utils.library.view.MyGridView;
 import com.zxdc.utils.library.view.OvalImage2Views;
 
@@ -24,15 +26,16 @@ import java.util.List;
 public class PeiJianDataImgAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	public PeiJianDataImgAdapter(Context context, List<String> list) {
+	private List<PJType.TypeBean> list;
+	public PeiJianDataImgAdapter(Context context, List<PJType.TypeBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 6;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -57,11 +60,15 @@ public class PeiJianDataImgAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-		holder.imgIcon.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				EventBus.getDefault().post(new EventBusType(EventStatus.PJSC_TYPE));
-			}
-		});
+
+		PJType.TypeBean typeBean=list.get(position);
+		holder.tvName.setText(typeBean.getName());
+		//显示图片
+		String imgUrl=typeBean.getImg();
+		holder.imgIcon.setTag(R.id.imageid,imgUrl);
+		if(holder.imgIcon.getTag(R.id.imageid)!=null && imgUrl==holder.imgIcon.getTag(R.id.imageid)){
+			Glide.with(context).load(imgUrl).override(110,70).centerCrop().into(holder.imgIcon);
+		}
 		return view;
 	}
 

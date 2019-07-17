@@ -141,7 +141,7 @@
  -printmapping mapping.txt
 
 #不混淆实体类
- -keep class net.edaibu.easywalking.been.** { *; }
+ -keep class com.zxdc.utils.library.bean.** { *; }
 
  # Retrofit
  -dontwarn retrofit2.**
@@ -171,8 +171,17 @@
       -keep class vi.com.gdi.bgl.**{*;}
       -dontwarn com.baidu.**
 
+#EventBus
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
-
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
 
 
 

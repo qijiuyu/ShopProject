@@ -26,9 +26,8 @@ public class DialogUtil {
 
     /**
      * loding弹框
-     * @param isClose
      */
-    public static void showProgress(Activity activity, String message, boolean isClose) {
+    public static void showProgress(Activity activity, String message) {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.setMessage(message);
             return;
@@ -36,7 +35,7 @@ public class DialogUtil {
         progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage(message);
         progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(isClose);
+        progressDialog.setCancelable(true);
         progressDialog.show();
     }
 
@@ -101,7 +100,7 @@ public class DialogUtil {
         ColorDrawable cd = new ColorDrawable(Color.argb(0, 0, 0, 0));
         mPopuwindow.setBackgroundDrawable(cd);
         mPopuwindow.setOutsideTouchable(true);
-        mPopuwindow.setFocusable(false);
+        mPopuwindow.setFocusable(true);
         mPopuwindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopuwindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         mPopuwindow.showAsDropDown(view2);

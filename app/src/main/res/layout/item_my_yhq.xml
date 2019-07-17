@@ -28,6 +28,7 @@
             android:layout_marginLeft="27dp"/>
 
         <TextView
+            android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:text="15"
@@ -37,6 +38,7 @@
             android:layout_marginTop="20dp"/>
 
         <TextView
+            android:id="@+id/tv_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="满50元可用"
@@ -46,6 +48,7 @@
             android:layout_marginLeft="16.5dp"/>
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="我的优惠券的描述"
@@ -58,6 +61,7 @@
             android:layout_marginRight="45dp"/>
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2019-01-12--2019-05-12"
@@ -67,6 +71,7 @@
             android:layout_marginLeft="110dp"/>
 
         <ImageView
+            android:id="@+id/img_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/yi_shi_yong"

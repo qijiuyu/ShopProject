@@ -1,21 +1,25 @@
 package com.ylkj.shopproject.activity.main.pjsc;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.search.SearchActivity;
 import com.ylkj.shopproject.adapter.main.PeiJianDataAdapter;
 import com.ylkj.shopproject.adapter.main.PeiJianTypeAdapter;
-import com.ylkj.shopproject.eventbus.EventBusType;
-import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseActivity;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
+import com.zxdc.utils.library.bean.PJType;
+import com.zxdc.utils.library.http.HandlerConstant;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.ToastUtil;
+import java.util.List;
 /**
  * 配件商城分类
  */
@@ -26,12 +30,16 @@ public class PeiJianTypeActivity extends BaseActivity implements View.OnClickLis
     private PeiJianTypeAdapter peiJianTypeAdapter;
     //右边分类下的数据的adapter
     private PeiJianDataAdapter peiJianDataAdapter;
+    //左边分类集合
+    private List<PJType.dataBean> typeList;
+    //右边数据集合
+    private List<PJType.Children> dataList;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peijian_type);
-        //注册EventBus
-        EventBus.getDefault().register(this);
         initView();
+        //查询分类
+        getType();
     }
 
     /**
@@ -42,11 +50,6 @@ public class PeiJianTypeActivity extends BaseActivity implements View.OnClickLis
         listData=findViewById(R.id.list_data);
         findViewById(R.id.lin_back).setOnClickListener(this);
         findViewById(R.id.lin_search).setOnClickListener(this);
-        peiJianTypeAdapter=new PeiJianTypeAdapter(this,null);
-        listType.setAdapter(peiJianTypeAdapter);
-
-        peiJianDataAdapter=new PeiJianDataAdapter(this,null);
-        listData.setAdapter(peiJianDataAdapter);
     }
 
 
@@ -64,20 +67,69 @@ public class PeiJianTypeActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-    /**
-     * EventBus注解
-     */
-    @Subscribe
-    public void onEvent(EventBusType eventBusType){
-        if(eventBusType.getStatus()== EventStatus.PJSC_TYPE){
-            setClass(PeiJianListActivity.class);
+    private Handler handler=new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
+            switch (msg.what){
+                //查询分类回执
+                case HandlerConstant.GET_TYPE_SUCCESS:
+                    final PJType pjType= (PJType) msg.obj;
+                    if(null==pjType){
+                        break;
+                    }
+                    if(pjType.isSussess()){
+                       showData(pjType);
+                    }else{
+                        ToastUtil.showLong(pjType.getDesc());
+                    }
+                    break;
+                case HandlerConstant.REQUST_ERROR:
+                    ToastUtil.showLong(getString(R.string.net_error));
+                    break;
+            }
+            return false;
         }
+    });
+
+
+    /**
+     * 展示左右两侧的数据
+     * @param pjType
+     */
+    private void showData(PJType pjType){
+        //展示左边分类列表
+        typeList=pjType.getData();
+        peiJianTypeAdapter=new PeiJianTypeAdapter(PeiJianTypeActivity.this,typeList);
+        listType.setAdapter(peiJianTypeAdapter);
+
+        //显示右边对应分类的数据
+        dataList=typeList.get(0).getChildren();
+        peiJianDataAdapter=new PeiJianDataAdapter(PeiJianTypeActivity.this,dataList);
+        listData.setAdapter(peiJianDataAdapter);
+
+        //点击分类显示对应数据
+        listType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //刷新左侧数据选中颜色
+                peiJianTypeAdapter.setIndex(position);
+                peiJianTypeAdapter.notifyDataSetChanged();
+                //刷新右侧数据
+                dataList=typeList.get(position).getChildren();
+                peiJianDataAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    /**
+     * 查询分类
+     */
+    private void getType(){
+        HttpMethod.getpJType("2",handler);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //关闭eventBus
-        EventBus.getDefault().unregister(this);
+        removeHandler(handler);
     }
 }

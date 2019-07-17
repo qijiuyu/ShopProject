@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="动态详情"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rel"
+        android:layout_marginBottom="35dp"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zxdc.utils.library.view.CircleImageView
+                android:id="@+id/img_user"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@mipmap/dd"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="15.5dp"/>
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公司名称"
+                android:textSize="15sp"
+                android:textColor="@color/color_33313E"
+                android:layout_marginLeft="66.5dp"
+                android:layout_marginTop="26.5dp"/>
+
+            <ImageView
+                android:id="@+id/img_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/phone_icon"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="27dp"
+                android:layout_marginRight="48.5dp"/>
+
+            <ImageView
+                android:id="@+id/img_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/report_icon"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="27dp"
+                android:layout_marginRight="14.5dp"/>
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="回朝阳天街的路上 ,突然车子坏了，领里的朋友看到帮忙转发一下，谢谢。  "
+                android:textColor="@color/color_33313E"
+                android:textSize="14sp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_content"
+                android:text="#分类名称#"
+                android:textSize="12sp"
+                android:textColor="@color/color_37C7B5"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_content"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="8.5dp"
+                android:layout_marginRight="58dp"
+                android:drawableLeft="@mipmap/location"
+                android:text="北京国家会议中心国家园…"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp"
+                android:drawablePadding="7dp"
+                android:lines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/tv_top"
+                android:visibility="gone"
+                android:layout_width="36dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/tv_content"
+                android:layout_marginTop="6dp"
+                android:background="@color/color_CE5798"
+                android:text="置顶"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14.5dp"/>
+
+            <com.zxdc.utils.library.view.MyGridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_location"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:numColumns="3"/>
+
+            <TextView
+                android:id="@+id/tv_dz_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gridview"
+                android:text="23"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp"
+                android:drawableLeft="@mipmap/search_dz"
+                android:drawablePadding="7dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_pl_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gridview"
+                android:text="13"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp"
+                android:drawableLeft="@mipmap/search_news"
+                android:drawablePadding="7dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="68.5dp"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120km   09-09 丨 12：00"
+                android:textSize="12sp"
+                android:textColor="@color/color_999999"
+                android:layout_below="@id/gridview"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/color_F7F7F7"
+                android:layout_below="@id/tv_time"/>
+
+            <TextView
+                android:id="@+id/tv_comm_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_time"
+                android:text="最新评论（4）"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="40.5dp"
+                android:layout_marginLeft="15dp"/>
+
+            <com.zxdc.utils.library.view.MeasureListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_comm_num"
+                android:layout_marginTop="11dp">
+            </com.zxdc.utils.library.view.MeasureListView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <EditText
+            android:id="@+id/et_comm"
+            android:layout_width="270dp"
+            android:layout_height="match_parent"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/ed_search"
+            android:layout_gravity="center_vertical"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:textSize="13sp"
+            android:hint="请输入您的评论"/>
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="发布"
+            android:textSize="15sp"
+            android:textColor="@color/color_666666"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

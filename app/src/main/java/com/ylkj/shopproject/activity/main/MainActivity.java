@@ -13,10 +13,12 @@ import com.ylkj.shopproject.activity.main.persenter.MainPersenter;
 import com.ylkj.shopproject.activity.main.pjsc.PeiJianTypeActivity;
 import com.ylkj.shopproject.activity.main.search.SearchActivity;
 import com.ylkj.shopproject.activity.main.zzfu.ZzfuTypeActivity;
+import com.ylkj.shopproject.activity.user.login.LoginActivity;
 import com.ylkj.shopproject.activity.user.login.RegisterActivity;
 import com.ylkj.shopproject.adapter.main.HotPartsAdapter;
 import com.ylkj.shopproject.adapter.main.NewsRecommendedAdapter;
 import com.ylkj.shopproject.adapter.main.SentimentRecommendedAdapter;
+import com.ylkj.shopproject.util.GetLocation;
 import com.ylkj.shopproject.util.MyImgLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -47,6 +49,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         setContentView(R.layout.activity_main);
         mainPersenter=new MainPersenter(this);
         initView();
+        //开始定位
+        GetLocation.getInstance().setLocation(this);
         setBanner(banner,imgList);
         setBanner(banner2,imgList);
     }
@@ -91,7 +95,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         switch (v.getId()){
             //磨床
             case R.id.lin_mc:
-                Intent intent=new Intent(getApplicationContext(), RegisterActivity.class);
+                Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                  break;
             //配件商城
@@ -108,6 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
                 break;
             //融资租赁
             case R.id.lin_zl:
+                 setClass(RzzpActivity.class);
                  break;
             //搜索
             case R.id.lin_search:

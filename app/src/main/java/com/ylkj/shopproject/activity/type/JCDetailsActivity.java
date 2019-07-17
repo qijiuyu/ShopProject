@@ -5,30 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.main.persenter.JCDetailsPersenter;
+import com.ylkj.shopproject.activity.type.persenter.JCDetailsPersenter;
 import com.ylkj.shopproject.activity.showimg.ShowImgActivity;
 import com.ylkj.shopproject.adapter.type.JC_Details_Name_Adapter;
+import com.ylkj.shopproject.adapter.type.JC_Details_Name_Data_Adapter;
 import com.ylkj.shopproject.adapter.type.JC_Details_Type_Adapter;
-import com.ylkj.shopproject.adapter.type.JC_Details_Type_DataAdapter;
 import com.ylkj.shopproject.adapter.type.SelectColorAdapter;
-import com.ylkj.shopproject.util.MyImgLoader;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
 import com.ylkj.shopproject.view.HorizontalListView;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.JCGoodDetails;
 import com.zxdc.utils.library.util.SPUtil;
-import com.zxdc.utils.library.util.ToastUtil;
+import com.zxdc.utils.library.util.Util;
 import com.zxdc.utils.library.view.MeasureListView;
-import com.zxdc.utils.library.view.MyGridView;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * 机床详情页
@@ -36,7 +33,7 @@ import java.util.List;
 public class JCDetailsActivity extends BaseActivity implements View.OnClickListener{
 
     private Banner banner;
-    private TextView tvDes,tvApp;
+    private TextView tvDes,tvApp,tvColor,tvColorMoney;
     private HorizontalListView listColor;
     private MeasureListView listType,listName;
     //选择颜色的adapter
@@ -45,13 +42,22 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
     private JC_Details_Type_Adapter jc_details_type_adapter;
     //名称的adapter
     private JC_Details_Name_Adapter jc_details_name_adapter;
+    //mvp实例
     private JCDetailsPersenter jcDetailsPersenter;
+    //商品id
+    private int spuid;
+    //商品详情对象
+    private JCGoodDetails jcGoodDetails;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jc_details);
+        //注册eventbus
+        EventBus.getDefault().register(this);
+        //实例化MVP
         jcDetailsPersenter=new JCDetailsPersenter(this);
         initView();
-        jcDetailsPersenter.setBanner(banner);
+        //查询商品详情
+        jcDetailsPersenter.getJCDetails(spuid);
     }
 
     /**
@@ -59,9 +65,13 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
      */
     @SuppressLint("WrongViewCast")
     private void initView(){
+        //获得商品id
+        spuid=getIntent().getIntExtra("spuid",0);
         banner=findViewById(R.id.banner);
         tvDes=findViewById(R.id.tv_des);
         tvApp=findViewById(R.id.tv_app);
+        tvColor=findViewById(R.id.tv_color);
+        tvColorMoney=findViewById(R.id.tv_color_money);
         listColor=findViewById(R.id.list_color);
         listName=findViewById(R.id.list_name);
         listType=findViewById(R.id.list_type);
@@ -70,15 +80,6 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.img_kf).setOnClickListener(this);
         findViewById(R.id.img_collection).setOnClickListener(this);
         findViewById(R.id.lin_back).setOnClickListener(this);
-
-        selectColorAdapter=new SelectColorAdapter(this,null);
-        listColor.setAdapter(selectColorAdapter);
-
-        jc_details_type_adapter=new JC_Details_Type_Adapter(this,null);
-        listType.setAdapter(jc_details_type_adapter);
-
-        jc_details_name_adapter=new JC_Details_Name_Adapter(this,null);
-        listName.setAdapter(jc_details_name_adapter);
     }
 
 
@@ -99,10 +100,70 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
                  break;
            //收藏
             case R.id.img_collection:
+                 jcDetailsPersenter.isCollec(jcGoodDetails);
                  break;
             case R.id.lin_back:
                   finish();
                   break;
         }
+    }
+
+
+    /**
+     * 展示界面数据
+     */
+    private void showUIData(){
+        //获取颜色列表对象
+        JCGoodDetails.machineAttrsList colorList=null;
+        for (int i=0;i<jcGoodDetails.getData().getMachineAttrs().size();i++){
+              if(jcGoodDetails.getData().getMachineAttrs().get(i).getDirection().equals("2")){
+                  colorList=jcGoodDetails.getData().getMachineAttrs().get(i);
+                  break;
+              }
+        }
+
+        //展示颜色数据
+        if(colorList!=null){
+            tvColor.setText(colorList.getName());
+            tvColorMoney.setText("¥"+ Util.setDouble(colorList.getPrice(),2));
+            selectColorAdapter=new SelectColorAdapter(this,colorList.getMachineAttrValues());
+            listColor.setAdapter(selectColorAdapter);
+        }
+
+       //展示类型数据
+        jc_details_type_adapter=new JC_Details_Type_Adapter(this,jcGoodDetails.getData().getMachineAttrs());
+        listType.setAdapter(jc_details_type_adapter);
+
+        //展示名称列表数据
+        jc_details_name_adapter=new JC_Details_Name_Adapter(this,jcGoodDetails.getData().getMachineAttrs());
+        listName.setAdapter(jc_details_name_adapter);
+    }
+
+
+    /**
+     * EventBus注解
+     */
+    @Subscribe
+    public void onEvent(EventBusType eventBusType){
+        switch (eventBusType.getStatus()){
+            //获得商品详情
+            case EventStatus.GET_JC_DETAILS:
+                  jcGoodDetails= (JCGoodDetails) eventBusType.getObject();
+                  showUIData();
+                  break;
+            //选择对应颜色
+            case EventStatus.SELECT_JC_COLOR:
+                  final JCGoodDetails.machineValueList machineValueList= (JCGoodDetails.machineValueList) eventBusType.getObject();
+                  tvColorMoney.setText("¥"+ Util.setDouble(machineValueList.getPrice(),2));
+                  //设置轮播图
+                  jcDetailsPersenter.setBanner(banner,machineValueList.getSpuColorImgList());
+                  break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }

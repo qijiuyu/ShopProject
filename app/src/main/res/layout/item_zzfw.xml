@@ -11,7 +11,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp">
 
-        <ImageView
+        <com.zxdc.utils.library.view.CircleImageView
             android:id="@+id/img_icon"
             android:layout_width="83dp"
             android:layout_height="83dp"
@@ -20,9 +20,9 @@
             android:layout_marginLeft="20dp"/>
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hahahah"
             android:textSize="17sp"
             android:textColor="@color/color_33333"
             android:layout_toRightOf="@id/img_icon"

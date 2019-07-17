@@ -12,7 +12,9 @@ import com.ylkj.shopproject.activity.main.MainActivity;
 import com.ylkj.shopproject.activity.shopping.ShoppingActivity;
 import com.ylkj.shopproject.activity.type.TypeActivity;
 import com.ylkj.shopproject.activity.user.UserActivity;
+import com.ylkj.shopproject.activity.user.login.LoginActivity;
 import com.ylkj.shopproject.activity.video.PlayVideoActivity;
+import com.ylkj.shopproject.util.AppUtils;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
 import com.zxdc.utils.library.util.StatusBarUtils;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -30,6 +32,7 @@ public class TabActivity extends android.app.TabActivity implements View.OnClick
     private List<TextView> tvList=new ArrayList<>();
     private int[] notClick=new int[]{R.mipmap.main_no,R.mipmap.type_no,R.mipmap.business_no,R.mipmap.shopping_no,R.mipmap.user_no};
     private int[] yesClick=new int[]{R.mipmap.main_yes,R.mipmap.type_yes,R.mipmap.business_yes,R.mipmap.shopping_yes,R.mipmap.user_yes};
+    private Intent intent=new Intent();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtils.transparencyBar(this);
@@ -99,8 +102,13 @@ public class TabActivity extends android.app.TabActivity implements View.OnClick
                  break;
              //我的
             case R.id.lin_user:
-                 updateImg(4);
-                 tabHost.setCurrentTabByTag("我的");
+                 if(AppUtils.isLogin()){
+                     updateImg(4);
+                     tabHost.setCurrentTabByTag("我的");
+                 }else{
+                     intent.setClass(this, LoginActivity.class);
+                     startActivity(intent);
+                 }
                  break;
              default:
                  break;

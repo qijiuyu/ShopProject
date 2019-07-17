@@ -157,7 +157,6 @@
                 android:layout_marginLeft="78dp"
                 android:layout_marginRight="20dp"
                 android:maxLength="11"
-                android:numeric="integer"
                 android:textSize="14sp"
                 android:textColor="@color/color_33333"
                 android:hint="请输入详细地址"/>
@@ -166,7 +165,7 @@
         
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="95dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="14dp"
             android:layout_marginLeft="10dp"
@@ -175,7 +174,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:text="公司名称"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="17dp"/>
+
+            <EditText
+                android:id="@+id/et_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginTop="17dp"
+                android:layout_marginLeft="78dp"
+                android:layout_marginRight="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/color_33333"
+                android:hint="请输入公司名称"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="57dp"
                 android:text="设置默认地址"
                 android:textColor="@color/color_33333"
                 android:textSize="14sp"
@@ -187,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/addr_close_type"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="57dp"
                 android:layout_marginRight="15dp"/>
 
         </RelativeLayout>

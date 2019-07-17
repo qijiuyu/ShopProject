@@ -7,27 +7,28 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
-
-import java.util.ArrayList;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
+import com.zxdc.utils.library.bean.Address;
+import org.greenrobot.eventbus.EventBus;
 import java.util.List;
-
 /**
- * 分类
+ * 收货地址item
  */
 public class AddressListAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	public AddressListAdapter(Context context, List<String> list) {
+	private List<Address.AddressBean> list;
+	public AddressListAdapter(Context context, List<Address.AddressBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -57,6 +58,47 @@ public class AddressListAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
+		final Address.AddressBean addressBean=list.get(position);
+		holder.tvName.setText(addressBean.getName());
+		holder.tvMobile.setText(addressBean.getMobile());
+		holder.tvAddress.setText(addressBean.getAddress());
+		if(addressBean.getIsdefault()==1){
+			holder.tvType.setVisibility(View.VISIBLE);
+			holder.imgSelect.setImageDrawable(context.getResources().getDrawable(R.mipmap.select_all));
+		}else{
+			holder.tvType.setVisibility(View.GONE);
+			holder.imgSelect.setImageDrawable(context.getResources().getDrawable(R.mipmap.select_btn));
+		}
+
+		//设置默认
+		holder.imgSelect.setTag(position);
+		holder.imgSelect.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				final int position=(int)v.getTag();
+				EventBus.getDefault().post(new EventBusType(EventStatus.SET_ADDR_DEFAULT,position));
+
+			}
+		});
+
+		//删除地址
+		holder.tvDelete.setTag(position);
+		holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				final int position=(int)v.getTag();
+				EventBus.getDefault().post(new EventBusType(EventStatus.DEL_ADDR,position));
+
+			}
+		});
+
+        //修改地址
+        holder.tvUpdate.setTag(position);
+        holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final int position=(int)v.getTag();
+                EventBus.getDefault().post(new EventBusType(EventStatus.UPD_ADDR,position));
+
+            }
+        });
 		return view;
 	}
 

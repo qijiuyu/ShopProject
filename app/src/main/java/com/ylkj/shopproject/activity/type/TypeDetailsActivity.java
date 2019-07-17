@@ -1,32 +1,24 @@
 package com.ylkj.shopproject.activity.type;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-
-import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.main.MainActivity;
 import com.ylkj.shopproject.adapter.type.TypeDetailsAdapter;
 import com.ylkj.shopproject.util.MyImgLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.loader.ImageLoader;
 import com.zxdc.utils.library.base.BaseActivity;
-import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.bean.Type;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 二级分类
  */
@@ -36,6 +28,8 @@ public class TypeDetailsActivity extends BaseActivity {
     private MeasureListView listView;
     private List<String> imgList=new ArrayList<>();
     private TypeDetailsAdapter typeDetailsAdapter;
+    //子分类列表对象
+    private List<Type.TypeBean> list;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type_details);
@@ -48,13 +42,17 @@ public class TypeDetailsActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
+        list= (List<Type.TypeBean>) getIntent().getSerializableExtra("children");
         banner=findViewById(R.id.banner);
         listView=findViewById(R.id.listView);
-        typeDetailsAdapter=new TypeDetailsAdapter(this,null);
+        typeDetailsAdapter=new TypeDetailsAdapter(this,list);
         listView.setAdapter(typeDetailsAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setClass(TypeListActivity.class);
+                final Type.TypeBean typeBean=list.get(position);
+                Intent intent=new Intent(TypeDetailsActivity.this,TypeListActivity.class);
+                intent.putExtra("typeBean",typeBean);
+                startActivity(intent);
             }
         });
 

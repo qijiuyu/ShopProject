@@ -13,10 +13,17 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.view.View;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * 图片工具类
@@ -53,6 +60,34 @@ public class BitMapUtil {
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
         return bitmap;
+    }
+
+
+    /**
+     * 对图片进行压缩
+     * @param file
+     * @return
+     */
+    public static String  compressBitMap(File file){
+        //将图片缩小为原来的一半
+        Bitmap bitmap=getBitMapBy2(file.getPath(), 2);
+        //对图片进行压缩
+        bitmap = compressImage(bitmap);
+        String newPath=FileUtils.getSdcardPath()+System.currentTimeMillis()+"_"+(Math.random()*9+1)*1000+".jpg";
+        try {
+            file = new File(newPath);
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(null!=bitmap){
+            bitmap.recycle();
+            bitmap=null;
+        }
+        return newPath;
     }
 
 
@@ -150,4 +185,45 @@ public class BitMapUtil {
         return output;
     }
 
+
+    /**
+     * bitmap转base64字符串
+     * @param imgPath
+     * @return
+     */
+    public static String getBase64Str(String imgPath){
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(imgPath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap  = BitmapFactory.decodeStream(fis);
+        String string = null;
+        ByteArrayOutputStream btString = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, btString);
+        byte[] bytes = btString.toByteArray();
+        string = Base64.encodeToString(bytes,Base64.URL_SAFE);
+        return string;
+    }
+
+
+    /**
+     * 字符串转bitmap
+     * @param string
+     * @return
+     */
+    public static Bitmap getBitmap(String string){
+        //将字符串转换成Bitmap类型
+        Bitmap bitmap=null;
+        try {
+            byte[]bitmapArray;
+            bitmapArray=Base64.decode(string, Base64.DEFAULT);
+            bitmap=BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
 }

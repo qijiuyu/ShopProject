@@ -7,27 +7,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
-
-import java.util.ArrayList;
+import com.zxdc.utils.library.bean.Type;
 import java.util.List;
-
 /**
  * 分类
  */
 public class TypeAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	public TypeAdapter(Context context, List<String> list) {
+	private List<Type.Children> list;
+	public TypeAdapter(Context context, List<Type.Children> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -53,6 +52,9 @@ public class TypeAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
+		Type.Children children=list.get(position);
+		holder.tvName.setText(children.getName());
+		Glide.with(context).load(children.getImg()).override(110,70).centerCrop().into(holder.imgType);
 		return view;
 	}
 

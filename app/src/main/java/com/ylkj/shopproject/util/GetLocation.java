@@ -9,6 +9,9 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.ylkj.shopproject.application.APPAplication;
+import com.zxdc.utils.library.util.SPUtil;
+
 /**
  * 定位
  * Created by Administrator on 2017/3/15 0015.
@@ -18,7 +21,6 @@ public class GetLocation {
     private static GetLocation getLocation;
     private LocationClient mLocClient;
     public MyLocationListenner myListener = new MyLocationListenner();
-    private Handler handler;
     public static GetLocation getInstance() {
         if (null == getLocation) {
             getLocation = new GetLocation();
@@ -29,8 +31,7 @@ public class GetLocation {
     /**
      * 设置定位
      */
-    public void setLocation(Context mContext, Handler handler) {
-        this.handler = handler;
+    public void setLocation(Context mContext) {
         mLocClient = new LocationClient(mContext.getApplicationContext());
         mLocClient.registerLocationListener(myListener);
 
@@ -63,12 +64,8 @@ public class GetLocation {
                 final Double longtitude = location.getLongitude();
                 final Double latitude = location.getLatitude();
                 final LatLng latLng=new LatLng(latitude,longtitude);
-                message.obj=latLng;
-                message.what = 0x00;
-            }else{
-                message.what = -1;
+                SPUtil.getInstance(APPAplication.application).addObject(SPUtil.LATLNG,latLng);
             }
-            handler.sendMessage(message);
             stopLocation();
         }
 

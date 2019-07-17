@@ -15,8 +15,14 @@ public class SPUtil {
     private SharedPreferences shar;
     private Editor editor;
     public final static String USERMESSAGE = "hao_te_man";
+    //登录的token
+    public final static String TOKEN="TOKEN";
+    //登录的用户信息
+    public final static String LOGIN="LOGIN";
     //搜索的关键字
     public final static String SEARCH_KEY="SEARCH_KEY";
+    //当前的经纬度
+    public final static String LATLNG="LATLNG";
     private static SPUtil sharUtil = null;
     public static Gson gson=new Gson();
     @SuppressLint("WrongConstant")

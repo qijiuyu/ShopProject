@@ -1,7 +1,27 @@
 package com.zxdc.utils.library.http;
 
+import com.zxdc.utils.library.bean.About;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.Business;
+import com.zxdc.utils.library.bean.BusinessMsg;
+import com.zxdc.utils.library.bean.City;
+import com.zxdc.utils.library.bean.Collection;
+import com.zxdc.utils.library.bean.Coupon;
+import com.zxdc.utils.library.bean.JCGoodDetails;
+import com.zxdc.utils.library.bean.Login;
+import com.zxdc.utils.library.bean.News;
+import com.zxdc.utils.library.bean.PJGoodDetails;
+import com.zxdc.utils.library.bean.PJGoodList;
+import com.zxdc.utils.library.bean.PJType;
+import com.zxdc.utils.library.bean.Shopping;
+import com.zxdc.utils.library.bean.Type;
+import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.ZzfuType;
+import com.zxdc.utils.library.bean.ZzfuTypeList;
+
 import java.util.Map;
-import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -10,8 +30,178 @@ import retrofit2.http.POST;
 public interface HttpApi {
 
     @FormUrlEncoded
+    @POST(HttpConstant.GET_SMS_CODE)
+    Call<BaseBean> getSmsCode(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.REGISTER)
+    Call<BaseBean> register(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
     @POST(HttpConstant.LOGIN)
-    Call<ResponseBody> login(@FieldMap Map<String, String> map);
+    Call<Login> login(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_PROVICE)
+    Call<City> getProvice(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_CITY)
+    Call<City> getCity(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_AREA)
+    Call<City> getArea(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ADD_ZPZZ)
+    Call<BaseBean> add_zpzz(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ADD_ADDRESS)
+    Call<BaseBean> addAddress(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ADDR_LIST)
+    Call<Address> getAddrList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.SET_ADDR_DEFAULT)
+    Call<BaseBean> setAddrDefault(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.DEL_ADDR)
+    Call<BaseBean> delAddr(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.UPD_ADDR)
+    Call<BaseBean> updAddr(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.FEED_BACK)
+    Call<BaseBean> feedBack(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.EDIT_COMPANY)
+    Call<BaseBean> editCompany(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_TYPE)
+    Call<Type> getType(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_TYPE)
+    Call<PJType> getpJType(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_TYPE)
+    Call<ZzfuType> getZzfuType(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_PJ_LIST)
+    Call<PJGoodList> getPJGoodList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.EDIT_USER)
+    Call<UserInfo> editUser(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_USER)
+    Call<UserInfo> getUser(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.UPDATE_PWD)
+    Call<BaseBean> updatePwd(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.UPDATE_MOBILE)
+    Call<BaseBean> updateMobile(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ZZFU_LIST)
+    Call<ZzfuTypeList> getZzfuList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.COLLECTION_LIST)
+    Call<Collection> myCollection(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.COLLECTION)
+    Call<BaseBean> collection(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ABOUT)
+    Call<About> about(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.CAR_LIST)
+    Call<Shopping> getCarList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.DEL_MORE_CAR)
+    Call<BaseBean> delMoreCar(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.DEL_CAR)
+    Call<BaseBean> delCar(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.CHANGE_COUNT)
+    Call<Shopping> changeCount(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ZZFW_INFO)
+    Call<About> getServiceInfo(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_PJ_GOOD_DETAILS)
+    Call<PJGoodDetails> getPJDetails(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ADD_CAR)
+    Call<BaseBean> addCar(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_JC_DETAILS)
+    Call<JCGoodDetails> getJCDetails(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ADD_BUSINESS)
+    Call<BaseBean> addBusiness(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_COUPON)
+    Call<Coupon> MyCoupon(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_COUPON_LIST)
+    Call<Coupon> getCouponList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.TAKE_COUPON)
+    Call<BaseBean> takeCoupon(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_BUSINESS_MSG)
+    Call<BusinessMsg> businessMsg(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_BUSINESS_LIST)
+    Call<Business> getBusinessList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.REPORT)
+    Call<BaseBean> report(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_MESSAGE)
+    Call<News> getNews(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.DZ_BUSINESS)
+    Call<BaseBean> likeBusiness(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ADD_COMMENT)
+    Call<BaseBean> addComment(@FieldMap Map<String, String> map);
 }

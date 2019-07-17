@@ -5,29 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
-
-import java.util.ArrayList;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
+import com.zxdc.utils.library.bean.Coupon;
+import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.Util;
+import org.greenrobot.eventbus.EventBus;
 import java.util.List;
-
 /**
  * 领取优惠券
  */
 public class GetYhqAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	public GetYhqAdapter(Context context, List<String> list) {
+	private List<Coupon.DataBean> list;
+	public GetYhqAdapter(Context context, List<Coupon.DataBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -55,6 +57,21 @@ public class GetYhqAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
+		final Coupon.DataBean dataBean=list.get(position);
+		holder.tvMoney.setText(String.valueOf(dataBean.getFacevalue()));
+		holder.tvDes.setText("满"+dataBean.getFullreductionvalue()+"元可用");
+		holder.tvName.setText(dataBean.getCouponname());
+		holder.tvTime.setText(dataBean.getProvidetime()+"-"+dataBean.getOuttime());
+
+		//领取优惠券
+		holder.tvGet.setTag(dataBean.getId());
+		holder.tvGet.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				int id=(int)v.getTag();
+				LogUtils.e(id+"+++++++++++++");
+				EventBus.getDefault().post(new EventBusType(EventStatus.TAKE_COUPON,id));
+			}
+		});
 		return view;
 	}
 

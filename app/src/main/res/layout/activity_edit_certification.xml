@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="信息完善"
+            android:textColor="@color/color_33333"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F9F9F9">
+        
+        <RelativeLayout
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/white_share"
+            android:layout_marginTop="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="22.5dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/color_CE5798"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单位名称"
+                    android:textColor="@color/color_33333"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"/>
+
+                <EditText
+                    android:id="@+id/et_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入单位名称"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="104.5dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginRight="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/color_CE5798"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在地区"
+                    android:textColor="@color/color_33333"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"/>
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入所在地区"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="104.5dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="140dp"
+                android:layout_marginRight="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/color_CE5798"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="项目名称"
+                    android:textColor="@color/color_33333"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"/>
+
+                <EditText
+                    android:id="@+id/et_project"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入项目名称"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="104.5dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="189.5dp"
+                android:layout_marginRight="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/color_CE5798"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系方式"
+                    android:textColor="@color/color_33333"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"/>
+
+                <EditText
+                    android:id="@+id/et_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numeric="integer"
+                    android:background="@null"
+                    android:hint="请输入联系方式"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_33333"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="104.5dp"/>
+
+            </RelativeLayout>
+
+            <com.zxdc.utils.library.view.ClickTextView
+                android:id="@+id/tv_confirm"
+                android:layout_width="325dp"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_register"
+                android:layout_centerHorizontal="true"
+                android:text="完成"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginTop="276dp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

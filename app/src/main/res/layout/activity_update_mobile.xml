@@ -47,7 +47,6 @@
             android:id="@+id/tv_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="您登录的当前账号为156****3759请输入登录密码设置"
             android:textColor="@color/color_33333"
             android:textSize="15sp"
             android:layout_gravity="center_horizontal"

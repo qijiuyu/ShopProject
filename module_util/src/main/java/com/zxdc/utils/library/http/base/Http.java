@@ -5,14 +5,19 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+
+import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.util.Constant;
+import com.zxdc.utils.library.util.SPUtil;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
@@ -72,12 +77,16 @@ public class Http {
     /**
      * 上传文件
      */
-    public static void upLoadFile(String url, String fileKey, File file, Map<String, String> map, Callback callback) {
+    public static void upLoadFile(String url, String fileKey, List<File> list, Map<String, String> map, Callback callback) {
+        //添加token参数
+        map.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         //创建RequestBody
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        if (null != file) {
-            RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), file);
-            builder.addFormDataPart(fileKey, file.getName(), body);
+        if(null!=list){
+            for (int i=0;i<list.size();i++){
+                RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), list.get(i));
+                builder.addFormDataPart(fileKey, list.get(i).getName(), body);
+            }
         }
         for (String key : map.keySet()) {
             builder.addFormDataPart(key, map.get(key));
@@ -124,7 +133,7 @@ public class Http {
                     if (null != mHandler) {
                         format.setMinimumFractionDigits(0);// 设置小数位
                         Message msg = new Message();
-                        msg.what = HandlerConstant.DOWNLOAD_PRORESS;
+//                        msg.what = HandlerConstant.DOWNLOAD_PRORESS;
                         msg.obj = format.format((float) l / (float) length);
                         mHandler.sendMessage(msg);
                     }

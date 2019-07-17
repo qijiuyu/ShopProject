@@ -36,13 +36,6 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_F9F9F9">
-    </ListView>
+    <include layout="@layout/listview"/>
 
 </LinearLayout>

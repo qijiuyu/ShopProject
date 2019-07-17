@@ -5,29 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
-
-import java.util.ArrayList;
+import com.zxdc.utils.library.bean.News;
 import java.util.List;
-
 /**
  * 订单消息
  */
 public class OrderNewsAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	public OrderNewsAdapter(Context context, List<String> list) {
+	private List<News.DataBean> list;
+	public OrderNewsAdapter(Context context, List<News.DataBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -52,6 +49,9 @@ public class OrderNewsAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
+		News.DataBean dataBean=list.get(position);
+		holder.tvTime.setText(dataBean.getCreatetime());
+		holder.tvContent.setText(dataBean.getContent());
 		return view;
 	}
 

@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
+
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.fragment.AppNewsFragment;
 import com.ylkj.shopproject.activity.main.fragment.OrderNewsFragment;
@@ -43,6 +45,13 @@ public class MainNewsActivity extends BaseActivity{
         pager.setOffscreenPageLimit(2);
         tabs.setViewPager(pager);
         setTabsValue();
+
+        //返回
+        findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                MainNewsActivity.this.finish();
+            }
+        });
     }
 
 

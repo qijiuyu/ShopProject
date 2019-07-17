@@ -25,7 +25,7 @@ dependencies {
     compile "com.android.support:design:"+BUILDTOLLS_VERSION
     compile "com.android.support:support-v4:"+BUILDTOLLS_VERSION
     compile 'com.google.code.gson:gson:2.8.5'
-    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'org.greenrobot:eventbus:3.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'

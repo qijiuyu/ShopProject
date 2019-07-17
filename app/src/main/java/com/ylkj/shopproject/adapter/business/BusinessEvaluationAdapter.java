@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.zxdc.utils.library.bean.Business;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +20,16 @@ import java.util.List;
 public class BusinessEvaluationAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	public BusinessEvaluationAdapter(Context context, List<String> list) {
+	private List<Business.Common> list;
+	public BusinessEvaluationAdapter(Context context, List<Business.Common> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -51,7 +53,8 @@ public class BusinessEvaluationAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-		holder.tvEvalution.setText(Html.fromHtml("<font color='#36C7B5'>张鹏：</font><font color='#150000'>回朝阳天街的路上 ,突然车子坏了，领里的朋友看到帮忙转发一下，谢谢。</font>"));
+		Business.Common common=list.get(position);
+		holder.tvEvalution.setText(Html.fromHtml("<font color='#36C7B5'>"+common.getNickname()+"：</font><font color='#150000'>"+common.getContent()+"</font>"));
 		return view;
 	}
 

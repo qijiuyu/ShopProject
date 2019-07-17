@@ -6,26 +6,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.zxdc.utils.library.bean.PJGoodList;
+import com.zxdc.utils.library.util.Util;
 import com.zxdc.utils.library.view.OvalImage2Views;
-
-import java.util.ArrayList;
 import java.util.List;
-
 /**
- * 订单消息
+ * 商品列表
  */
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.MyHolder> {
 
 	private Context context;
-	private List<String> data;
+	private List<PJGoodList.GoodList> list;
     private OnItemClickListener onItemClickListener;
-	public SearchResultAdapter(Context context, List<String> data,OnItemClickListener onItemClickListener) {
+	public SearchResultAdapter(Context context, List<PJGoodList.GoodList> list,OnItemClickListener onItemClickListener) {
 		this.context = context;
-		this.data = data;
+		this.list = list;
 		this.onItemClickListener=onItemClickListener;
 	}
 
@@ -47,13 +45,24 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 	@Override
 	public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
 		MyHolder holder = (MyHolder) myHolder;
+		final PJGoodList.GoodList goodList=list.get(i);
+		if(null==goodList){
+			return;
+		}
 		holder.itemView.setTag(i);
-		myHolder.tvName.setText("非常好的机床");
+		holder.tvName.setText(goodList.getName());
+		holder.tvMoney.setText(Util.setDouble(goodList.getPrice(),2));
+		//展示图片
+		String imgUrl=goodList.getImg();
+		holder.img.setTag(R.id.imageid,imgUrl);
+		if(holder.img.getTag(R.id.imageid)!=null && imgUrl==holder.img.getTag(R.id.imageid)){
+			Glide.with(context).load(imgUrl).override(140,140).centerCrop().into(holder.img);
+		}
 	}
 
 	@Override
 	public int getItemCount() {
-		return 9;
+		return list==null ? 0 : list.size();
 	}
 
 	public class MyHolder extends RecyclerView.ViewHolder {

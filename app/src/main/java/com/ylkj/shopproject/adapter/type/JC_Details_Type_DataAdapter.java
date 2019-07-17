@@ -10,9 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.zxdc.utils.library.bean.JCGoodDetails;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分类里面的选项
@@ -20,17 +23,21 @@ import java.util.List;
 public class JC_Details_Type_DataAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	//选中类型的下标
-	public int index=-1;
-	public JC_Details_Type_DataAdapter(Context context, List<String> list) {
+	private List<JCGoodDetails.machineValueList> list;
+	//是否多选(0:否 1:是)
+	private int ismany;
+	//选中的下标
+	private Map<Integer,Integer> map=new HashMap<>();
+	public JC_Details_Type_DataAdapter(Context context, List<JCGoodDetails.machineValueList> list,int ismany) {
 		super();
 		this.context = context;
+		this.list=list;
+		this.ismany=ismany;
 	}
 
 	@Override
 	public int getCount() {
-		return 3;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -56,7 +63,11 @@ public class JC_Details_Type_DataAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-		if(index==position){
+
+		final JCGoodDetails.machineValueList machineValueList=list.get(position);
+		holder.tvName.setText(machineValueList.getTitle());
+		holder.tvDes.setText(machineValueList.getSubtitle());
+		if(map.get(position)!=null){
 			holder.tvName.setTextColor(context.getResources().getColor(R.color.color_37C7B5));
 			holder.tvDes.setTextColor(context.getResources().getColor(R.color.color_37C7B5));
 			holder.lin.setBackgroundDrawable(context.getResources().getDrawable(R.mipmap.type_yes_select));
@@ -65,10 +76,24 @@ public class JC_Details_Type_DataAdapter extends BaseAdapter {
 			holder.tvDes.setTextColor(context.getResources().getColor(R.color.color_999999));
 			holder.lin.setBackgroundDrawable(context.getResources().getDrawable(R.mipmap.type_no_select));
 		}
+		//点击item
 		holder.lin.setTag(position);
 		holder.lin.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				index=(int)v.getTag();
+				int position=(int)v.getTag();
+				//单选
+				if(ismany==0){
+					map.clear();
+					map.put(position,position);
+				}
+				//可以多选
+				if(ismany==1){
+					if(map.get(position)==null){
+						map.put(position,position);
+					}else{
+						map.remove(position);
+					}
+				}
 				JC_Details_Type_DataAdapter.this.notifyDataSetChanged();
 			}
 		});

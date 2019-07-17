@@ -35,7 +35,6 @@
             android:id="@+id/tv_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="磨床系列"
             android:textSize="15sp"
             android:textColor="@color/color_999999"
             android:layout_toRightOf="@id/img_type"

@@ -21,13 +21,10 @@ public class PinTuanDetailsActivity extends BaseActivity implements View.OnClick
     private TextView tvName,tvDes,tvNewMoney,tvYfMoney,tvNum,tvDay,tvHour,tvMinutes,tvSecounds;
     private MeasureListView listView;
     private PeiJianDetailsTypeAdapter peiJianDetailsTypeAdapter;
-    private PeiJianDetailsPersenter peiJianDetailsPersenter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pintuan_details);
-        peiJianDetailsPersenter=new PeiJianDetailsPersenter(this);
         initView();
-        peiJianDetailsPersenter.setBanner(banner);
     }
 
     /**

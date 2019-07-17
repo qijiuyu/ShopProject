@@ -8,27 +8,29 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.view.MyGridView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 订单消息
+ * 配件商品详情----商品类型中规格的item
  */
 public class PJDetailsTypeDataAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
+	private List<PJGoodDetails.proSpecsVal> list;
 	private int index=-1;
-	public PJDetailsTypeDataAdapter(Context context, List<String> list) {
+	public PJDetailsTypeDataAdapter(Context context, List<PJGoodDetails.proSpecsVal> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 4;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -53,6 +55,8 @@ public class PJDetailsTypeDataAdapter extends BaseAdapter {
 			holder=(ViewHolder)view.getTag();
 		}
 
+		final PJGoodDetails.proSpecsVal proSpecsVal=list.get(position);
+		holder.tvName.setText(proSpecsVal.getValuename());
 		if(position==index){
 			holder.tvName.setTextColor(context.getResources().getColor(R.color.color_CE5798));
 			holder.tvName.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.yes_click_type));

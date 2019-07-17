@@ -78,6 +78,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                  break;
             //关于我们
             case R.id.rel_about:
+                 setClass(AboutActivity.class);
                  break;
             //退出登录
             case R.id.tv_log_out:

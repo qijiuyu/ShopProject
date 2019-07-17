@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.view.MyGridView;
 
 import java.util.ArrayList;
@@ -16,16 +17,17 @@ import java.util.List;
 public class PeiJianDetailsTypeAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
+	private List<PJGoodDetails.proSpecsBean> list;
 	private PJDetailsTypeDataAdapter pjDetailsTypeDataAdapter;
-	public PeiJianDetailsTypeAdapter(Context context, List<String> list) {
+	public PeiJianDetailsTypeAdapter(Context context, List<PJGoodDetails.proSpecsBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 3;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -44,13 +46,18 @@ public class PeiJianDetailsTypeAdapter extends BaseAdapter {
 		if(view==null){
 			holder = new ViewHolder(); 
 			view = LayoutInflater.from(context).inflate(R.layout.item_peijian_details_type, null);
+			holder.tvName=view.findViewById(R.id.tv_name);
 			holder.gridView=view.findViewById(R.id.gv_type);
 			view.setTag(holder);
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
 
-		pjDetailsTypeDataAdapter=new PJDetailsTypeDataAdapter(context,null);
+		final PJGoodDetails.proSpecsBean proSpecsBean=list.get(position);
+		holder.tvName.setText(proSpecsBean.getSpecsname());
+
+		//展示具体规则数据
+		pjDetailsTypeDataAdapter=new PJDetailsTypeDataAdapter(context,proSpecsBean.getProSpecsVals());
 		holder.gridView.setAdapter(pjDetailsTypeDataAdapter);
 		return view;
 	}
@@ -58,6 +65,6 @@ public class PeiJianDetailsTypeAdapter extends BaseAdapter {
 
 	private class ViewHolder{
 		private MyGridView gridView;
-		private TextView tvTime,tvContent;
+		private TextView tvName;
 	 }
 }

@@ -12,7 +12,6 @@
            android:id="@+id/img_select"
            android:layout_width="20dp"
            android:layout_height="20dp"
-           android:visibility="gone"
            android:src="@mipmap/jx_no_select"
            android:layout_centerVertical="true"
            android:layout_marginLeft="11.5dp"/>
@@ -32,7 +31,6 @@
            android:layout_height="wrap_content"
            android:textSize="14sp"
            android:textColor="@color/color_33333"
-           android:text="下面介绍一下RelativeLayout用到的一些重要的属性"
            android:layout_toRightOf="@id/img_icon"
            android:layout_marginTop="14dp"
            android:lines="2"

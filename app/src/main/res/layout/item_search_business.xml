@@ -21,25 +21,7 @@
         android:textSize="15sp"
         android:textColor="@color/color_33313E"
         android:layout_marginLeft="66.5dp"
-        android:layout_marginTop="18dp"/>
-
-    <ImageView
-        android:id="@+id/img_sex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/nan"
-        android:layout_marginLeft="67.25dp"
-        android:layout_marginTop="42.5dp"/>
-
-    <TextView
-        android:id="@+id/tv_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="27岁"
-        android:textSize="10sp"
-        android:textColor="@color/color_999999"
-        android:layout_marginLeft="74.5dp"
-        android:layout_marginTop="39.5dp"/>
+        android:layout_marginTop="25dp"/>
 
     <ImageView
         android:id="@+id/img_report"

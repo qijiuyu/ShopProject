@@ -1,6 +1,14 @@
 package com.zxdc.utils.library.http.base;
 
+import android.text.TextUtils;
+
+import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.SPUtil;
+
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +26,23 @@ public class LogInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         long t1 = System.nanoTime();
-        LogUtils.e(String.format("request %s on %s%n%s", request.url(), request.method(), request.headers()));
         if (request.method().equals("POST")) {
             request = addParameter(request);
         }
         Response response = chain.proceed(request);
         long t2 = System.nanoTime();
         String body = response.body().string();
+        try {
+            if(!TextUtils.isEmpty(body)){
+                JSONObject jsonObject=new JSONObject(body);
+                if(!jsonObject.isNull("data") && jsonObject.getString("data").equals("")){
+                    jsonObject.put("data",null);
+                    body=jsonObject.toString();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         LogUtils.e(String.format("response %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, body));
         return response.newBuilder().body(ResponseBody.create(response.body().contentType(), body)).build();
     }
@@ -37,6 +55,8 @@ public class LogInterceptor implements Interceptor {
         FormBody.Builder bodyBuilder = new FormBody.Builder();
         FormBody formBody;
         Map<String, String> requstMap = new HashMap<>();
+        //添加token参数
+        requstMap.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         if (request.body().contentLength() > 0 && request.body() instanceof FormBody) {
             formBody = (FormBody) request.body();
             //把原来的参数添加到新的构造器，（因为没找到直接添加，所以就new新的）

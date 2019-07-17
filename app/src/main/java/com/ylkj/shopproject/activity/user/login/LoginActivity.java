@@ -1,6 +1,8 @@
 package com.ylkj.shopproject.activity.user.login;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,6 +10,11 @@ import android.widget.EditText;
 
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.Login;
+import com.zxdc.utils.library.http.HandlerConstant;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
 /**
@@ -54,6 +61,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     ToastUtil.showLong("请输入密码!");
                     return;
                 }
+                DialogUtil.showProgress(this,"登录中");
+                HttpMethod.login(mobile,pwd,handler);
                  break;
             //忘记密码
             case R.id.tv_set_pwd:
@@ -67,4 +76,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                  break;
         }
     }
+
+
+    private Handler handler=new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
+            switch (msg.what){
+                case HandlerConstant.LOGIN_SUCCESS:
+                     Login login= (Login) msg.obj;
+                     if(null==login){
+                         break;
+                     }
+                     if(login.isSussess()){
+                         //保存token
+                         SPUtil.getInstance(LoginActivity.this).addString(SPUtil.TOKEN,login.getToken());
+                         //保存用户信息
+                         SPUtil.getInstance(LoginActivity.this).addString(SPUtil.LOGIN,SPUtil.gson.toJson(login.getData(),Login.LoginBean.class));
+                         finish();
+                     }else{
+                         ToastUtil.showLong(login.getDesc());
+                     }
+                     break;
+                case HandlerConstant.REQUST_ERROR:
+                      break;
+            }
+            return false;
+        }
+    });
 }

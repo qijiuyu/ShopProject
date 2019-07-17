@@ -1,14 +1,18 @@
 package com.ylkj.shopproject.activity.user.company;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.http.HandlerConstant;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
 /**
@@ -56,7 +60,39 @@ public class EditCompanyActivity extends BaseActivity {
                     ToastUtil.showLong("请输入联系方式");
                     return;
                 }
+                DialogUtil.showProgress(EditCompanyActivity.this,"数据提交中");
+                HttpMethod.editCompany(company,address,user,mobile,handler);
             }
         });
+    }
+
+    private Handler handler=new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
+            switch (msg.what){
+                //回执
+                case HandlerConstant.EDIT_COMPANY_SUCCESS:
+                    final BaseBean baseBean= (BaseBean) msg.obj;
+                    if(null==baseBean){
+                        break;
+                    }
+                    if(baseBean.isSussess()){
+                        finish();
+                    }
+                    ToastUtil.showLong(baseBean.getDesc());
+                    break;
+                case HandlerConstant.REQUST_ERROR:
+                    ToastUtil.showLong(getString(R.string.net_error));
+                    break;
+            }
+            return false;
+        }
+    });
+
+
+    @Override
+    protected void onDestroy() {
+        removeHandler(handler);
+        super.onDestroy();
     }
 }

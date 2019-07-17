@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
-
-import java.util.ArrayList;
+import com.zxdc.utils.library.bean.PJType;
+import com.zxdc.utils.library.bean.Type;
 import java.util.List;
 
 /**
@@ -19,17 +17,18 @@ import java.util.List;
 public class PeiJianTypeAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
+	private List<PJType.dataBean> list;
 	//选中的下标
-	public int index=-1;
-	public PeiJianTypeAdapter(Context context, List<String> list) {
+	public int index=0;
+	public PeiJianTypeAdapter(Context context,List<PJType.dataBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 20;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -53,19 +52,20 @@ public class PeiJianTypeAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
+
+		final PJType.dataBean dataBeans=list.get(position);
+		holder.tvName.setText(dataBeans.getName());
 		if(position==index){
 			holder.tvName.setTextColor(context.getResources().getColor(R.color.color_37C7B5));
 		}else{
 			holder.tvName.setTextColor(context.getResources().getColor(R.color.color_666666));
 		}
-		holder.tvName.setTag(position);
-		holder.tvName.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				index=(int)v.getTag();
-				PeiJianTypeAdapter.this.notifyDataSetChanged();
-			}
-		});
 		return view;
+	}
+
+
+	public void setIndex(int index){
+		this.index=index;
 	}
 
 

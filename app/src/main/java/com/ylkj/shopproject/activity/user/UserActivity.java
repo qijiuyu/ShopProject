@@ -2,14 +2,18 @@ package com.ylkj.shopproject.activity.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.user.address.AddressListActivity;
 import com.ylkj.shopproject.activity.user.after.AfterActivity;
 import com.ylkj.shopproject.activity.user.business.MyBusinessActivity;
+import com.ylkj.shopproject.activity.user.certification.CertificationActivity;
 import com.ylkj.shopproject.activity.user.collection.MyCollectionActivity;
 import com.ylkj.shopproject.activity.user.company.EditCompanyActivity;
 import com.ylkj.shopproject.activity.user.evaluation.EvaluationActivity;
@@ -20,6 +24,11 @@ import com.ylkj.shopproject.activity.user.tuan.MyTuanActivity;
 import com.ylkj.shopproject.activity.user.yhq.MyYhqActivity;
 import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.http.HandlerConstant;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 
 /**
@@ -33,6 +42,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         initView();
+        //获取用户信息
+        getUser();
     }
 
 
@@ -64,12 +75,39 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
+    private Handler handler=new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
+            switch (msg.what){
+                //查询用户资料回执
+                case HandlerConstant.GET_USER_SUCCESS:
+                    final UserInfo userInfo= (UserInfo) msg.obj;
+                    if(null==userInfo){
+                        break;
+                    }
+                    if(userInfo.isSussess()){
+                        showUserInfo(userInfo);
+                    }else{
+                        ToastUtil.showLong(userInfo.getDesc());
+                    }
+                    break;
+                case HandlerConstant.REQUST_ERROR:
+                    ToastUtil.showLong(getString(R.string.net_error));
+                    break;
+            }
+            return false;
+        }
+    });
+
+
     @Override
     public void onClick(View v) {
+        Intent intent=new Intent();
         switch (v.getId()){
             //我的资料
             case R.id.img_user:
-                 setClass(UserInfoActivity.class);
+                 intent.setClass(this,UserInfoActivity.class);
+                 startActivityForResult(intent,100);
                  break;
             //全部订单
             case R.id.tv_all_order:
@@ -117,6 +155,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                  break;
             //机构认证
             case R.id.rel_jgrz:
+                 setClass(CertificationActivity.class);
                  break;
             //增票资质
             case R.id.rel_zpzz:
@@ -152,5 +191,31 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
         Intent intent=new Intent(this,OrderActivity.class);
         intent.putExtra("type",type);
         startActivity(intent);
+    }
+
+
+    /**
+     * 显示用户资料信息
+     */
+    private void showUserInfo(UserInfo userInfo){
+        tvName.setText(userInfo.getData().getNickname());
+        Glide.with(this).load(userInfo.getData().getImgurl()).centerCrop().error(R.mipmap.default_icon).into(imgUser);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==100){
+            final UserInfo userInfo= (UserInfo) data.getSerializableExtra("userInfo");
+            showUserInfo(userInfo);
+        }
+    }
+
+    /**
+     * 获取用户信息
+     */
+    private void getUser(){
+        HttpMethod.getUser(handler);
     }
 }
