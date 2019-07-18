@@ -51,6 +51,16 @@
                 android:layout_height="105dp"
                 android:src="@mipmap/apply_details_bg"/>
 
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待审核"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="71dp"
+                android:layout_marginTop="21dp"/>
+
             <RelativeLayout
                 android:layout_width="355dp"
                 android:layout_height="50dp"
@@ -149,9 +159,9 @@
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
+                    android:id="@+id/tv_des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品发借了，与原信息不符合。"
                     android:textSize="14sp"
                     android:textColor="@color/color_666666"
                     android:layout_margin="10dp"
@@ -191,7 +201,6 @@
                 android:layout_marginLeft="10dp">
 
                 <TextView
-                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="寄回地址"
@@ -211,12 +220,22 @@
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="寄回地址   北京市朝阳区东十里铺1号未来时大厦1201"
                     android:textColor="@color/color_33333"
                     android:textSize="14sp"
                     android:layout_marginTop="89dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_33333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="137.5dp"
                     android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>

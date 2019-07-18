@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.user.fragment.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,11 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.user.order.OrderDetailsActivity;
-import com.ylkj.shopproject.adapter.user.MyCollectionAdapter;
+import com.ylkj.shopproject.activity.user.persenter.OrderPersenter;
 import com.ylkj.shopproject.adapter.user.OrderAdapter;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseFragment;
 import com.zxdc.utils.library.bean.MyOrder;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -22,10 +24,10 @@ import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MyRefreshLayout;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
-
 public class AllOrderFragment extends BaseFragment  implements MyRefreshLayoutListener {
 
     private View  view;
@@ -37,8 +39,14 @@ public class AllOrderFragment extends BaseFragment  implements MyRefreshLayoutLi
     //当前页数
     private int page=1;
     private List<MyOrder.DataBean> listAll=new ArrayList<>();
+    //选中的商品对象
+    private MyOrder.DataBean dataBean;
+    //MVP
+    private OrderPersenter orderPersenter;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //注册EventBus
+        EventBus.getDefault().register(this);
     }
 
 
@@ -88,11 +96,19 @@ public class AllOrderFragment extends BaseFragment  implements MyRefreshLayoutLi
             List<MyOrder.DataBean> list=myOrder.getData();
             listAll.addAll(list);
             if(null==orderAdapter){
-                orderAdapter=new OrderAdapter(mActivity,listAll);
+                orderAdapter=new OrderAdapter(mActivity,listAll,orderPersenter);
                 listView.setAdapter(orderAdapter);
             }else{
                 orderAdapter.notifyDataSetChanged();
             }
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    MyOrder.DataBean dataBean=listAll.get(position);
+                    Intent intent=new Intent(mActivity,OrderDetailsActivity.class);
+                    intent.putExtra("dataBean",dataBean);
+                    startActivity(intent);
+                }
+            });
             if(list.size()<20){
                 mRefreshLayout.setIsLoadingMoreEnabled(false);
             }
@@ -100,6 +116,63 @@ public class AllOrderFragment extends BaseFragment  implements MyRefreshLayoutLi
             ToastUtil.showLong(myOrder.getDesc());
         }
     }
+
+
+    /**
+     * EventBus注解
+     */
+    @Subscribe
+    public void onEvent(EventBusType eventBusType){
+        dataBean= (MyOrder.DataBean) eventBusType.getObject();
+        switch (eventBusType.getStatus()){
+            //删除订单成功
+            case HandlerConstant.DELETE_ORDER_SUCCESS:
+                 if(null==dataBean){
+                     return;
+                 }
+                for (int i=0;i<listAll.size();i++){
+                    if(dataBean.getOid()==listAll.get(i).getOid()){
+                        listAll.remove(i);
+                        break;
+                    }
+                }
+                if(null!=orderAdapter){
+                    orderAdapter.notifyDataSetChanged();
+                }
+                break;
+            //取消订单成功
+            case HandlerConstant.CANCLE_ORDER_SUCCESS:
+                if(null==dataBean){
+                    return;
+                }
+                for (int i=0;i<listAll.size();i++) {
+                    if (dataBean.getOid() == listAll.get(i).getOid()) {
+                        listAll.get(i).setStatus(5);
+                        break;
+                    }
+                }
+                if(null!=orderAdapter){
+                    orderAdapter.notifyDataSetChanged();
+                }
+                 break;
+            //确认收货成功
+            case HandlerConstant.CONFIRM_GOODS_SUCCESS:
+                if(null==dataBean){
+                    return;
+                }
+                for (int i=0;i<listAll.size();i++) {
+                    if (dataBean.getOid() == listAll.get(i).getOid()) {
+                        listAll.get(i).setStatus(3);
+                        break;
+                    }
+                }
+                if(null!=orderAdapter){
+                    orderAdapter.notifyDataSetChanged();
+                }
+                 break;
+        }
+    }
+
 
     @Override
     public void onRefresh(View view) {
@@ -131,9 +204,14 @@ public class AllOrderFragment extends BaseFragment  implements MyRefreshLayoutLi
         getMyOrder(HandlerConstant.GET_MY_ORDER_SUCCESS1);
     }
 
+    public void setPersenter(OrderPersenter orderPersenter){
+        this.orderPersenter=orderPersenter;
+    }
+
     @Override
     public void onDestroy() {
         removeHandler(handler);
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 }

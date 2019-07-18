@@ -58,4 +58,16 @@ public class HandlerConstant {
     public static final int FORGET_PWD_SUCCESS=1154;
     public static final int GET_ZPZZ_SUCCESS=1155;
     public static final int GET_CERTIFICATION_SUCCESS=1156;
+    public static final int CANCLE_ORDER_SUCCESS=1157;
+    public static final int DELETE_ORDER_SUCCESS=1158;
+    public static final int CONFIRM_GOODS_SUCCESS=1159;
+    public static final int GET_COMM_ORDER_SUCCESS1=1160;
+    public static final int GET_COMM_ORDER_SUCCESS2=1161;
+    public static final int GET_AFTER_ORDER_SUCCESS1=1162;
+    public static final int GET_AFTER_ORDER_SUCCESS2=1163;
+    public static final int APPLY_AFTER_SUCCESS=1164;
+    public static final int AFTER_DETAILS_SUCCESS=1165;
+    public static final int GET_AFTER_ADDR_SUCCESS=1166;
+    public static final int GET_ORDER_DETAILS_SUCCESS=1167;
+    public static final int EVAL_ORDER_SUCCESS=1168;
 }

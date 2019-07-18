@@ -2,6 +2,7 @@ package com.ylkj.shopproject.activity.user.order;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,9 +19,13 @@ import com.ylkj.shopproject.activity.user.fragment.order.DFKfragment;
 import com.ylkj.shopproject.activity.user.fragment.order.DSHfragment;
 import com.ylkj.shopproject.activity.user.fragment.order.YQXfragment;
 import com.ylkj.shopproject.activity.user.fragment.order.YWCfragment;
+import com.ylkj.shopproject.activity.user.persenter.OrderPersenter;
 import com.ylkj.shopproject.view.PagerSlidingTabStrip;
 import com.ylkj.shopproject.view.ViewPagerCallBack;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.MyOrder;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
 
 /**
  * 我的团购
@@ -38,9 +43,12 @@ public class OrderActivity extends BaseActivity {
     private DSHfragment dsHfragment=new DSHfragment();//待收货订单
     private YWCfragment ywCfragment=new YWCfragment();//已完成订单
     private YQXfragment yqXfragment=new YQXfragment();//已取消订单
+    //MVP
+    private OrderPersenter orderPersenter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_order);
+        orderPersenter=new OrderPersenter(this);
         initView();
         setIntent();
     }
@@ -50,6 +58,12 @@ public class OrderActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
+        allOrderFragment.setPersenter(orderPersenter);
+        dfKfragment.setPersenter(orderPersenter);
+        dfHfragment.setPersenter(orderPersenter);
+        dsHfragment.setPersenter(orderPersenter);
+        ywCfragment.setPersenter(orderPersenter);
+        yqXfragment.setPersenter(orderPersenter);
         dm = getResources().getDisplayMetrics();
         pager =  findViewById(R.id.pager);
         tabs =  findViewById(R.id.tabs);

@@ -64,7 +64,7 @@
            android:textColor="@color/color_666666"
            android:textSize="11sp"
            android:layout_marginTop="103.5dp"
-           android:layout_marginLeft="178dp"/>
+           android:layout_marginLeft="158dp"/>
 
        <TextView
            android:id="@+id/tv_money"

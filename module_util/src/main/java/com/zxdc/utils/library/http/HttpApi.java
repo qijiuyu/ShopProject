@@ -1,6 +1,11 @@
 package com.zxdc.utils.library.http;
 
+import com.zxdc.utils.library.bean.After;
+import com.zxdc.utils.library.bean.AfterAddress;
+import com.zxdc.utils.library.bean.AfterDetails;
 import com.zxdc.utils.library.bean.Certification;
+import com.zxdc.utils.library.bean.CommOrder;
+import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
@@ -249,4 +254,48 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.GET_CERTIFICATION)
     Call<Certification> getCertifiCation(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.CANCLE_ORDER)
+    Call<BaseBean> cancleOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.DELETE_ORDER)
+    Call<BaseBean> delOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.CONFIRM_GOODS)
+    Call<BaseBean> confirmGoods(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_COMMENT_ORDER)
+    Call<CommOrder> commOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_AFTER_ORDER)
+    Call<After> getAfterOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_AFTER_APPLY)
+    Call<After> getAfterApply(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.APPLYAFTER)
+    Call<BaseBean> applyAfter(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.APPLYAFTER)
+    Call<AfterDetails> afterDetails(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ADDR_INFO)
+    Call<AfterAddress> getAfterAddr(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ORDER_DETAILS)
+    Call<OrderDetails> orderDetails(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.COMM_ORDER)
+    Call<BaseBean> evalOrder(@FieldMap Map<String, String> map);
 }

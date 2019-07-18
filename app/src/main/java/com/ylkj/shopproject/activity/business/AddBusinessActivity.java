@@ -144,7 +144,7 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
                           break;
                       }
                       if(baseBean.isSussess()){
-
+                          finish();
                       }
                       ToastUtil.showLong(baseBean.getDesc());
                       break;

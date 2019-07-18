@@ -7,34 +7,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.user.after.ApplyForActivity;
 import com.ylkj.shopproject.activity.user.evaluation.AddEvaluationActivity;
 import com.ylkj.shopproject.activity.user.evaluation.EvaluationDetailsActivity;
+import com.zxdc.utils.library.bean.CommOrder;
 import com.zxdc.utils.library.view.OvalImage2Views;
-
-import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 申请售后
  */
 public class EvaluationAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
+	private List<CommOrder.DataBean> list;
 	//0：待评价   1：已评价
 	private int type;
-	public EvaluationAdapter(Context context, List<String> list,int type) {
+	public EvaluationAdapter(Context context, List<CommOrder.DataBean> list,int type) {
 		super();
 		this.context = context;
 		this.type=type;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -60,20 +58,32 @@ public class EvaluationAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
+		final CommOrder.DataBean dataBean=list.get(position);
+		//显示商品图片
+		String imgUrl=dataBean.getProimg();
+		holder.imgIcon.setTag(R.id.imageid,imgUrl);
+		if(holder.imgIcon.getTag(R.id.imageid)!=null && imgUrl==holder.imgIcon.getTag(R.id.imageid)){
+			Glide.with(context).load(imgUrl).override(90,90).centerCrop().into(holder.imgIcon);
+		}
+		holder.tvTitle.setText(dataBean.getProname());
+
 		if(type==0){
 			holder.tvEvalution.setText("待评价");
 		}else{
 			holder.tvEvalution.setText("查看评价");
 		}
 		//去评价/查看评价详情
+		holder.tvEvalution.setTag(dataBean);
 		holder.tvEvalution.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				CommOrder.DataBean dataBean= (CommOrder.DataBean) v.getTag();
 				Intent intent=new Intent();
 				if(type==0){
 					intent.setClass(context, AddEvaluationActivity.class);
 				}else{
 					intent.setClass(context, EvaluationDetailsActivity.class);
 				}
+				intent.putExtra("dataBean",dataBean);
 				context.startActivity(intent);
 			}
 		});

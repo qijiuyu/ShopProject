@@ -6,31 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.user.after.ApplyForActivity;
+import com.zxdc.utils.library.bean.After;
 import com.zxdc.utils.library.view.OvalImage2Views;
-
-import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 申请售后
  */
 public class ApplyForAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<String> list=new ArrayList<>();
-	public ApplyForAdapter(Context context, List<String> list) {
+	private List<After.DataBean> list;
+	public ApplyForAdapter(Context context, List<After.DataBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 5;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -56,10 +54,22 @@ public class ApplyForAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
+		After.DataBean dataBean=list.get(position);
+		//显示商品图片
+		String imgUrl=dataBean.getProimg();
+		holder.imgIcon.setTag(R.id.imageid,imgUrl);
+		if(holder.imgIcon.getTag(R.id.imageid)!=null && imgUrl==holder.imgIcon.getTag(R.id.imageid)){
+			Glide.with(context).load(imgUrl).override(90,90).centerCrop().into(holder.imgIcon);
+		}
+		holder.tvTitle.setText(dataBean.getProname());
+
 		//申请售后
+		holder.tvAfter.setTag(dataBean);
 		holder.tvAfter.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				After.DataBean dataBean= (After.DataBean) v.getTag();
 				Intent intent=new Intent(context, ApplyForActivity.class);
+				intent.putExtra("dataBean",dataBean);
 				context.startActivity(intent);
 			}
 		});

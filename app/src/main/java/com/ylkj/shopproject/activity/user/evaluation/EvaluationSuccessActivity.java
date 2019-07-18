@@ -31,6 +31,11 @@ public class EvaluationSuccessActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
+        findViewById(R.id.tv_main).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EvaluationSuccessActivity.this.finish();
+            }
+        });
         findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EvaluationSuccessActivity.this.finish();

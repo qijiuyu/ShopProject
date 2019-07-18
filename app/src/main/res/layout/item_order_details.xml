@@ -24,7 +24,6 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的商品的标题"
             android:textSize="14sp"
             android:textColor="@color/color_33333"
             android:layout_toRightOf="@id/img_shopping"
@@ -45,7 +44,7 @@
             android:layout_marginTop="64.5dp"/>
 
         <TextView
-            android:id="@+id/tv_dm_money"
+            android:id="@+id/tv_old_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="6500"

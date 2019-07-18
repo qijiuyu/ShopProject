@@ -168,4 +168,34 @@ public class HttpConstant {
     //查询认证机构信息
     public static final String GET_CERTIFICATION="api/app/institution/show";
 
+    //取消订单
+    public static final String CANCLE_ORDER="api/app/order/cancel";
+
+    //删除订单
+    public static final String DELETE_ORDER="api/app/order/del";
+
+    //确认收货
+    public static final String CONFIRM_GOODS="api/app/order/comfirmreceive";
+
+    //获取评价订单列表接口
+    public static final String GET_COMMENT_ORDER="api/app/order/getcommentorder";
+
+    //获取待申请售后列表接口
+    public static final String GET_AFTER_ORDER="api/app/order/getafterorder";
+
+    //获取已申请售后列表接口
+    public static final String GET_AFTER_APPLY="api/app/order/getafterapply";
+
+    //订单售后申请接口
+    public static final String APPLYAFTER="api/app/order/applyafter";
+
+    //获取对售后寄回地址信息接口
+    public static final String GET_ADDR_INFO="api/app/order/getaddressinfo";
+
+    //获取订单详情接口
+    public static final String ORDER_DETAILS="api/app/order/showorderdetail";
+
+    //评价订单
+    public static final String COMM_ORDER="platform/comment/add";
+
 }

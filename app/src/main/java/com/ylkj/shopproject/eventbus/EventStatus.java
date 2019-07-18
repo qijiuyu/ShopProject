@@ -49,4 +49,13 @@ public class EventStatus {
 
     //购物车选中了几个
     public static final int SELECT_CAR_GOODS=118;
+
+    //取消订单成功
+    public static final int CANCLE_ORDER_SUCCESS=122;
+
+    //删除订单成功
+    public static final int DELETE_ORDER_SUCCESS=123;
+
+    //确认收货成功
+    public static final int CONFIRM_GOOD_SUCCESS=124;
 }
