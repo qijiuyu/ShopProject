@@ -1,10 +1,15 @@
 package com.zxdc.utils.library.http;
 
+import com.zxdc.utils.library.base.MainXP;
+import com.zxdc.utils.library.bean.Abvert;
 import com.zxdc.utils.library.bean.After;
 import com.zxdc.utils.library.bean.AfterAddress;
 import com.zxdc.utils.library.bean.AfterDetails;
 import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.CommOrder;
+import com.zxdc.utils.library.bean.MainHot;
+import com.zxdc.utils.library.bean.MainJX;
+import com.zxdc.utils.library.bean.MainRQ;
 import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
@@ -298,4 +303,36 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.COMM_ORDER)
     Call<BaseBean> evalOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ORDER_YHQ)
+    Call<Coupon> getOrderYhq(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_MAIN_JX)
+    Call<MainJX> mainJX(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ABVERT)
+    Call<Abvert> getAbvert(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_MAIN_XP)
+    Call<MainXP> mainXP(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_MAIN_RQ)
+    Call<MainRQ> mainRQ(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_MAIN_HOT)
+    Call<MainHot> mainHot(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.UPDATE_ZPZZ)
+    Call<BaseBean> updateZpzz(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.UPDATE_INST)
+    Call<BaseBean> updateInst(@FieldMap Map<String, String> map);
 }

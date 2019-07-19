@@ -6,8 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.zxdc.utils.library.base.MainXP;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.OvalImageViews;
+
+import java.util.List;
 
 /**
  * 首页的新品推荐
@@ -15,14 +21,16 @@ import com.zxdc.utils.library.view.OvalImageViews;
 public class NewsRecommendedAdapter extends BaseAdapter {
 
 	private Context context;
-	public NewsRecommendedAdapter(Context context) {
+	private List<MainXP.DataBean> list;
+	public NewsRecommendedAdapter(Context context,List<MainXP.DataBean> list) {
 		super();
 		this.context = context;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() {
-		return 3;
+		return list==null ? 0 : list.size();
 	}
 
 	@Override
@@ -41,23 +49,27 @@ public class NewsRecommendedAdapter extends BaseAdapter {
 		if(view==null){
 			holder = new ViewHolder(); 
 			view = LayoutInflater.from(context).inflate(R.layout.item_xpgv, null);
-			holder.imageView=view.findViewById(R.id.img_icon);
+			holder.imgIcon=view.findViewById(R.id.img_icon);
 			holder.tvName=view.findViewById(R.id.tv_name);
+			holder.tvMoney=view.findViewById(R.id.tv_money);
 			view.setTag(holder);
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-//		final String imgHead=comment.getAddHead();
-//		holder.imgHead.setTag(R.id.imgHead,imgHead);
-//		if(holder.imgHead.getTag(R.id.imgHead)!=null && imgHead==holder.imgHead.getTag(R.id.imgHead)){
-//			Glide.with(context).load(imgHead).override(33,33).centerCrop().error(R.mipmap.default_head).into(holder.imgHead);
-//		}
+		MainXP.DataBean dataBean=list.get(position);
+		String imgUrl=dataBean.getImgurl();
+		holder.imgIcon.setTag(R.id.imageid,imgUrl);
+		if(holder.imgIcon.getTag(R.id.imageid)!=null && imgUrl==holder.imgIcon.getTag(R.id.imageid)){
+			Glide.with(context).load(imgUrl).override(90,90).centerCrop().into(holder.imgIcon);
+		}
+		holder.tvName.setText(dataBean.getName());
+		holder.tvMoney.setText(String.valueOf(dataBean.getPrice()));
 		return view;
 	}
 
 
 	private class ViewHolder{
-		private OvalImageViews imageView;
-		private TextView tvName;
+		private OvalImageViews imgIcon;
+		private TextView tvName,tvMoney;
 	 }
 }

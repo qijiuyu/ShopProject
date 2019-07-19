@@ -1,25 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <com.zxdc.utils.library.view.OvalImageViews
         android:id="@+id/img_icon"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:src="@mipmap/bb"/>
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_icon"
         android:text="非愿意性莫笑"
         android:layout_gravity="center_horizontal"
         android:textSize="11sp"
         android:textColor="@color/color_33333"
         android:layout_marginTop="7dp"
-        android:layout_centerHorizontal="true"/>
+        android:gravity="center_horizontal"
+        android:lines="2"
+        android:ellipsize="end"/>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textSize="9sp"
+            android:textColor="@color/color_999999"/>
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200,000"
+            android:textSize="16sp"
+            android:textColor="@color/color_37C7B5"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

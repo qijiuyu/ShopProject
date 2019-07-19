@@ -37,7 +37,7 @@ public class MyCollectionFragment extends BaseFragment {
     private int spuid;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(mActivity);
+        EventBus.getDefault().register(this);
     }
 
 
@@ -52,6 +52,7 @@ public class MyCollectionFragment extends BaseFragment {
 
     private Handler handler=new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
             switch (msg.what){
                 //收藏数据回执
                 case HandlerConstant.MY_COLLECTION_SUCCESS:
@@ -138,7 +139,7 @@ public class MyCollectionFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         removeHandler(handler);
-        EventBus.getDefault().unregister(mActivity);
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 }

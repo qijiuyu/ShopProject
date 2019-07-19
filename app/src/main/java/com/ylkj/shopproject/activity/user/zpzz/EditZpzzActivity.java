@@ -39,10 +39,11 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
      * xkFile：开户许可证剪裁的图片
      */
     private File yyFile,xkFile;
+    private String yyPath,xkPath;
     private ZpzzPersenter zpzzPersenter;
     private String unitName,code,address,mobile,bank,bankCode,spName,spMobile,spAddr;
     //增票资质对象
-    private Zpzz zpzz;
+    private Zpzz.DataBean dataBean;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editzpzz);
@@ -77,11 +78,11 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
      * 显示要编辑的数据
      */
     private void showData(){
-        zpzz= (Zpzz) getIntent().getSerializableExtra("zpzz");
+        Zpzz zpzz= (Zpzz) getIntent().getSerializableExtra("zpzz");
         if(null==zpzz){
             return;
         }
-        Zpzz.DataBean dataBean=zpzz.getData();
+        dataBean=zpzz.getData();
         if(null==dataBean){
             return;
         }
@@ -91,8 +92,10 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
         etMobile.setText(dataBean.getLoginphone());
         etBack.setText(dataBean.getBankname());
         etBackCode.setText(dataBean.getBankcode());
-        Glide.with(this).load(dataBean.getLicenseimg()).override(107,107).centerCrop().into(imgOne);
-        Glide.with(this).load(dataBean.getPermitimg()).override(107,107).centerCrop().into(imgTwo);
+        yyPath=dataBean.getLicenseimg();
+        Glide.with(this).load(yyPath).override(107,107).centerCrop().into(imgOne);
+        xkPath=dataBean.getPermitimg();
+        Glide.with(this).load(xkPath).override(107,107).centerCrop().into(imgTwo);
         etSpName.setText(dataBean.getName());
         etSpMobile.setText(dataBean.getPhone());
         etSpAddr.setText(dataBean.getAddress());
@@ -144,11 +147,11 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showLong("请输入银行账号!");
                     return;
                 }
-                if(yyFile==null){
+                if(yyFile==null && null==dataBean){
                     ToastUtil.showLong("请选择企业营业执照!");
                     return;
                 }
-                if(xkFile==null){
+                if(xkFile==null && null==dataBean){
                     ToastUtil.showLong("请选择开户许可证!");
                     return;
                 }
@@ -164,8 +167,17 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showLong("请输入收票人地址!");
                     return;
                 }
-                //图片上传中
-                uploadImg();
+                if(null==dataBean){
+                    //图片上传中
+                    uploadImg();
+                }else{
+                     if(null!=yyFile || null!=xkFile){
+                         //图片上传中
+                         uploadImg();
+                     }else{
+                         updateData(null);
+                     }
+                }
                  break;
             case R.id.lin_back:
                  finish();
@@ -182,7 +194,13 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
                 case HandlerConstant.UPLOAD_IMG_SUCCESS:
                       final UploadImg uploadImg= (UploadImg) msg.obj;
                       if(uploadImg.isSussess()){
-                          uploadData(uploadImg);
+                          if(null==dataBean){
+                              //增加
+                              uploadData(uploadImg);
+                          }else{
+                              //修改
+                              updateData(uploadImg);
+                          }
                       }else{
                           ToastUtil.showLong(uploadImg.getDesc());
                       }
@@ -248,8 +266,12 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
      */
     private  void uploadImg(){
         List<File> fileList=new ArrayList<>();
-        fileList.add(yyFile);
-        fileList.add(xkFile);
+        if(null!=yyFile){
+            fileList.add(yyFile);
+        }
+        if(null!=xkFile){
+            fileList.add(xkFile);
+        }
         DialogUtil.showProgress(this,"数据提交中");
         HttpMethod.uploadImg(1,fileList,handler);
     }
@@ -263,6 +285,28 @@ public class EditZpzzActivity extends BaseActivity implements View.OnClickListen
         if(imgs.length==2){
             HttpMethod.add_zpzz(unitName,code,address,mobile,bank,bankCode,imgs[0],imgs[1],spName,spMobile,spAddr,handler);
         }
+    }
+
+    /**
+     * 修改数据
+     */
+    private void updateData(UploadImg uploadImg){
+        DialogUtil.showProgress(this,"数据提交中");
+        if(null!=uploadImg){
+            String[] imgs=uploadImg.getData();
+            if(imgs.length==2){
+                yyPath=imgs[0];
+                xkPath=imgs[1];
+            }else{
+                if(null!=yyFile){
+                    yyPath=imgs[0];
+                }
+                if(null!=xkFile){
+                    xkPath=imgs[0];
+                }
+            }
+        }
+        HttpMethod.updateZpzz(unitName,code,address,mobile,bank,bankCode,yyPath,xkPath,spName,spMobile,spAddr,handler);
     }
 
 

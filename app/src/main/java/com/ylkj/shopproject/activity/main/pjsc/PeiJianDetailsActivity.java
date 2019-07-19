@@ -1,8 +1,10 @@
 package com.ylkj.shopproject.activity.main.pjsc;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -114,7 +116,11 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  break;
             //立即购买
             case R.id.tv_buy:
-                 setClass(ConfirmPTActivity.class);
+                 pjGoodDetails.getData().setCount(num);
+                 Intent intent=new Intent(this,ConfirmPTActivity.class);
+                 intent.putExtra("goodBean",pjGoodDetails.getData());
+                 intent.putExtra("type",0);
+                 startActivity(intent);
                  break;
         }
     }
@@ -129,10 +135,11 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
             return;
         }
         tvName.setText(goodBean.getName());
-        tvDes.setText(goodBean.getDiscription());
+        tvDes.setText(Html.fromHtml(goodBean.getDiscription()));
         tvNewMoney.setText("平台售价："+ Util.setDouble(goodBean.getPrice(),2));
         tvOldMoney.setText(Util.setDouble(goodBean.getOldprice(),2));
         tvOldMoney.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tvYfMoney.setText("¥"+goodBean.getFreigth());
 
         //展示banner轮播图
         peiJianDetailsPersenter.setBanner(banner,goodBean.getSpuImgList());

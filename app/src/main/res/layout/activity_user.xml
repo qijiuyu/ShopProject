@@ -444,6 +444,16 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"/>
 
+                    <TextView
+                        android:id="@+id/tv_jg_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_37C7B5"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"/>
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -477,6 +487,16 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_zp_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="13sp"
+                        android:textColor="@color/color_37C7B5"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"/>
 
                 </RelativeLayout>
 

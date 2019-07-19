@@ -70,4 +70,10 @@ public class HandlerConstant {
     public static final int GET_AFTER_ADDR_SUCCESS=1166;
     public static final int GET_ORDER_DETAILS_SUCCESS=1167;
     public static final int EVAL_ORDER_SUCCESS=1168;
+    public static final int GET_ORDER_YHQ_SUCCESS=1169;
+    public static final int GET_MAIN_JX_SUCCESS=1170;
+    public static final int GET_ABVERT_SUCCESS=1171;
+    public static final int GET_MAIN_XP_SUCCESS=1172;
+    public static final int GET_MAIN_RQ_SUCCESS=1173;
+    public static final int GET_MAIN_HOT_SUCCESS=1174;
 }

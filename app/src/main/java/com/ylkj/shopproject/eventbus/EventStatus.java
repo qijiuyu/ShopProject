@@ -58,4 +58,16 @@ public class EventStatus {
 
     //确认收货成功
     public static final int CONFIRM_GOOD_SUCCESS=124;
+
+    //确认下单中，查询收货地址
+    public static final int GET_MY_ADDRESS=125;
+
+    //首页获取到新品数据
+    public static final int MAIN_XP_SUCCESS=126;
+
+    //获取首页人气推荐
+    public static final int MAIN_RQ_SUCCESS=127;
+
+    //获取首页热门
+    public static final int MAIN_HOT_SUCCESS=128;
 }

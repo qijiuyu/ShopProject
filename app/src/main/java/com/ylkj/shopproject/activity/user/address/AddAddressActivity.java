@@ -138,10 +138,10 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
                 }
                 if(null==addressBean){
                     DialogUtil.showProgress(this,"添加地址中");
-                    HttpMethod.addAddress(name,strCity[0],strCity[1],strCity[2],address,mobile,company,isDefalt,handler);
+                    HttpMethod.addAddress(strCity[3],strCity[4],strCity[5],name,strCity[0],strCity[1],strCity[2],address,mobile,company,isDefalt,handler);
                 }else{
                     DialogUtil.showProgress(this,"修改地址中");
-                    HttpMethod.updAddr(addressBean.getId(),name,strCity[0],strCity[1],strCity[2],address,mobile,company,isDefalt,handler);
+                    HttpMethod.updAddr(strCity[3],strCity[4],strCity[5],addressBean.getId(),name,strCity[0],strCity[1],strCity[2],address,mobile,company,isDefalt,handler);
                 }
                  break;
             case R.id.lin_back:

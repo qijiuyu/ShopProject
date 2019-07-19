@@ -31,7 +31,7 @@ public class Zpzz extends BaseBean {
         private String name;
         private String permitimg;
         private String phone;
-        private String status;
+        private int status;
         private String taxnum;
 
         public String getAddress() {
@@ -122,11 +122,11 @@ public class Zpzz extends BaseBean {
             this.phone = phone;
         }
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 

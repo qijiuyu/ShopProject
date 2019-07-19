@@ -24,6 +24,7 @@ import com.ylkj.shopproject.activity.user.tuan.MyTuanActivity;
 import com.ylkj.shopproject.activity.user.yhq.MyYhqActivity;
 import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -38,9 +39,13 @@ import com.zxdc.utils.library.view.CircleImageView;
 public class UserActivity extends BaseActivity implements View.OnClickListener{
 
     private CircleImageView imgUser;
-    private TextView tvName;
+    private TextView tvName,tvZpStatus,tvJgStatus;
     //用户个人信息对象
     private UserInfo userInfo;
+    //增票资质对象
+    private Zpzz zpzz;
+    //机构认证对象
+    private Certification certification;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
@@ -56,6 +61,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     private void initView(){
         imgUser=findViewById(R.id.img_user);
         tvName=findViewById(R.id.tv_name);
+        tvZpStatus=findViewById(R.id.tv_zp_status);
+        tvJgStatus=findViewById(R.id.tv_jg_status);
         imgUser.setOnClickListener(this);
         findViewById(R.id.img_customer).setOnClickListener(this);
         findViewById(R.id.tv_dfk).setOnClickListener(this);
@@ -96,15 +103,44 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                     break;
                 //查询认证机构信息回执
                 case HandlerConstant.GET_CERTIFICATION_SUCCESS:
+                      certification= (Certification) msg.obj;
+                      if(null==certification){
+                          break;
+                      }
+                      if(certification.isSussess() && null!=certification.getData()){
+                          switch (certification.getData().getStatus()){
+                              case 0:
+                                  tvJgStatus.setText("待审核");
+                                  break;
+                              case 1:
+                                  tvJgStatus.setText("审核通过");
+                                  findViewById(R.id.rel_jgrz).setClickable(false);
+                                  break;
+                              case 2:
+                                  tvJgStatus.setText("审核不通过");
+                                  break;
+                          }
+                      }
                       break;
                 //查询增票资质
                 case HandlerConstant.GET_ZPZZ_SUCCESS:
-                      final Zpzz zpzz= (Zpzz) msg.obj;
+                      zpzz= (Zpzz) msg.obj;
                       if(null==zpzz){
                           break;
                       }
-                      if(zpzz.isSussess()){
-
+                      if(zpzz.isSussess() && null!=zpzz.getData()){
+                          switch (zpzz.getData().getStatus()){
+                              case 0:
+                                   tvZpStatus.setText("待审核");
+                                   break;
+                              case 1:
+                                  tvZpStatus.setText("审核通过");
+                                  findViewById(R.id.rel_zpzz).setClickable(false);
+                                   break;
+                              case 2:
+                                   tvZpStatus.setText("审核不通过");
+                                   break;
+                          }
                       }
                       break;
                 case HandlerConstant.REQUST_ERROR:
@@ -172,11 +208,15 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                  break;
             //机构认证
             case R.id.rel_jgrz:
-                 setClass(CertificationActivity.class);
+                 intent.setClass(this,CertificationActivity.class);
+                 intent.putExtra("certification",certification);
+                 startActivity(intent);
                  break;
             //增票资质
             case R.id.rel_zpzz:
-                 setClass(EditZpzzActivity.class);
+                 intent.setClass(this,EditZpzzActivity.class);
+                 intent.putExtra("zpzz",zpzz);
+                 startActivity(intent);
                  break;
             //收货地址
             case R.id.rel_shdz:

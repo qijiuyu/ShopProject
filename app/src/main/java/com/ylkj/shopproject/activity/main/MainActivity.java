@@ -5,29 +5,34 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ScrollView;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.fault.AddFaultActivity;
 import com.ylkj.shopproject.activity.main.news.MainNewsActivity;
 import com.ylkj.shopproject.activity.main.persenter.MainPersenter;
+import com.ylkj.shopproject.activity.main.pjsc.PeiJianDetailsActivity;
 import com.ylkj.shopproject.activity.main.pjsc.PeiJianTypeActivity;
 import com.ylkj.shopproject.activity.main.search.SearchActivity;
 import com.ylkj.shopproject.activity.main.zzfu.ZzfuTypeActivity;
+import com.ylkj.shopproject.activity.type.JCDetailsActivity;
 import com.ylkj.shopproject.activity.user.login.LoginActivity;
-import com.ylkj.shopproject.activity.user.login.RegisterActivity;
 import com.ylkj.shopproject.adapter.main.HotPartsAdapter;
 import com.ylkj.shopproject.adapter.main.NewsRecommendedAdapter;
 import com.ylkj.shopproject.adapter.main.SentimentRecommendedAdapter;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
 import com.ylkj.shopproject.util.GetLocation;
-import com.ylkj.shopproject.util.MyImgLoader;
+import com.ylkj.shopproject.view.HorizontalListView;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 import com.zxdc.utils.library.base.BaseActivity;
-import com.zxdc.utils.library.util.ToastUtil;
+import com.zxdc.utils.library.base.MainXP;
+import com.zxdc.utils.library.bean.MainHot;
+import com.zxdc.utils.library.bean.MainRQ;
 import com.zxdc.utils.library.view.MeasureListView;
 import com.zxdc.utils.library.view.MyGridView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,23 +41,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
     private Banner banner,banner2;
     private MeasureListView rqListView;
     private MainPersenter mainPersenter;
-    private MyGridView xpGird,rmGird;
-    private List<String> imgList=new ArrayList<>();
+    private HorizontalListView listXP;
+    private MyGridView rmGird;
     //新品推荐的adapter
     private NewsRecommendedAdapter newsRecommendedAdapter;
     //人气推荐的adapter
     private SentimentRecommendedAdapter sentimentRecommendedAdapter;
     //热门配件
     private HotPartsAdapter hotPartsAdapter;
+    //新品数据的集合
+    private List<MainXP.DataBean> xpList=new ArrayList<>();
+    //人气推荐数据集合
+    private List<MainRQ.DataBean> rqList=new ArrayList<>();
+    //热门推荐数据集合
+    private List<MainHot.DataBean> hotList=new ArrayList<>();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainPersenter=new MainPersenter(this);
+        //注册eventBus
+        EventBus.getDefault().register(this);
         initView();
         //开始定位
         GetLocation.getInstance().setLocation(this);
-        setBanner(banner,imgList);
-        setBanner(banner2,imgList);
+        //查询顶部广告轮播图
+        mainPersenter.getAbvert(banner);
+        //获取精选专题接口
+        mainPersenter.mainJX(banner2);
+        //获取新品推荐数据
+        mainPersenter.mainXP();
+        //获取首页人气推荐
+        mainPersenter.mainRQ();
+        //获取首页热门
+        mainPersenter.mainHot();
     }
 
 
@@ -63,7 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         scrollView=findViewById(R.id.scrollView);
         banner=findViewById(R.id.banner);
         banner2=findViewById(R.id.banner2);
-        xpGird=findViewById(R.id.gv_xptj);
+        listXP=findViewById(R.id.list_xptj);
         rmGird=findViewById(R.id.gv_rmpj);
         rqListView=findViewById(R.id.rq_list);
         scrollView.setOnTouchListener(this);
@@ -74,20 +95,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         findViewById(R.id.lin_zl).setOnClickListener(this);
         findViewById(R.id.lin_search).setOnClickListener(this);
         findViewById(R.id.rel_news).setOnClickListener(this);
-        imgList.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        imgList.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        imgList.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        imgList.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-
-        newsRecommendedAdapter=new NewsRecommendedAdapter(this);
-        xpGird.setAdapter(newsRecommendedAdapter);
-
-        sentimentRecommendedAdapter=new SentimentRecommendedAdapter(this);
-        rqListView.setAdapter(sentimentRecommendedAdapter);
-
-        hotPartsAdapter=new HotPartsAdapter(this);
-        rmGird.setAdapter(hotPartsAdapter);
-
     }
 
     @Override
@@ -127,28 +134,58 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
     }
 
 
-    private void setBanner(Banner banner,List<String> imgList){
-        //设置样式，里面有很多种样式可以自己都看看效果
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置轮播的动画效果,里面有很多种特效,可以都看看效果。
-        banner.setBannerAnimation(Transformer.ZoomOutSlide);
-        //设置图片加载器，图片加载器在下方
-        banner.setImageLoader(new MyImgLoader());
-        //设置图片集合
-        banner.setImages(imgList);
-        //设置轮播间隔时间
-        banner.setDelayTime(3000);
-        //设置是否为自动轮播，默认是true
-        banner.isAutoPlay(true);
-        //设置指示器的位置，小点点，居中显示
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-        banner.setOnBannerListener(new OnBannerListener() {
-            public void OnBannerClick(int position) {
-                ToastUtil.showLong(position+"");
-            }
-        });
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
+    /**
+     * EventBus注解
+     */
+    @Subscribe
+    public void onEvent(EventBusType eventBusType){
+        switch (eventBusType.getStatus()){
+            //获取到新品数据
+            case EventStatus.MAIN_XP_SUCCESS:
+                  xpList= (List<MainXP.DataBean>) eventBusType.getObject();
+                  newsRecommendedAdapter=new NewsRecommendedAdapter(this,xpList);
+                  listXP.setAdapter(newsRecommendedAdapter);
+                  listXP.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        MainXP.DataBean dataBean=xpList.get(position);
+                        Intent intent=new Intent();
+                        if(dataBean.getType()==1){
+                            intent.setClass(MainActivity.this, JCDetailsActivity.class);
+                        }else{
+                            intent.setClass(MainActivity.this, PeiJianDetailsActivity.class);
+                        }
+                        intent.putExtra("spuid",dataBean.getSpuid());
+                        startActivity(intent);
+                    }
+                });
+                  break;
+            //获取人气推荐
+            case EventStatus.MAIN_RQ_SUCCESS:
+                  rqList= (List<MainRQ.DataBean>) eventBusType.getObject();
+                  sentimentRecommendedAdapter=new SentimentRecommendedAdapter(this,rqList);
+                  rqListView.setAdapter(sentimentRecommendedAdapter);
+                  break;
+            //获取热门
+            case EventStatus.MAIN_HOT_SUCCESS:
+                  List<MainHot.DataBean> list= (List<MainHot.DataBean>) eventBusType.getObject();
+                  hotList.addAll(list);
+                  hotPartsAdapter=new HotPartsAdapter(this,hotList);
+                  rmGird.setAdapter(hotPartsAdapter);
+                  rmGird.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                          MainHot.DataBean dataBean=hotList.get(position);
+                          Intent intent=new Intent();
+                          if(dataBean.getType()==1){
+                              intent.setClass(MainActivity.this, JCDetailsActivity.class);
+                          }else{
+                              intent.setClass(MainActivity.this, PeiJianDetailsActivity.class);
+                          }
+                          intent.putExtra("spuid",dataBean.getSpuid());
+                          startActivity(intent);
+                      }
+                  });
+                  break;
+        }
     }
 
 
@@ -162,11 +199,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
                 int height = v.getHeight();
                 int scrollViewMeasuredHeight = scrollView.getChildAt(0).getMeasuredHeight();
                 if ((scrollY + height) == scrollViewMeasuredHeight) {
-                    ToastUtil.showLong("111");
+                    //获取首页热门
+                    mainPersenter.mainHot();
                 }
                 break;
 
         }
         return false;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

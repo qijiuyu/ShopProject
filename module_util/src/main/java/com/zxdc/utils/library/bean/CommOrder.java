@@ -29,6 +29,12 @@ public class CommOrder extends BaseBean {
         private int spuid;
         //评价id
         private int commentid;
+        //商品价格
+        private double price;
+        //商品原价
+        private double oldprice;
+        //商品数量
+        private int count;
 
         public int getDetailid() {
             return detailid;
@@ -68,6 +74,30 @@ public class CommOrder extends BaseBean {
 
         public void setCommentid(int commentid) {
             this.commentid = commentid;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
+
+        public double getOldprice() {
+            return oldprice;
+        }
+
+        public void setOldprice(double oldprice) {
+            this.oldprice = oldprice;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
         }
     }
 }

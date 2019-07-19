@@ -25,6 +25,8 @@ public class PJGoodDetails extends BaseBean {
         private int spuid;
         //商品名称
         private String name;
+        //商品图片
+        private String img;
         //商品描述
         private String discription;
         //是否收藏(0:否 1:是)
@@ -41,6 +43,36 @@ public class PJGoodDetails extends BaseBean {
         private List<proSpecsBean> proSpecsList=new ArrayList<>();
         //商品sku集合
         private List<skuBean> skuList=new ArrayList<>();
+
+        //运费
+        private double freigth;
+
+        //前台自己设置商品数量
+        private int count;
+
+        public double getFreigth() {
+            return freigth;
+        }
+
+        public void setFreigth(double freigth) {
+            this.freigth = freigth;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
 
         public int getSpuid() {
             return spuid;

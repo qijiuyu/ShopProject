@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.shopping;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -90,7 +91,10 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_play:
                   final String play=tvPlay.getText().toString().trim();
                   if(play.equals("结算")){
-                      setClass(ConfirmPTActivity.class);
+                      Intent intent=new Intent(this,ConfirmPTActivity.class);
+                      intent.putExtra("shopping",shopping);
+                      intent.putExtra("type",1);
+                      startActivity(intent);
                   }else{
                       shoppingPersenter.delete(shopping);
                   }

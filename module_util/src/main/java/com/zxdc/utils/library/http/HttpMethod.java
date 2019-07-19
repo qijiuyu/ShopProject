@@ -3,11 +3,16 @@ package com.zxdc.utils.library.http;
 import android.os.Handler;
 import android.text.TextUtils;
 
+import com.zxdc.utils.library.base.MainXP;
+import com.zxdc.utils.library.bean.Abvert;
 import com.zxdc.utils.library.bean.After;
 import com.zxdc.utils.library.bean.AfterAddress;
 import com.zxdc.utils.library.bean.AfterDetails;
 import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.CommOrder;
+import com.zxdc.utils.library.bean.MainHot;
+import com.zxdc.utils.library.bean.MainJX;
+import com.zxdc.utils.library.bean.MainRQ;
 import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
@@ -174,8 +179,11 @@ public class HttpMethod extends BaseRequst {
     /**
      * 添加收货地址
      */
-    public static void addAddress(String Name,String ProvinceCode,String CityCode,String AreaCode,String Address,String Mobile,String CompanyName,int IsDefault,final Handler handler) {
+    public static void addAddress(String provincename,String cityname,String areaname,String Name,String ProvinceCode,String CityCode,String AreaCode,String Address,String Mobile,String CompanyName,int IsDefault,final Handler handler) {
         Map<String, String> map = new HashMap<>();
+        map.put("provincename",provincename);
+        map.put("cityname",cityname);
+        map.put("areaname",areaname);
         map.put("Name",Name);
         map.put("ProvinceCode",ProvinceCode);
         map.put("CityCode",CityCode);
@@ -212,6 +220,33 @@ public class HttpMethod extends BaseRequst {
         map.put("phone",phone);
         map.put("address",address);
         Http.getRetrofit().create(HttpApi.class).add_zpzz(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.ADD_ZPZZ_SUCCESS, response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 设置增票资质
+     */
+    public static void updateZpzz(String companyname,String taxnum,String loginaddress,String loginphone,String bankname,String bankcode,String licenseimg,String permitimg,String name,String phone,String address, final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("companyname", companyname);
+        map.put("taxnum", taxnum);
+        map.put("loginaddress",loginaddress);
+        map.put("loginphone",loginphone);
+        map.put("bankname",bankname);
+        map.put("bankcode",bankcode);
+        map.put("licenseimg",licenseimg);
+        map.put("permitimg",permitimg);
+        map.put("name",name);
+        map.put("phone",phone);
+        map.put("address",address);
+        Http.getRetrofit().create(HttpApi.class).updateZpzz(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 BaseRequst.sendMessage(handler, HandlerConstant.ADD_ZPZZ_SUCCESS, response.body());
             }
@@ -275,8 +310,11 @@ public class HttpMethod extends BaseRequst {
     /**
      * 修改收货地址
      */
-    public static void updAddr(int id,String Name,String ProvinceCode,String CityCode,String AreaCode,String Address,String Mobile,String CompanyName,int IsDefault,final Handler handler) {
+    public static void updAddr(String provincename,String cityname,String areaname,int id,String Name,String ProvinceCode,String CityCode,String AreaCode,String Address,String Mobile,String CompanyName,int IsDefault,final Handler handler) {
         Map<String, String> map = new HashMap<>();
+        map.put("provincename",provincename);
+        map.put("cityname",cityname);
+        map.put("areaname",areaname);
         map.put("id",String.valueOf(id));
         map.put("Name",Name);
         map.put("ProvinceCode",ProvinceCode);
@@ -941,6 +979,29 @@ public class HttpMethod extends BaseRequst {
 
 
     /**
+     * 修改机构认证
+     */
+    public static void updateInst(String instname,String address,String proname,String name,String phone,String licenseimg,String permitimg,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("instname",instname);
+        map.put("address",address);
+        map.put("proname",proname);
+        map.put("name",name);
+        map.put("phone",phone);
+        map.put("licenseimg",licenseimg);
+        map.put("permitimg",permitimg);
+        Http.getRetrofit().create(HttpApi.class).updateInst(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.SET_INST_SUCCESS, response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
      * 生意圈详情
      */
     public static void businessDetails(int momentid,final Handler handler) {
@@ -1258,6 +1319,106 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.EVAL_ORDER_SUCCESS, response.body());
             }
             public void onFailure(Call<BaseBean> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取订单结算也优惠券列表接口
+     */
+    public static void getOrderYhq(int type,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("type",String.valueOf(type));
+        Http.getRetrofit().create(HttpApi.class).getOrderYhq(map).enqueue(new Callback<Coupon>() {
+            public void onResponse(Call<Coupon> call, Response<Coupon> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_ORDER_YHQ_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Coupon> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取精选专题接口
+     */
+    public static void mainJX(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).mainJX(map).enqueue(new Callback<MainJX>() {
+            public void onResponse(Call<MainJX> call, Response<MainJX> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_MAIN_JX_SUCCESS, response.body());
+            }
+            public void onFailure(Call<MainJX> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 广告列表查询接口
+     */
+    public static void getAbvert(String type,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("type",type);
+        Http.getRetrofit().create(HttpApi.class).getAbvert(map).enqueue(new Callback<Abvert>() {
+            public void onResponse(Call<Abvert> call, Response<Abvert> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_ABVERT_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Abvert> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取新品首发专题接口
+     */
+    public static void mainXP(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).mainXP(map).enqueue(new Callback<MainXP>() {
+            public void onResponse(Call<MainXP> call, Response<MainXP> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_MAIN_XP_SUCCESS, response.body());
+            }
+            public void onFailure(Call<MainXP> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取首页人气推荐
+     */
+    public static void mainRQ(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).mainRQ(map).enqueue(new Callback<MainRQ>() {
+            public void onResponse(Call<MainRQ> call, Response<MainRQ> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_MAIN_RQ_SUCCESS, response.body());
+            }
+            public void onFailure(Call<MainRQ> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取首页热门
+     */
+    public static void mainHot(int page,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("page",String.valueOf(page));
+        map.put("size","20");
+        Http.getRetrofit().create(HttpApi.class).mainHot(map).enqueue(new Callback<MainHot>() {
+            public void onResponse(Call<MainHot> call, Response<MainHot> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_MAIN_HOT_SUCCESS, response.body());
+            }
+            public void onFailure(Call<MainHot> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

@@ -198,4 +198,28 @@ public class HttpConstant {
     //评价订单
     public static final String COMM_ORDER="platform/comment/add";
 
+    //获取订单结算页优惠券列表接口
+    public static final String GET_ORDER_YHQ="api/app/coupon/getordercoupon";
+
+    //获取精选专题接口
+    public static final String GET_MAIN_JX="api/app/topic/getfeaturtopic";
+
+    //广告列表查询接口
+    public static final String GET_ABVERT="api/app/banner/list";
+
+    //获取新品首发专题接口
+    public static final String GET_MAIN_XP="api/app/topic/getnewtopic";
+
+    //获取首页人气推荐
+    public static final String GET_MAIN_RQ="api/app/topic/getsytopic";
+
+    //获取首页热门推荐
+    public static final String GET_MAIN_HOT="api/app/topic/gethottopic";
+
+    //修改增票资质
+    public static final String UPDATE_ZPZZ="api/app/invoicevat/update";
+
+    //修改机构认证
+    public static final String UPDATE_INST="api/app/institution/updateinst";
+
 }

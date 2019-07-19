@@ -38,13 +38,15 @@ public class CertificationActivity extends BaseActivity  implements View.OnClick
      * xkFile：开户许可证剪裁的图片
      */
     private File yyFile,xkFile;
+    private String yyPath,xkPath;
     private String company,address,project,name,mobile;
     //机构认证数据对象
-    private Certification certification;
+    private Certification.DataBean dataBean;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_certification);
         initView();
+        showData();
     }
 
 
@@ -70,11 +72,11 @@ public class CertificationActivity extends BaseActivity  implements View.OnClick
      * 展示需要编辑的数据
      */
     private void showData(){
-        certification= (Certification) getIntent().getSerializableExtra("certification");
+        Certification certification= (Certification) getIntent().getSerializableExtra("certification");
         if(null==certification){
             return;
         }
-        Certification.DataBean dataBean=certification.getData();
+        dataBean=certification.getData();
         if(null==dataBean){
             return;
         }
@@ -83,8 +85,10 @@ public class CertificationActivity extends BaseActivity  implements View.OnClick
         etProject.setText(dataBean.getProname());
         etName.setText(dataBean.getName());
         etMobile.setText(dataBean.getPhone());
-        Glide.with(this).load(dataBean.getLicenseimg()).override(107,107).centerCrop().into(imgOne);
-        Glide.with(this).load(dataBean.getPermitimg()).override(107,107).centerCrop().into(imgTwo);
+        yyPath=dataBean.getLicenseimg();
+        Glide.with(this).load(yyPath).override(107,107).centerCrop().into(imgOne);
+        xkPath=dataBean.getPermitimg();
+        Glide.with(this).load(xkPath).override(107,107).centerCrop().into(imgTwo);
 
     }
 
@@ -96,7 +100,13 @@ public class CertificationActivity extends BaseActivity  implements View.OnClick
                 case HandlerConstant.UPLOAD_IMG_SUCCESS:
                     final UploadImg uploadImg= (UploadImg) msg.obj;
                     if(uploadImg.isSussess()){
-                        setInst(uploadImg);
+                        if(null==dataBean){
+                            //增加
+                            setInst(uploadImg);
+                        }else{
+                            //修改
+                            updateData(uploadImg);
+                        }
                     }else{
                         ToastUtil.showLong(uploadImg.getDesc());
                     }
@@ -159,16 +169,25 @@ public class CertificationActivity extends BaseActivity  implements View.OnClick
                     ToastUtil.showLong("请输入联系方式");
                     return;
                 }
-                if(yyFile==null){
+                if(yyFile==null && null==dataBean){
                     ToastUtil.showLong("请选择企业营业执照!");
                     return;
                 }
-                if(xkFile==null){
-                    ToastUtil.showLong("请选择开户许可证!");
+                if(xkFile==null && null==dataBean){
+                    ToastUtil.showLong("请选择开户许可证照片!");
                     return;
                 }
-                //上传图片
-                uploadImg();
+                if(null==dataBean){
+                    //图片上传中
+                    uploadImg();
+                }else{
+                    if(null!=yyFile || null!=xkFile){
+                        //图片上传中
+                        uploadImg();
+                    }else{
+                        updateData(null);
+                    }
+                }
                   break;
             case R.id.lin_back:
                   finish();
@@ -218,8 +237,12 @@ public class CertificationActivity extends BaseActivity  implements View.OnClick
      */
     private  void uploadImg(){
         List<File> fileList=new ArrayList<>();
-        fileList.add(yyFile);
-        fileList.add(xkFile);
+        if(null!=yyFile){
+            fileList.add(yyFile);
+        }
+        if(null!=xkFile){
+            fileList.add(xkFile);
+        }
         DialogUtil.showProgress(this,"数据提交中");
         HttpMethod.uploadImg(1,fileList,handler);
     }
@@ -233,6 +256,29 @@ public class CertificationActivity extends BaseActivity  implements View.OnClick
         if(imgs.length==2){
             HttpMethod.setInst(company,address,project,name,mobile,imgs[0],imgs[1],handler);
         }
+    }
+
+
+    /**
+     * 修改数据
+     */
+    private void updateData(UploadImg uploadImg){
+        DialogUtil.showProgress(this,"数据提交中");
+        if(null!=uploadImg){
+            String[] imgs=uploadImg.getData();
+            if(imgs.length==2){
+                yyPath=imgs[0];
+                xkPath=imgs[1];
+            }else{
+                if(null!=yyFile){
+                    yyPath=imgs[0];
+                }
+                if(null!=xkFile){
+                    xkPath=imgs[0];
+                }
+            }
+        }
+        HttpMethod.updateInst(company,address,project,name,mobile,yyPath,xkPath,handler);
     }
 
     @Override

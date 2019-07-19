@@ -26,7 +26,7 @@ public class Certification extends BaseBean {
         private String name;
         private String permitimg;
         private String phone;
-        private String status;
+        private int status;
         private String proname;
 
         public int getId() {
@@ -93,11 +93,11 @@ public class Certification extends BaseBean {
             this.phone = phone;
         }
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 

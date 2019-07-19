@@ -112,7 +112,9 @@ public class AddEvaluationActivity extends BaseActivity implements View.OnClickL
         }
         Glide.with(this).load(dataBean.getProimg()).override(90,90).centerCrop().into(imgIcon);
         tvTitle.setText(dataBean.getProname());
-        tvMoney.setText("¥"+dataBean.get);
+        tvMoney.setText("¥"+dataBean.getPrice());
+        tvOldMoney.setText("¥"+dataBean.getOldprice());
+        tvNum.setText("x"+dataBean.getCount());
     }
 
     @Override

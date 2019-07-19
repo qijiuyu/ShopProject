@@ -57,6 +57,10 @@ public class Shopping extends BaseBean {
         private int spuid;
         //规格起始价格
         private double price;
+        //商品原价
+        private double oldprice;
+        //运费
+        private double freigth;
         //商品规格值
         private String specsvalue;
         //是否选择(0:否 1:是)
@@ -132,6 +136,22 @@ public class Shopping extends BaseBean {
 
         public void setIsselect(int isselect) {
             this.isselect = isselect;
+        }
+
+        public double getOldprice() {
+            return oldprice;
+        }
+
+        public void setOldprice(double oldprice) {
+            this.oldprice = oldprice;
+        }
+
+        public double getFreigth() {
+            return freigth;
+        }
+
+        public void setFreigth(double freigth) {
+            this.freigth = freigth;
         }
     }
 }

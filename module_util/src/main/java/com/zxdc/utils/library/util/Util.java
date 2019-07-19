@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,6 +57,19 @@ public class Util extends ClassLoader {
                 break;
         }
         return df.format(d);
+    }
+
+
+    /**
+     * double 相加
+     * @param d1
+     * @param d2
+     * @return
+     */
+    public static double sum(double d1,double d2){
+        BigDecimal bd1 = new BigDecimal(Double.toString(d1));
+        BigDecimal bd2 = new BigDecimal(Double.toString(d2));
+        return bd1.add(bd2).doubleValue();
     }
 
 
