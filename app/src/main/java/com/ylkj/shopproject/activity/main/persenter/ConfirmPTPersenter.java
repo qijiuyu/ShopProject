@@ -202,13 +202,11 @@ public class ConfirmPTPersenter implements View.OnClickListener{
                   break;
             //增值税发票提交
             case R.id.tv_submit_zz:
-                if(zpzz.isSussess() && null!=zpzz.getData()){
-                    if(zpzz.getData().getStatus()!=1){
-                        ToastUtil.showLong(zpzz.getDesc());
-                        break;
-                    }
-                    invoiceType=2;
-                }
+                  if(null!=zpzz.getData() && zpzz.getData().getStatus()==1){
+                      invoiceType=2;
+                      return;
+                  }
+                  ToastUtil.showLong(zpzz.getDesc());
                   break;
             case R.id.img_close:
                  popupWindow.dismiss();

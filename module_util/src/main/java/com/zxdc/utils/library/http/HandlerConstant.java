@@ -76,4 +76,6 @@ public class HandlerConstant {
     public static final int GET_MAIN_XP_SUCCESS=1172;
     public static final int GET_MAIN_RQ_SUCCESS=1173;
     public static final int GET_MAIN_HOT_SUCCESS=1174;
+    public static final int GET_COMPANY_INFO_SUCCESS=1175;
+    public static final int IS_NEWS_SUCCESS=1176;
 }

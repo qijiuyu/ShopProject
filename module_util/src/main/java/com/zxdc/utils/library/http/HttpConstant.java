@@ -222,4 +222,10 @@ public class HttpConstant {
     //修改机构认证
     public static final String UPDATE_INST="api/app/institution/updateinst";
 
+    //查看企业信息
+    public static final String GET_COMPANY_INFO="api/app/company/show";
+
+    //消息列表入口红点接口
+    public static final String IS_NEWS="api/app/message/isred";
+
 }

@@ -3,12 +3,13 @@ package com.ylkj.shopproject.activity.main.fault;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.persenter.AddFaultPersenter;
@@ -18,14 +19,17 @@ import com.ylkj.shopproject.adapter.selectphoto.GridImageAdapter;
 import com.ylkj.shopproject.util.PicturesUtil;
 import com.ylkj.shopproject.util.SelectPhoto;
 import com.zxdc.utils.library.base.BaseActivity;
-import com.zxdc.utils.library.util.DateUtils;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.http.HandlerConstant;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MyGridView;
 import com.zxdc.utils.library.view.OvalImage2Views;
 import com.zxdc.utils.library.view.time.TimePickerView;
-
 import java.io.File;
-import java.util.Date;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  * 在线报修
  */
@@ -46,6 +50,8 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
     private String mpCropPath,jcCropPath;
     //时间选择器
     private TimePickerView timePickerView;
+    //收货地址集合
+    private List<Address.AddressBean> addrList=new ArrayList<>();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fault);
@@ -129,6 +135,46 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    private Handler handler=new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
+            switch (msg.what){
+                //获取地址列表回执
+                case HandlerConstant.GET_ADDR_LIST_SUCCESS:
+                    Address address= (Address) msg.obj;
+                    if(null==address){
+                        break;
+                    }
+                    if(address.isSussess()){
+                        addrList=address.getData();
+                        //展示收货地址
+                        showAddress();
+                    }
+                    break;
+                case HandlerConstant.REQUST_ERROR:
+                    ToastUtil.showLong(activity.getString(R.string.net_error));
+                    break;
+            }
+            return false;
+        }
+    });
+
+
+    /**
+     * 展示收货地址
+     */
+    private void showAddress(){
+        if(addrList.size()>0){
+            findViewById(R.id.rel_select_addr).setVisibility(View.GONE);
+            findViewById(R.id.rel_addr).setVisibility(View.VISIBLE);
+            Address.AddressBean addressBean=addrList.get(0);
+            tvUserName.setText(addressBean.getName());
+            tvMobile.setText(addressBean.getMobile());
+            tvAddress.setText(addressBean.getAddress());
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,5 +231,20 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
                 break;
 
         }
+    }
+
+
+    /**
+     * 获取收货地址列表
+     */
+    private void getAddrList(){
+        HttpMethod.getAddrList(handler);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAddrList();
     }
 }

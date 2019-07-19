@@ -29,6 +29,7 @@
 
                 <ImageView
                     android:id="@+id/img_news"
+                    android:visibility="gone"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@mipmap/user_news"

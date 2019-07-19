@@ -10,6 +10,8 @@ import com.zxdc.utils.library.bean.AfterAddress;
 import com.zxdc.utils.library.bean.AfterDetails;
 import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.CommOrder;
+import com.zxdc.utils.library.bean.Company;
+import com.zxdc.utils.library.bean.IsNews;
 import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
@@ -851,7 +853,9 @@ public class HttpMethod extends BaseRequst {
         Map<String, String> map = new HashMap<>();
         map.put("lat",lat);
         map.put("lng",lng);
-        map.put("type",String.valueOf(type));
+        if(type!=0){
+            map.put("type",String.valueOf(type));
+        }
         map.put("page",String.valueOf(page));
         map.put("size","20");
         Http.getRetrofit().create(HttpApi.class).getBusinessList(map).enqueue(new Callback<Business>() {
@@ -1419,6 +1423,39 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.GET_MAIN_HOT_SUCCESS, response.body());
             }
             public void onFailure(Call<MainHot> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取企业信息
+     */
+    public static void getCompany(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).getCompany(map).enqueue(new Callback<Company>() {
+            public void onResponse(Call<Company> call, Response<Company> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_COMPANY_INFO_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Company> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 消息列表入口红点接口
+     */
+    public static void isNews(String type,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("type",type);
+        Http.getRetrofit().create(HttpApi.class).isNews(map).enqueue(new Callback<IsNews>() {
+            public void onResponse(Call<IsNews> call, Response<IsNews> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.IS_NEWS_SUCCESS, response.body());
+            }
+            public void onFailure(Call<IsNews> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

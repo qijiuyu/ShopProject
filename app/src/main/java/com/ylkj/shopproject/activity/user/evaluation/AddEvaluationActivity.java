@@ -1,6 +1,7 @@
 package com.ylkj.shopproject.activity.user.evaluation;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -114,6 +115,7 @@ public class AddEvaluationActivity extends BaseActivity implements View.OnClickL
         tvTitle.setText(dataBean.getProname());
         tvMoney.setText("¥"+dataBean.getPrice());
         tvOldMoney.setText("¥"+dataBean.getOldprice());
+        tvOldMoney.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线
         tvNum.setText("x"+dataBean.getCount());
     }
 
@@ -158,6 +160,7 @@ public class AddEvaluationActivity extends BaseActivity implements View.OnClickL
 
     private Handler handler=new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
             switch (msg.what){
                 //图片上传回执
                 case HandlerConstant.UPLOAD_IMG_SUCCESS:
@@ -166,7 +169,6 @@ public class AddEvaluationActivity extends BaseActivity implements View.OnClickL
                     break;
                 //评价回执
                 case HandlerConstant.EVAL_ORDER_SUCCESS:
-                    DialogUtil.closeProgress();
                     BaseBean baseBean= (BaseBean) msg.obj;
                     if(baseBean==null){
                         break;
@@ -268,6 +270,7 @@ public class AddEvaluationActivity extends BaseActivity implements View.OnClickL
             }
             final String content=etContent.getText().toString().trim();
             final String imgPath=stringBuffer.substring(0,stringBuffer.length()-1);
+            DialogUtil.showProgress(this,"数据加载中");
             HttpMethod.evalOrder("0",starNum,content,imgPath,dataBean.getDetailid(),handler);
         }
     }

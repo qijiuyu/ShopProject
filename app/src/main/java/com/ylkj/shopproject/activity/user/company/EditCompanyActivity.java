@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.Company;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -25,6 +26,8 @@ public class EditCompanyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_company);
         initView();
+        //查询企业信息
+        getCompany();
     }
 
 
@@ -64,13 +67,32 @@ public class EditCompanyActivity extends BaseActivity {
                 HttpMethod.editCompany(company,address,user,mobile,handler);
             }
         });
+
+        //返回
+        findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditCompanyActivity.this.finish();
+            }
+        });
     }
 
     private Handler handler=new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
             DialogUtil.closeProgress();
             switch (msg.what){
-                //回执
+                //查询企业信息回执
+                case HandlerConstant.GET_COMPANY_INFO_SUCCESS:
+                      final Company company= (Company) msg.obj;
+                      if(null==company){
+                          break;
+                      }
+                      if(company.isSussess()){
+                          showCompany(company);
+                      }else{
+                          ToastUtil.showLong(company.getDesc());
+                      }
+                      break;
+                //提交信息回执
                 case HandlerConstant.EDIT_COMPANY_SUCCESS:
                     final BaseBean baseBean= (BaseBean) msg.obj;
                     if(null==baseBean){
@@ -88,6 +110,35 @@ public class EditCompanyActivity extends BaseActivity {
             return false;
         }
     });
+
+
+    /**
+     * 展示企业信息
+     */
+    private void showCompany(Company company){
+        Company.DataBean dataBean=company.getData();
+        if(null==dataBean){
+            return;
+        }
+        etCompany.setText(dataBean.getCompanyname());
+        etAddress.setText(dataBean.getAddress());
+        etMobile.setText(dataBean.getPhone());
+        etUser.setText(dataBean.getName());
+        etCompany.setEnabled(false);
+        etAddress.setEnabled(false);
+        etMobile.setEnabled(false);
+        etUser.setEnabled(false);
+        findViewById(R.id.tv_confirm).setVisibility(View.GONE);
+    }
+
+
+    /**
+     * 查询企业信息
+     */
+    private void getCompany(){
+        DialogUtil.showProgress(this,"数据加载中");
+        HttpMethod.getCompany(handler);
+    }
 
 
     @Override

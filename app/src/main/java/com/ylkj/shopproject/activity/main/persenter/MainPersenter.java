@@ -20,6 +20,7 @@ import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 import com.zxdc.utils.library.base.MainXP;
 import com.zxdc.utils.library.bean.Abvert;
+import com.zxdc.utils.library.bean.IsNews;
 import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
@@ -108,6 +109,16 @@ public class MainPersenter {
                               --page;
                           }
                           EventBus.getDefault().post(new EventBusType(EventStatus.MAIN_HOT_SUCCESS,mainHot.getData()));
+                      }
+                      break;
+                //消息列表入口红点
+                case HandlerConstant.IS_NEWS_SUCCESS:
+                      final IsNews isNews= (IsNews) msg.obj;
+                      if(null==isNews){
+                          break;
+                      }
+                      if(isNews.isSussess() && isNews.getData()==1){
+                          EventBus.getDefault().post(new EventBusType(EventStatus.MAIN_NEWS_SHOW));
                       }
                       break;
                 case HandlerConstant.REQUST_ERROR:
@@ -220,5 +231,12 @@ public class MainPersenter {
      */
     public void mainHot(){
         HttpMethod.mainHot(++page,handler);
+    }
+
+    /**
+     * 消息列表入口红点接口
+     */
+    public void isNews(){
+        HttpMethod.isNews("1",handler);
     }
 }

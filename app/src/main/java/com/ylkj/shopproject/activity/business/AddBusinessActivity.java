@@ -14,9 +14,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
@@ -27,7 +25,6 @@ import com.ylkj.shopproject.activity.selectphoto.bean.Bimp;
 import com.ylkj.shopproject.activity.selectphoto.bean.ImageItem;
 import com.ylkj.shopproject.adapter.business.BusinessTypeAdapter;
 import com.ylkj.shopproject.adapter.selectphoto.GridImageAdapter;
-import com.ylkj.shopproject.util.GetLocation;
 import com.ylkj.shopproject.util.PicturesUtil;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.BaseBean;
@@ -54,8 +51,6 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
     private MyGridView gridView;
     private TextView tvAddress;
     private GridImageAdapter adapter;
-    //分类对象集合
-    public static List<ZzfuType.dataBean> typeList;
     private PopupWindow popupWindow;
     //分类的adapter
     private BusinessTypeAdapter businessTypeAdapter;
@@ -75,7 +70,6 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
      * 初始化
      */
     private void initView(){
-        typeList= (List<ZzfuType.dataBean>) getIntent().getSerializableExtra("typeList");
         tvType=findViewById(R.id.tv_type);
         etContent=findViewById(R.id.et_content);
         gridView=findViewById(R.id.gridview);
@@ -247,13 +241,13 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
         final View view= LayoutInflater.from(activity).inflate(R.layout.dialog_business_type,null);
         popupWindow= DialogUtil.showBottom(view,rel);
         ListView listView=view.findViewById(R.id.listView);
-        businessTypeAdapter=new BusinessTypeAdapter(this,typeList);
+        businessTypeAdapter=new BusinessTypeAdapter(this,BusinessActivity.typeList);
         listView.setAdapter(businessTypeAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 popupWindow.dismiss();
-                typeId=typeList.get(position).getId();
-                tvType.setText(typeList.get(position).getName());
+                typeId=BusinessActivity.typeList.get(position+3).getId();
+                tvType.setText(BusinessActivity.typeList.get(position+3).getName());
             }
         });
 

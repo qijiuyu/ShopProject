@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.user.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -7,8 +8,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.pjsc.PeiJianDetailsActivity;
+import com.ylkj.shopproject.activity.type.JCDetailsActivity;
 import com.ylkj.shopproject.activity.user.collection.MyCollectionActivity;
 import com.ylkj.shopproject.adapter.user.MyCollectionAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
@@ -64,6 +68,19 @@ public class MyCollectionFragment extends BaseFragment {
                          list=collection.getData();
                          myCollectionAdapter=new MyCollectionAdapter(mActivity,list);
                          listView.setAdapter(myCollectionAdapter);
+                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                 Collection.DataList dataList=list.get(position);
+                                 Intent intent=new Intent();
+                                 intent.putExtra("spuid",dataList.getSpuid());
+                                 if(MyCollectionActivity.index==0){
+                                     intent.setClass(mActivity, JCDetailsActivity.class);
+                                 }else{
+                                     intent.setClass(mActivity, PeiJianDetailsActivity.class);
+                                 }
+                                 startActivity(intent);
+                             }
+                         });
                      }else{
                          ToastUtil.showLong(collection.getDesc());
                      }

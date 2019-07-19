@@ -4,27 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
-import com.ylkj.shopproject.activity.main.pjsc.ConfirmPTActivity;
+import com.ylkj.shopproject.activity.main.pjsc.ConfirmXDActivity;
 import com.ylkj.shopproject.activity.shopping.persenter.ShoppingPersenter;
 import com.ylkj.shopproject.adapter.shopping.ShoppingAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.Shopping;
-import com.zxdc.utils.library.util.LogUtils;
-import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.Util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONObject;
 
 /**
  * 购物车
@@ -91,7 +87,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_play:
                   final String play=tvPlay.getText().toString().trim();
                   if(play.equals("结算")){
-                      Intent intent=new Intent(this,ConfirmPTActivity.class);
+                      Intent intent=new Intent(this,ConfirmXDActivity.class);
                       intent.putExtra("shopping",shopping);
                       intent.putExtra("type",1);
                       startActivity(intent);

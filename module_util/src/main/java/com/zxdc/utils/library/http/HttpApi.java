@@ -7,6 +7,8 @@ import com.zxdc.utils.library.bean.AfterAddress;
 import com.zxdc.utils.library.bean.AfterDetails;
 import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.CommOrder;
+import com.zxdc.utils.library.bean.Company;
+import com.zxdc.utils.library.bean.IsNews;
 import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
@@ -335,4 +337,12 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.UPDATE_INST)
     Call<BaseBean> updateInst(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_COMPANY_INFO)
+    Call<Company> getCompany(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.IS_NEWS)
+    Call<IsNews> isNews(@FieldMap Map<String, String> map);
 }

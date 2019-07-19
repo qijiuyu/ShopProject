@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -117,7 +116,7 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
             //立即购买
             case R.id.tv_buy:
                  pjGoodDetails.getData().setCount(num);
-                 Intent intent=new Intent(this,ConfirmPTActivity.class);
+                 Intent intent=new Intent(this,ConfirmXDActivity.class);
                  intent.putExtra("goodBean",pjGoodDetails.getData());
                  intent.putExtra("type",0);
                  startActivity(intent);

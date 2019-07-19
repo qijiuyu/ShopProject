@@ -62,7 +62,7 @@
         <activity android:name=".activity.user.address.SelectRegionActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.shopping.PayOrderActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PeiJianDetailsActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.main.pjsc.ConfirmPTActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.pjsc.ConfirmXDActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.tuan.MyTuanActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PinTuanStatusActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.yhq.MyYhqActivity"  android:screenOrientation="portrait"/>
@@ -104,6 +104,7 @@
         <activity android:name=".activity.user.certification.CertificationActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.SelectYHQActivity"  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".activity.webview.WebViewActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.RzzpActivity"  android:screenOrientation="portrait"/>
 
 
         <activity android:name=".activity.video.PlayVideoActivity"

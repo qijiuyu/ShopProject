@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.user.address.AddressListActivity;
@@ -25,6 +24,7 @@ import com.ylkj.shopproject.activity.user.yhq.MyYhqActivity;
 import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.Certification;
+import com.zxdc.utils.library.bean.IsNews;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -32,7 +32,6 @@ import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
-
 /**
  * 我的
  */
@@ -143,6 +142,16 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                           }
                       }
                       break;
+                //消息列表入口红点
+                case HandlerConstant.IS_NEWS_SUCCESS:
+                    final IsNews isNews= (IsNews) msg.obj;
+                    if(null==isNews){
+                        break;
+                    }
+                    if(isNews.isSussess() && isNews.getData()==1){
+                        findViewById(R.id.img_news).setVisibility(View.VISIBLE);
+                    }
+                    break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(getString(R.string.net_error));
                     break;
@@ -289,6 +298,13 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
      */
     public void getCertifiCation(){
         HttpMethod.getCertifiCation(handler);
+    }
+
+    /**
+     * 消息列表入口红点接口
+     */
+    public void isNews(){
+        HttpMethod.isNews("2",handler);
     }
 
 

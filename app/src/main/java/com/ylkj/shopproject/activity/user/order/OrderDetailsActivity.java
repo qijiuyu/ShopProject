@@ -146,6 +146,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                 imgBg.setImageDrawable(getResources().getDrawable(R.mipmap.yqx_bg));
                 imgStatus.setImageDrawable(getResources().getDrawable(R.mipmap.yqx_icon));
                 tvPlay.setText("删除订单");
+                tvDel.setVisibility(View.GONE);
                 break;
         }
 

@@ -7,24 +7,18 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.adapter.main.SearchAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
-import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.Util;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * 首页搜索
  */
@@ -125,6 +119,14 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
                 }
             });
             listView.setAdapter(searchAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //跳转搜索页开始搜索
+                    Intent intent=new Intent(SearchActivity.this,SearchResultActivity.class);
+                    intent.putExtra("keys",keyList.get(position));
+                    startActivity(intent);
+                }
+            });
         }
     }
 

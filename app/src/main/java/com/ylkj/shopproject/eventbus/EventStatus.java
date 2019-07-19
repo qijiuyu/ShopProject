@@ -70,4 +70,13 @@ public class EventStatus {
 
     //获取首页热门
     public static final int MAIN_HOT_SUCCESS=128;
+
+    //生意圈分类查询完成
+    public static final int BUSINESS_TYPE=129;
+
+    //生意圈消息获取
+    public static final int BUSINESS_NEW=130;
+
+    //首页有未读的消息
+    public static final int MAIN_NEWS_SHOW=131;
 }

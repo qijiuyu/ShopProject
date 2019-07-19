@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * 确认拼团下单
  */
-public class ConfirmPTActivity extends BaseActivity implements View.OnClickListener{
+public class ConfirmXDActivity extends BaseActivity implements View.OnClickListener{
 
     private OvalImage2Views imgIcon;
     private TextView tvName,tvMobile,tvAddress,tvTitle,tvTime,tvMoney,tvOldMoney,tvNum,tvYfMoney,tvFP,tvYHQ,tvMoney2,tvYfMoney2,tvYhMoney,tvTotalMoney;

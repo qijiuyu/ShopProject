@@ -185,6 +185,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
                       }
                   });
                   break;
+            //首页有未读的消息
+            case EventStatus.MAIN_NEWS_SHOW:
+                  findViewById(R.id.img_news).setVisibility(View.VISIBLE);
+                  break;
         }
     }
 

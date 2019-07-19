@@ -1,10 +1,7 @@
 package com.ylkj.shopproject.activity.business;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,25 +11,22 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.business.fragment.BusinessFragment;
+import com.ylkj.shopproject.activity.business.persenter.BusinessPersenter;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
 import com.ylkj.shopproject.view.PagerSlidingTabStrip;
 import com.ylkj.shopproject.view.ViewPagerCallBack;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.BusinessMsg;
 import com.zxdc.utils.library.bean.ZzfuType;
-import com.zxdc.utils.library.http.HandlerConstant;
-import com.zxdc.utils.library.http.HttpMethod;
-import com.zxdc.utils.library.util.DialogUtil;
-import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
-
-import java.io.Serializable;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 生意圈
  */
@@ -47,14 +41,17 @@ public class BusinessActivity extends BaseActivity {
     private ViewPager pager;
     //分类对象集合
     public static List<ZzfuType.dataBean> typeList=new ArrayList<>();
+    private BusinessPersenter businessPersenter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
+        businessPersenter=new BusinessPersenter(this);
+        EventBus.getDefault().register(this);
         initView();
         //获取分类
-        getType();
+        businessPersenter.getType();
         //生意圈消息提示
-        getBusinessMsg();
+        businessPersenter.getBusinessMsg();
     }
 
 
@@ -80,9 +77,7 @@ public class BusinessActivity extends BaseActivity {
         //发布动态
         findViewById(R.id.img_add).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent=new Intent(BusinessActivity.this,AddBusinessActivity.class);
-                intent.putExtra("typeList",(Serializable)typeList);
-                startActivity(intent);
+                businessPersenter.getCompany();
             }
         });
 
@@ -100,46 +95,6 @@ public class BusinessActivity extends BaseActivity {
         });
     }
 
-
-    private Handler handler=new Handler(new Handler.Callback() {
-        public boolean handleMessage(Message msg) {
-            DialogUtil.closeProgress();
-            switch (msg.what){
-                //查询分类回执
-                case HandlerConstant.GET_TYPE_SUCCESS:
-                    final ZzfuType zzfuType= (ZzfuType) msg.obj;
-                    if(null==zzfuType){
-                        break;
-                    }
-                    if(zzfuType.isSussess()){
-                        typeList.addAll(zzfuType.getData());
-                        setTabsValue();
-                    }else{
-                        ToastUtil.showLong(zzfuType.getDesc());
-                    }
-                    break;
-                //生意圈消息提示
-                case HandlerConstant.GET_BUSINESS_MSG_SUCCESS:
-                       BusinessMsg businessMsg= (BusinessMsg) msg.obj;
-                       if(null==businessMsg){
-                           break;
-                       }
-                       if(businessMsg.isSussess()){
-                           if(null==businessMsg.getData()){
-                               break;
-                           }
-                           findViewById(R.id.rel_trip).setVisibility(View.VISIBLE);
-                           tvNum.setText(businessMsg.getData().getNum()+"条消息");
-                           Glide.with(BusinessActivity.this).load(businessMsg.getData().getImgurl()).override(20,20).centerCrop().error(R.mipmap.default_icon).into(imgPic);
-                       }
-                      break;
-                case HandlerConstant.REQUST_ERROR:
-                    ToastUtil.showLong(getString(R.string.net_error));
-                    break;
-            }
-            return false;
-        }
-    });
 
 
     /**
@@ -197,23 +152,38 @@ public class BusinessActivity extends BaseActivity {
 
 
     /**
-     * 获取分类
+     * EventBus注解
      */
-    private void getType(){
-        DialogUtil.showProgress(this,"数据加载中");
-        HttpMethod.getZzfuType("4",handler);
+    @Subscribe
+    public void onEvent(EventBusType eventBusType){
+        switch (eventBusType.getStatus()){
+            //获取生意圈分类
+            case EventStatus.BUSINESS_TYPE:
+                  List<ZzfuType.dataBean> list= (List<ZzfuType.dataBean>) eventBusType.getObject();
+                  typeList.addAll(list);
+                  setTabsValue();
+                  break;
+            //生意圈消息获取
+            case EventStatus.BUSINESS_NEW:
+                  BusinessMsg.DataBean dataBean= (BusinessMsg.DataBean) eventBusType.getObject();
+                  findViewById(R.id.rel_trip).setVisibility(View.VISIBLE);
+                  tvNum.setText(dataBean.getNum()+"条消息");
+                  Glide.with(BusinessActivity.this).load(dataBean.getImgurl()).override(20,20).centerCrop().error(R.mipmap.default_icon).into(imgPic);
+                  break;
+        }
     }
 
-    /**
-     * 生意圈消息提示
-     */
-    private void getBusinessMsg(){
-        HttpMethod.businessMsg(handler);
-    }
 
     private ViewPagerCallBack viewPagerCallBack=new ViewPagerCallBack() {
         public void PageSelected(int position) {
             BusinessActivity.index=position;
         }
     };
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
