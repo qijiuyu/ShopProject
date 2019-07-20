@@ -20,15 +20,16 @@ public class MainJX extends BaseBean {
 
     public static class DataBean implements Serializable{
         //专题id
-        private String topicid;
+        private int topicid;
         //专题图片
         private String imgurl;
+        private String title;
 
-        public String getTopicid() {
+        public int getTopicid() {
             return topicid;
         }
 
-        public void setTopicid(String topicid) {
+        public void setTopicid(int topicid) {
             this.topicid = topicid;
         }
 
@@ -38,6 +39,14 @@ public class MainJX extends BaseBean {
 
         public void setImgurl(String imgurl) {
             this.imgurl = imgurl;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
         }
     }
 }

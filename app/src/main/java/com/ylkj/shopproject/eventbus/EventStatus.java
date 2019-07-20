@@ -79,4 +79,8 @@ public class EventStatus {
 
     //首页有未读的消息
     public static final int MAIN_NEWS_SHOW=131;
+
+    //下单页选择的优惠券
+    public static final int SELECT_ORDER_COUPON=132;
+
 }

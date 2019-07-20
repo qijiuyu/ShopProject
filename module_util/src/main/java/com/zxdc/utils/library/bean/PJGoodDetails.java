@@ -50,6 +50,9 @@ public class PJGoodDetails extends BaseBean {
         //前台自己设置商品数量
         private int count;
 
+        //选中的skuid
+        private int skuid;
+
         public double getFreigth() {
             return freigth;
         }
@@ -152,6 +155,14 @@ public class PJGoodDetails extends BaseBean {
 
         public void setSkuList(List<skuBean> skuList) {
             this.skuList = skuList;
+        }
+
+        public int getSkuid() {
+            return skuid;
+        }
+
+        public void setSkuid(int skuid) {
+            this.skuid = skuid;
         }
     }
 

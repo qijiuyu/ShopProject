@@ -15,6 +15,7 @@ import com.zxdc.utils.library.bean.IsNews;
 import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
+import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
@@ -1332,9 +1333,10 @@ public class HttpMethod extends BaseRequst {
     /**
      * 获取订单结算也优惠券列表接口
      */
-    public static void getOrderYhq(int type,final Handler handler) {
+    public static void getOrderYhq(int type,String paramstr,final Handler handler) {
         Map<String, String> map = new HashMap<>();
         map.put("type",String.valueOf(type));
+        map.put("paramstr",paramstr);
         Http.getRetrofit().create(HttpApi.class).getOrderYhq(map).enqueue(new Callback<Coupon>() {
             public void onResponse(Call<Coupon> call, Response<Coupon> response) {
                 BaseRequst.sendMessage(handler, HandlerConstant.GET_ORDER_YHQ_SUCCESS, response.body());
@@ -1456,6 +1458,41 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.IS_NEWS_SUCCESS, response.body());
             }
             public void onFailure(Call<IsNews> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取专题更多商品接口
+     */
+    public static void getMoreTopic(int topicid,int page,final int index,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("topicid",String.valueOf(topicid));
+        map.put("page",String.valueOf(page));
+        map.put("size","20");
+        Http.getRetrofit().create(HttpApi.class).getMoreTopic(map).enqueue(new Callback<MainHot>() {
+            public void onResponse(Call<MainHot> call, Response<MainHot> response) {
+                BaseRequst.sendMessage(handler, index, response.body());
+            }
+            public void onFailure(Call<MainHot> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取订单结算页收货地址接口
+     */
+    public static void getOrderAddr(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).getOrderAddr(map).enqueue(new Callback<OrderAddr>() {
+            public void onResponse(Call<OrderAddr> call, Response<OrderAddr> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_ORDER_ADDR_SUCCESS, response.body());
+            }
+            public void onFailure(Call<OrderAddr> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

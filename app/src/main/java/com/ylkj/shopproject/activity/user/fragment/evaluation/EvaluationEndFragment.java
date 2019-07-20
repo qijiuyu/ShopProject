@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.user.fragment.evaluation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -85,7 +86,7 @@ public class EvaluationEndFragment extends BaseFragment  implements MyRefreshLay
             List<CommOrder.DataBean> list = commOrder.getData();
             listAll.addAll(list);
             if (null == evaluationAdapter) {
-                evaluationAdapter=new EvaluationAdapter(mActivity,listAll,0);
+                evaluationAdapter=new EvaluationAdapter(mActivity,listAll,1);
                 listView.setAdapter(evaluationAdapter);
             } else {
                 evaluationAdapter.notifyDataSetChanged();

@@ -15,6 +15,7 @@ import com.ylkj.shopproject.adapter.user.AddressListAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.AddrBean;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -36,9 +37,11 @@ public class AddressListActivity extends BaseActivity {
     private ListView listView;
     private AddressListAdapter addressListAdapter;
     //地址列表集合
-    private List<Address.AddressBean> list=new ArrayList<>();
+    private List<AddrBean> list=new ArrayList<>();
     //默认，删除的下标
     private int position;
+    //1:下单页进入
+    private int type;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_list);
@@ -51,6 +54,7 @@ public class AddressListActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
+        type=getIntent().getIntExtra("type",0);
         listView=findViewById(R.id.listView);
         //添加新地址
         findViewById(R.id.tv_add).setOnClickListener(new View.OnClickListener() {
@@ -79,6 +83,20 @@ public class AddressListActivity extends BaseActivity {
                      list=address.getData();
                      addressListAdapter=new AddressListAdapter(AddressListActivity.this,list);
                      listView.setAdapter(addressListAdapter);
+                    /**
+                     * 选择收货地址
+                     */
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            AddrBean addrBean=list.get(position);
+                            if(type==1){
+                                Intent intent=new Intent();
+                                intent.putExtra("addrBean",addrBean);
+                                setResult(100,intent);
+                                AddressListActivity.this.finish();
+                            }
+                        }
+                    });
                      break;
                 //修改默认收货地址
                 case HandlerConstant.SET_ADDR_DEFAULT_SUCCESS:
@@ -89,7 +107,7 @@ public class AddressListActivity extends BaseActivity {
                       if(baseBean.isSussess()){
                           for(int i=0;i<list.size();i++){
                               if(i==position){
-                                  Address.AddressBean addressBean=list.get(i);
+                                  AddrBean addressBean=list.get(i);
                                   addressBean.setIsdefault(1);
                                   list.remove(i);
                                   list.add(0,addressBean);

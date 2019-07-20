@@ -10,13 +10,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.pjsc.SelectYHQActivity;
 import com.ylkj.shopproject.adapter.main.SelectYhqAdapter;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseFragment;
 import com.zxdc.utils.library.bean.Coupon;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -54,9 +60,15 @@ public class YesYhqFragment extends BaseFragment{
                           list=coupon.getData();
                           selectYhqAdapter=new SelectYhqAdapter(mActivity,list,1);
                           listView.setAdapter(selectYhqAdapter);
+                          /**
+                           * 下单页选中的优惠券
+                           */
                           listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                   selectYhqAdapter.setIndex(position);
+                                  selectYhqAdapter.notifyDataSetChanged();
+                                  Coupon.DataBean dataBean=list.get(position);
+                                  EventBus.getDefault().post(new EventBusType(EventStatus.SELECT_ORDER_COUPON,dataBean));
                               }
                           });
                       }else{
@@ -77,7 +89,7 @@ public class YesYhqFragment extends BaseFragment{
      * 获取订单结算也优惠券列表接口
      */
     private void getOrderYhq() {
-       HttpMethod.getOrderYhq(1,handler);
+       HttpMethod.getOrderYhq(1, SelectYHQActivity.parameter,handler);
     }
 
     @Override

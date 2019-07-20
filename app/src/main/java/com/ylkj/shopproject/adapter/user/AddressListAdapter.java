@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
+import com.zxdc.utils.library.bean.AddrBean;
 import com.zxdc.utils.library.bean.Address;
 import org.greenrobot.eventbus.EventBus;
 import java.util.List;
@@ -19,8 +20,8 @@ import java.util.List;
 public class AddressListAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<Address.AddressBean> list;
-	public AddressListAdapter(Context context, List<Address.AddressBean> list) {
+	private List<AddrBean> list;
+	public AddressListAdapter(Context context, List<AddrBean> list) {
 		super();
 		this.context = context;
 		this.list=list;
@@ -58,7 +59,7 @@ public class AddressListAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-		final Address.AddressBean addressBean=list.get(position);
+		final AddrBean addressBean=list.get(position);
 		holder.tvName.setText(addressBean.getName());
 		holder.tvMobile.setText(addressBean.getMobile());
 		holder.tvAddress.setText(addressBean.getAddress());

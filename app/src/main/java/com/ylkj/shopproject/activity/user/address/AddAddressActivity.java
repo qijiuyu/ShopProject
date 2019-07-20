@@ -16,6 +16,7 @@ import com.ylkj.shopproject.activity.city.ProvinceActivity;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.AddrBean;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -39,7 +40,7 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     //存储省市区号和名称
     private String[] strCity;
     //修改的地址对象
-    private Address.AddressBean addressBean;
+    private AddrBean addressBean;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_address);
@@ -71,7 +72,7 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
      * 展示要修改的数据
      */
     private void showData(){
-        addressBean= (Address.AddressBean) getIntent().getSerializableExtra("addressBean");
+        addressBean= (AddrBean) getIntent().getSerializableExtra("addressBean");
         if(null==addressBean){
             return;
         }

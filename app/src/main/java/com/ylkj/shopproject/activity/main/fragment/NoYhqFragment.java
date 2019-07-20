@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.pjsc.SelectYHQActivity;
 import com.ylkj.shopproject.adapter.main.SelectYhqAdapter;
 import com.zxdc.utils.library.base.BaseFragment;
 import com.zxdc.utils.library.bean.Coupon;
@@ -74,7 +75,7 @@ public class NoYhqFragment extends BaseFragment{
      * 获取订单结算也优惠券列表接口
      */
     private void getOrderYhq() {
-       HttpMethod.getOrderYhq(2,handler);
+       HttpMethod.getOrderYhq(2, SelectYHQActivity.parameter,handler);
     }
 
     @Override

@@ -50,8 +50,6 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
     private String mpCropPath,jcCropPath;
     //时间选择器
     private TimePickerView timePickerView;
-    //收货地址集合
-    private List<Address.AddressBean> addrList=new ArrayList<>();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fault);
@@ -139,18 +137,6 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
         public boolean handleMessage(Message msg) {
             DialogUtil.closeProgress();
             switch (msg.what){
-                //获取地址列表回执
-                case HandlerConstant.GET_ADDR_LIST_SUCCESS:
-                    Address address= (Address) msg.obj;
-                    if(null==address){
-                        break;
-                    }
-                    if(address.isSussess()){
-                        addrList=address.getData();
-                        //展示收货地址
-                        showAddress();
-                    }
-                    break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(activity.getString(R.string.net_error));
                     break;
@@ -164,14 +150,12 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
      * 展示收货地址
      */
     private void showAddress(){
-        if(addrList.size()>0){
-            findViewById(R.id.rel_select_addr).setVisibility(View.GONE);
-            findViewById(R.id.rel_addr).setVisibility(View.VISIBLE);
-            Address.AddressBean addressBean=addrList.get(0);
-            tvUserName.setText(addressBean.getName());
-            tvMobile.setText(addressBean.getMobile());
-            tvAddress.setText(addressBean.getAddress());
-        }
+//        findViewById(R.id.rel_select_addr).setVisibility(View.GONE);
+//        findViewById(R.id.rel_addr).setVisibility(View.VISIBLE);
+//        Address.AddressBean addressBean=addrList.get(0);
+//        tvUserName.setText(addressBean.getName());
+//        tvMobile.setText(addressBean.getMobile());
+//        tvAddress.setText(addressBean.getAddress());
     }
 
 
@@ -219,13 +203,15 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
                         takePhoto.setImagePath(file.getPath());
                         Bimp.selectBitmap.add(takePhoto);
                         Bimp.imgList.add(takePhoto);
-                        adapter.notifyDataSetChanged();
+                        adapter = new GridImageAdapter(getApplicationContext(), Bimp.selectBitmap);
+                        gridView.setAdapter(adapter);
                     }
                 }
                 break;
             //返回相册选择图片
             case PicturesUtil.CODE_GALLERY_REQUEST:
-                 adapter.notifyDataSetChanged();
+                 adapter = new GridImageAdapter(getApplicationContext(), Bimp.selectBitmap);
+                 gridView.setAdapter(adapter);
                  break;
             default:
                 break;
@@ -233,18 +219,4 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-
-    /**
-     * 获取收货地址列表
-     */
-    private void getAddrList(){
-        HttpMethod.getAddrList(handler);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getAddrList();
-    }
 }

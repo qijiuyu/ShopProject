@@ -105,6 +105,7 @@
         <activity android:name=".activity.main.pjsc.SelectYHQActivity"  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".activity.webview.WebViewActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.RzzpActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.MoreTopicActivity"  android:screenOrientation="portrait"/>
 
 
         <activity android:name=".activity.video.PlayVideoActivity"

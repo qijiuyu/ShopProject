@@ -45,6 +45,7 @@ public class AboutActivity extends BaseActivity {
 
     private Handler handler=new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
+            DialogUtil.closeProgress();
             switch (msg.what){
                 case HandlerConstant.GET_ABOUT_SUCCESS:
                       final About about= (About) msg.obj;

@@ -20,7 +20,7 @@ public class SelectYhqAdapter extends BaseAdapter {
 	//1:可使用   2：不可使用
 	private int status;
 	//选中的下标
-	private int index;
+	private int index=-1;
 	public SelectYhqAdapter(Context context, List<Coupon.DataBean> list, int status) {
 		super();
 		this.context = context;

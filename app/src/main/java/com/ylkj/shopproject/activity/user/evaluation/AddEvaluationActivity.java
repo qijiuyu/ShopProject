@@ -202,13 +202,15 @@ public class AddEvaluationActivity extends BaseActivity implements View.OnClickL
                         takePhoto.setImagePath(file.getPath());
                         Bimp.selectBitmap.add(takePhoto);
                         Bimp.imgList.add(takePhoto);
-                        adapter.notifyDataSetChanged();
+                        adapter = new GridImageAdapter(getApplicationContext(), Bimp.selectBitmap);
+                        gridView.setAdapter(adapter);
                     }
                 }
                 break;
             //返回相册选择图片
             case PicturesUtil.CODE_GALLERY_REQUEST:
-                adapter.notifyDataSetChanged();
+                adapter = new GridImageAdapter(getApplicationContext(), Bimp.selectBitmap);
+                gridView.setAdapter(adapter);
                 break;
             default:
                 break;

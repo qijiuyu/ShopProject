@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.MoreTopicActivity;
 import com.ylkj.shopproject.activity.type.JCDetailsActivity;
 import com.ylkj.shopproject.activity.webview.WebViewActivity;
 import com.ylkj.shopproject.eventbus.EventBusType;
@@ -192,6 +193,16 @@ public class MainPersenter {
         public void displayImage(Context context, Object path, ImageView imageView) {
             MainJX.DataBean dataBean= (MainJX.DataBean) path;
             Glide.with(context).load(dataBean.getImgurl()).into(imageView);
+            //图片点击跳转
+            imageView.setTag(dataBean);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    MainJX.DataBean dataBean= (MainJX.DataBean) v.getTag();
+                    Intent intent=new Intent(activity, MoreTopicActivity.class);
+                    intent.putExtra("dataBean",dataBean);
+                    activity.startActivity(intent);
+                }
+            });
         }
     }
 

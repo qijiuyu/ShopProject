@@ -12,6 +12,7 @@ import com.zxdc.utils.library.bean.IsNews;
 import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
+import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
@@ -345,4 +346,12 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.IS_NEWS)
     Call<IsNews> isNews(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_MORE_TOP)
+    Call<MainHot> getMoreTopic(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ORDER_ADDR)
+    Call<OrderAddr> getOrderAddr(@FieldMap Map<String, String> map);
 }

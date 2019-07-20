@@ -5,16 +5,14 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.adapter.selectphoto.GridImageAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.CommOrder;
 import com.zxdc.utils.library.view.MyGridView;
 import com.zxdc.utils.library.view.OvalImage2Views;
-
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 评价详情界面
  */
@@ -26,6 +24,7 @@ public class EvaluationDetailsActivity extends BaseActivity {
     private MyGridView gridView;
     private GridImageAdapter adapter;
     private List<ImageView> listImg=new ArrayList<>();
+    private CommOrder.DataBean dataBean;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation_details);
@@ -37,6 +36,7 @@ public class EvaluationDetailsActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
+        dataBean= (CommOrder.DataBean) getIntent().getSerializableExtra("dataBean");
         imgIcon=findViewById(R.id.img_icon);
         tvTitle=findViewById(R.id.tv_title);
         img1=findViewById(R.id.img_x1);

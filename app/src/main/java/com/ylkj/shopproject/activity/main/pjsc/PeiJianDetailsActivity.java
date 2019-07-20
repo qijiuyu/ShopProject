@@ -116,6 +116,7 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
             //立即购买
             case R.id.tv_buy:
                  pjGoodDetails.getData().setCount(num);
+                pjGoodDetails.getData().setSkuid(skuid);
                  Intent intent=new Intent(this,ConfirmXDActivity.class);
                  intent.putExtra("goodBean",pjGoodDetails.getData());
                  intent.putExtra("type",0);

@@ -29,7 +29,6 @@ import com.ylkj.shopproject.util.PicturesUtil;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.UploadImg;
-import com.zxdc.utils.library.bean.ZzfuType;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.BitMapUtil;
@@ -164,13 +163,15 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
                         takePhoto.setImagePath(file.getPath());
                         Bimp.selectBitmap.add(takePhoto);
                         Bimp.imgList.add(takePhoto);
-                        adapter.notifyDataSetChanged();
+                        adapter = new GridImageAdapter(getApplicationContext(), Bimp.selectBitmap);
+                        gridView.setAdapter(adapter);
                     }
                 }
                 break;
             //返回相册选择图片
             case PicturesUtil.CODE_GALLERY_REQUEST:
-                adapter.notifyDataSetChanged();
+                adapter = new GridImageAdapter(getApplicationContext(), Bimp.selectBitmap);
+                gridView.setAdapter(adapter);
                 break;
             default:
                 break;
@@ -197,7 +198,6 @@ public class AddBusinessActivity extends BaseActivity implements View.OnClickLis
                         listFile.add(file1);
                     }
                 }
-                LogUtils.e(listFile.size()+"+++++++++++++++++++++");
                 HttpMethod.uploadImg(1,listFile,handler);
             }
         },100);

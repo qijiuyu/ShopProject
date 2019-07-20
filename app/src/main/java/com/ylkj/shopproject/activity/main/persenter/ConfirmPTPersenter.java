@@ -1,6 +1,7 @@
 package com.ylkj.shopproject.activity.main.persenter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -13,14 +14,25 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.pjsc.SelectYHQActivity;
+import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.Coupon;
+import com.zxdc.utils.library.bean.OrderAddr;
+import com.zxdc.utils.library.bean.PJGoodDetails;
+import com.zxdc.utils.library.bean.Shopping;
 import com.zxdc.utils.library.bean.Zpzz;
+import com.zxdc.utils.library.bean.json.OrderJson;
+import com.zxdc.utils.library.bean.json.YhqJson;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
+import com.zxdc.utils.library.util.Util;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -52,13 +64,13 @@ public class ConfirmPTPersenter implements View.OnClickListener{
             DialogUtil.closeProgress();
             switch (msg.what){
                 //获取地址列表回执
-                case HandlerConstant.GET_ADDR_LIST_SUCCESS:
-                     Address address= (Address) msg.obj;
-                     if(null==address){
+                case HandlerConstant.GET_ORDER_ADDR_SUCCESS:
+                     OrderAddr orderAddr= (OrderAddr) msg.obj;
+                     if(null==orderAddr){
                          break;
                      }
-                     if(address.isSussess()){
-                         EventBus.getDefault().post(new EventBusType(EventStatus.GET_MY_ADDRESS,address.getData()));
+                     if(orderAddr.isSussess()){
+                         EventBus.getDefault().post(new EventBusType(EventStatus.GET_MY_ADDRESS,orderAddr.getData()));
                      }
                      break;
                 //查询增票资质
@@ -67,14 +79,12 @@ public class ConfirmPTPersenter implements View.OnClickListener{
                      if(null==zpzz){
                          break;
                      }
-                     if(zpzz.isSussess() && null!=zpzz.getData()){
-                         if(zpzz.getData().getStatus()!=1){
-                             ToastUtil.showLong(zpzz.getDesc());
-                             break;
-                         }
+                    if(null!=zpzz.getData() && zpzz.getData().getStatus()==1){
                          //展示增值税收发票信息
                          showFp(zpzz.getData());
-                     }
+                     }else{
+                         ToastUtil.showLong("您未添加增值税专用发票信息，请从个人中心的增票资质中提交信息");
+                    }
                     break;
                 case HandlerConstant.REQUST_ERROR:
                      ToastUtil.showLong(activity.getString(R.string.net_error));
@@ -118,6 +128,7 @@ public class ConfirmPTPersenter implements View.OnClickListener{
         tvPT.setOnClickListener(this);
         tvZZ.setOnClickListener(this);
         view.findViewById(R.id.tv_submit_pf).setOnClickListener(this);
+        view.findViewById(R.id.tv_submit_zz).setOnClickListener(this);
         view.findViewById(R.id.img_close).setOnClickListener(this);
     }
 
@@ -205,8 +216,11 @@ public class ConfirmPTPersenter implements View.OnClickListener{
                   if(null!=zpzz.getData() && zpzz.getData().getStatus()==1){
                       invoiceType=2;
                       return;
+                  }else{
+                      Intent intent=new Intent(activity,EditZpzzActivity.class);
+                      intent.putExtra("zpzz",zpzz);
+                      activity.startActivity(intent);
                   }
-                  ToastUtil.showLong(zpzz.getDesc());
                   break;
             case R.id.img_close:
                  popupWindow.dismiss();
@@ -229,11 +243,88 @@ public class ConfirmPTPersenter implements View.OnClickListener{
         tvSPAddr.setText(dataBean.getAddress());
     }
 
+
+    /**
+     * 组装优惠券json
+     */
+    public void couponJson(PJGoodDetails.goodBean goodBean,Shopping shopping){
+        YhqJson yhqJson=new YhqJson();
+        List<YhqJson.goodList> list=new ArrayList<>();
+        double totalMoney=0;
+        if(null!=goodBean){
+            //总费用
+            totalMoney=goodBean.getPrice()*goodBean.getCount();
+            //商品信息
+            YhqJson.goodList goodList=new YhqJson.goodList();
+            goodList.setProid(goodBean.getSpuid());
+            goodList.setPromoney(goodBean.getPrice());
+            list.add(goodList);
+        }
+        if(null!=shopping){
+            //总费用
+            totalMoney=shopping.getData().getAllmoney();
+            //商品信息
+            for (int i=0;i<shopping.getData().getCartInfos().size();i++){
+                  YhqJson.goodList goodList=new YhqJson.goodList();
+                  goodList.setProid(shopping.getData().getCartInfos().get(i).getSpuid());
+                  goodList.setPromoney(shopping.getData().getCartInfos().get(i).getPrice());
+                  list.add(goodList);
+            }
+        }
+        yhqJson.setMoney(totalMoney);
+        yhqJson.setProlist(list);
+        Intent intent=new Intent(activity, SelectYHQActivity.class);
+        intent.putExtra("parameter",SPUtil.gson.toJson(yhqJson));
+        activity.startActivity(intent);
+    }
+
+
+    /**
+     * 组装订单json
+     */
+    public String orderJson(PJGoodDetails.goodBean goodBean,Shopping shopping,Coupon.DataBean coupon,double totalAllMoney,EditText etDes){
+        OrderJson orderJson=new OrderJson();
+        List<OrderJson.skuList> details=new ArrayList<>();
+        orderJson.setTotalMoney(totalAllMoney);
+        //优惠的金额
+        if(null!=coupon){
+            orderJson.setDelMoney(coupon.getFacevalue());
+            orderJson.setCouponID(coupon.getCouponid());
+        }
+        //是否要发票(0不要发票 1要发票)
+        if(invoiceType==0){
+            orderJson.setIsInvoice(0);
+        }else{
+            orderJson.setIsInvoice(1);
+        }
+        orderJson.setRemark(etDes.getText().toString().trim());
+        if(null!=goodBean){
+            //运费
+            orderJson.setFreightMoney(goodBean.getFreigth());
+            OrderJson.skuList skuList=new OrderJson.skuList(goodBean.getSkuid(),goodBean.getCount(),goodBean.getSpuid());
+            details.add(skuList);
+        }
+        if(null!=shopping){
+            double totalYfMoney=0;
+            for (int i=0;i<shopping.getData().getCartInfos().size();i++){
+                  Shopping.goodList goodList=shopping.getData().getCartInfos().get(i);
+                  totalYfMoney= Util.sum(totalYfMoney,goodList.getFreigth());
+                  OrderJson.skuList skuList=new OrderJson.skuList(goodList.getSkuid(),goodList.getProcount(),goodList.getSpuid());
+                  details.add(skuList);
+            }
+            //运费
+            orderJson.setFreightMoney(totalYfMoney);
+        }
+        orderJson.setDetails(details);
+        LogUtils.e(SPUtil.gson.toJson(orderJson));
+        return SPUtil.gson.toJson(orderJson);
+    }
+
     /**
      * 获取收货地址列表
      */
-    public void getAddrList(){
-        HttpMethod.getAddrList(handler);
+    public void getOrderAddr(){
+        HttpMethod.getOrderAddr(handler);
     }
 
 
@@ -242,5 +333,12 @@ public class ConfirmPTPersenter implements View.OnClickListener{
      */
     private void getZpzz(){
         HttpMethod.getZpzz(handler);
+    }
+
+    /**
+     * 获取发票类型
+     */
+    public int getInvoiceType(){
+       return invoiceType;
     }
 }

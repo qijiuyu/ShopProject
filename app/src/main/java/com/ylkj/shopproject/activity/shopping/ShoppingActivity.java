@@ -89,7 +89,6 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
                   if(play.equals("结算")){
                       Intent intent=new Intent(this,ConfirmXDActivity.class);
                       intent.putExtra("shopping",shopping);
-                      intent.putExtra("type",1);
                       startActivity(intent);
                   }else{
                       shoppingPersenter.delete(shopping);

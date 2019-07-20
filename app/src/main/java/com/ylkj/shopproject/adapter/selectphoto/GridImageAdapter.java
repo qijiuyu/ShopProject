@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ylkj.shopproject.R;
@@ -16,9 +15,7 @@ import com.ylkj.shopproject.activity.selectphoto.bean.ImageItem;
 import com.ylkj.shopproject.application.APPAplication;
 import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.view.ClickImageView;
-
 import java.util.List;
-
 public class GridImageAdapter extends BaseAdapter {
 
     private List<ImageItem> list;

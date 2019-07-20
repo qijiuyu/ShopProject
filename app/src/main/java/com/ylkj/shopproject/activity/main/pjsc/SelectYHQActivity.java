@@ -28,6 +28,8 @@ public class SelectYHQActivity extends BaseActivity {
     private YesYhqFragment yesYhqFragment=new YesYhqFragment();
     //不可以使用的优惠券
     private NoYhqFragment noYhqFragment=new NoYhqFragment();
+    //参数
+    public static String parameter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_yhq);
@@ -39,6 +41,7 @@ public class SelectYHQActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
+        parameter=getIntent().getStringExtra("parameter");
         dm = getResources().getDisplayMetrics();
         pager =  findViewById(R.id.pager);
         tabs =  findViewById(R.id.tabs);

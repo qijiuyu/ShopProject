@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.business.BusinessNewsActivity;
 import com.ylkj.shopproject.activity.user.address.AddressListActivity;
 import com.ylkj.shopproject.activity.user.after.AfterActivity;
 import com.ylkj.shopproject.activity.user.business.MyBusinessActivity;
@@ -79,7 +80,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.rel_shdz).setOnClickListener(this);
         findViewById(R.id.rel_qyxx).setOnClickListener(this);
         findViewById(R.id.rel_setting).setOnClickListener(this);
-        findViewById(R.id.img_news).setOnClickListener(this);
+        findViewById(R.id.rel_news).setOnClickListener(this);
         findViewById(R.id.tv_all_order).setOnClickListener(this);
     }
 
@@ -243,7 +244,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
             case R.id.img_customer:
                  break;
             //消息
-            case R.id.img_news:
+            case R.id.rel_news:
+                  setClass(BusinessNewsActivity.class);
                  break;
         }
     }

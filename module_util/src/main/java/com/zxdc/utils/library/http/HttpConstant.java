@@ -196,7 +196,7 @@ public class HttpConstant {
     public static final String ORDER_DETAILS="api/app/order/showorderdetail";
 
     //评价订单
-    public static final String COMM_ORDER="platform/comment/add";
+    public static final String COMM_ORDER="api/app/comment/add";
 
     //获取订单结算页优惠券列表接口
     public static final String GET_ORDER_YHQ="api/app/coupon/getordercoupon";
@@ -227,5 +227,11 @@ public class HttpConstant {
 
     //消息列表入口红点接口
     public static final String IS_NEWS="api/app/message/isred";
+
+    //获取专题更多商品接口
+    public static final String GET_MORE_TOP="api/app/topic/getmoretopicspu";
+
+    //获取订单结算页收货地址接口
+    public static final String GET_ORDER_ADDR="api/app/receiveaddress/getpayaddress";
 
 }
