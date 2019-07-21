@@ -17,6 +17,8 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
     private ImageView imgWX,imgZFB;
     //1：微信，   2：支付宝
     private int payType=1;
+    private double money;
+    private String orderCode;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_order);
@@ -29,8 +31,13 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
      * 初始化
      */
     private void initView(){
+        //获取费用和订单号
+        money=getIntent().getDoubleExtra("money",0);
+        orderCode=getIntent().getStringExtra("orderCode");
         TextView tvMoney=findViewById(R.id.tv_money);
         TextView tvOrder=findViewById(R.id.tv_order);
+        tvMoney.setText("¥"+money);
+        tvOrder.setText(orderCode);
         imgWX=findViewById(R.id.img_wx);
         imgZFB=findViewById(R.id.img_zfb);
         findViewById(R.id.lin_wx).setOnClickListener(this);
@@ -38,7 +45,6 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.tv_pay).setOnClickListener(this);
         findViewById(R.id.lin_back).setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View v) {

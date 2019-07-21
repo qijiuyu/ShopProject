@@ -83,4 +83,10 @@ public class EventStatus {
     //下单页选择的优惠券
     public static final int SELECT_ORDER_COUPON=132;
 
+    //下单成功
+    public static final int ADD_ORDER_SUCCESS=133;
+
+    //下单时选择的发票类型
+    public static final int SELECT_INVOICE_TYPE=134;
+
 }

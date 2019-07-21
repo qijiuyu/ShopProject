@@ -81,4 +81,5 @@ public class HandlerConstant {
     public static final int GET_MORE_TOPIC_SUCCESS1=1177;
     public static final int GET_MORE_TOPIC_SUCCESS2=1178;
     public static final int GET_ORDER_ADDR_SUCCESS=1179;
+    public static final int ADD_ORDER_SUCCESS=1180;
 }

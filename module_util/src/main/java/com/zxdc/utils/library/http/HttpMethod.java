@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.zxdc.utils.library.base.MainXP;
 import com.zxdc.utils.library.bean.Abvert;
+import com.zxdc.utils.library.bean.AddOrder;
 import com.zxdc.utils.library.bean.After;
 import com.zxdc.utils.library.bean.AfterAddress;
 import com.zxdc.utils.library.bean.AfterDetails;
@@ -1493,6 +1494,29 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.GET_ORDER_ADDR_SUCCESS, response.body());
             }
             public void onFailure(Call<OrderAddr> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 下单接口
+     */
+    public static void addOrder(int receiveaddrid,String scids,int invoiceType,String orderparams,String invoiceparams,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("receiveaddrid",String.valueOf(receiveaddrid));
+        if(!TextUtils.isEmpty(scids)){
+            map.put("scids",scids);
+        }
+        map.put("invoiceType",String.valueOf(invoiceType));
+        map.put("orderparams",orderparams);
+        map.put("invoiceparams",invoiceparams);
+        Http.getRetrofit().create(HttpApi.class).addOrder(map).enqueue(new Callback<AddOrder>() {
+            public void onResponse(Call<AddOrder> call, Response<AddOrder> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.ADD_ORDER_SUCCESS, response.body());
+            }
+            public void onFailure(Call<AddOrder> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

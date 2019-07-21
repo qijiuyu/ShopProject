@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.user.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.shopping.PayOrderActivity;
 import com.ylkj.shopproject.activity.user.evaluation.AddEvaluationActivity;
+import com.ylkj.shopproject.activity.user.evaluation.EvaluationActivity;
 import com.ylkj.shopproject.activity.user.persenter.OrderPersenter;
 import com.ylkj.shopproject.adapter.user.OrderDetailsAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
@@ -206,6 +208,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        Intent intent=new Intent();
         switch (v.getId()){
             //赋值
             case R.id.tv_copy:
@@ -219,8 +222,10 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                 switch (dataBean.getStatus()){
                     //待付款
                     case 0:
-                       //去支付
-                        setClass(PayOrderActivity.class);
+                        intent.setClass(this,PayOrderActivity.class);
+                        intent.putExtra("money",orderDetails.getData().getActualpay());
+                        intent.putExtra("orderCode",orderDetails.getData().getOrdercode());
+                        startActivity(intent);
                         break;
                     //待收货
                     case 2:
@@ -228,7 +233,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                         break;
                     //已完成
                     case 3:
-                        setClass(AddEvaluationActivity.class);
+                        setClass(EvaluationActivity.class);
                         break;
                     //已取消
                     case 5:

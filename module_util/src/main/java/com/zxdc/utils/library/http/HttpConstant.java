@@ -234,4 +234,7 @@ public class HttpConstant {
     //获取订单结算页收货地址接口
     public static final String GET_ORDER_ADDR="api/app/receiveaddress/getpayaddress";
 
+    //下单接口
+    public static final String ADD_ORDER="api/app/order/add";
+
 }

@@ -12,6 +12,8 @@ import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.adapter.user.ApplyForDetailsAdapter;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.AfterDetails;
+import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.MyOrder;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -23,7 +25,7 @@ import com.zxdc.utils.library.view.OvalImage2Views;
  */
 public class ApplyForDetailsActivity extends BaseActivity {
 
-    private TextView tvStatus,tvType,tvTitle,tvMoney,tvNum,tvDes,tvAddress,tvCompany,tvPhone;
+    private TextView tvStatus,tvType,tvTitle,tvMoney,tvNum,tvDes,tvAddress,tvCompany,tvPhone,tvConfirm;
     private OvalImage2Views imgIcon;
     private MyGridView gridView;
     //订单id
@@ -53,6 +55,14 @@ public class ApplyForDetailsActivity extends BaseActivity {
         tvAddress=findViewById(R.id.tv_address);
         tvCompany=findViewById(R.id.tv_company);
         tvPhone=findViewById(R.id.tv_phone);
+        tvConfirm=findViewById(R.id.tv_confirm);
+        //确认收货
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                confirmGood();
+            }
+        });
+        //返回
         findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ApplyForDetailsActivity.this.finish();
@@ -77,6 +87,17 @@ public class ApplyForDetailsActivity extends BaseActivity {
                      }else{
                          ToastUtil.showLong(afterDetails.getDesc());
                      }
+                     break;
+                //确认收货回执
+                case HandlerConstant.CONFIRM_GOODS_SUCCESS:
+                     final BaseBean baseBean= (BaseBean) msg.obj;
+                     if(null==baseBean){
+                         break;
+                     }
+                     if(baseBean.isSussess()){
+                         finish();
+                     }
+                     ToastUtil.showLong(baseBean.getDesc());
                      break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(getString(R.string.net_error));
@@ -118,6 +139,7 @@ public class ApplyForDetailsActivity extends BaseActivity {
             tvType.setText("退货");
         }else{
             tvType.setText("换货");
+            tvConfirm.setVisibility(View.VISIBLE);
         }
         Glide.with(this).load(afterDetails.getProimg()).override(90,90).centerCrop().into(imgIcon);
         tvTitle.setText(afterDetails.getProname());
@@ -141,5 +163,14 @@ public class ApplyForDetailsActivity extends BaseActivity {
     private void afterDetails(){
         DialogUtil.showProgress(this,"数据加载中");
         HttpMethod.afterDetails(orderId,handler);
+    }
+
+
+    /**
+     * 确认收货
+     */
+    public void confirmGood(){
+        DialogUtil.showProgress(activity,"确认收货中");
+        HttpMethod.confirmGoods(orderId,handler);
     }
 }

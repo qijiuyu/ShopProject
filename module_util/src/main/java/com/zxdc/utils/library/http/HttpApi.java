@@ -2,6 +2,7 @@ package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.base.MainXP;
 import com.zxdc.utils.library.bean.Abvert;
+import com.zxdc.utils.library.bean.AddOrder;
 import com.zxdc.utils.library.bean.After;
 import com.zxdc.utils.library.bean.AfterAddress;
 import com.zxdc.utils.library.bean.AfterDetails;
@@ -354,4 +355,8 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.GET_ORDER_ADDR)
     Call<OrderAddr> getOrderAddr(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ADD_ORDER)
+    Call<AddOrder> addOrder(@FieldMap Map<String, String> map);
 }

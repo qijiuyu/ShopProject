@@ -18,12 +18,15 @@ import com.ylkj.shopproject.activity.main.pjsc.SelectYHQActivity;
 import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
+import com.zxdc.utils.library.bean.AddOrder;
 import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.Coupon;
 import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.bean.Shopping;
 import com.zxdc.utils.library.bean.Zpzz;
+import com.zxdc.utils.library.bean.json.InvoiceJson;
 import com.zxdc.utils.library.bean.json.OrderJson;
 import com.zxdc.utils.library.bean.json.YhqJson;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -86,6 +89,17 @@ public class ConfirmPTPersenter implements View.OnClickListener{
                          ToastUtil.showLong("您未添加增值税专用发票信息，请从个人中心的增票资质中提交信息");
                     }
                     break;
+                //下单回执
+                case HandlerConstant.ADD_ORDER_SUCCESS:
+                      final AddOrder addOrder= (AddOrder) msg.obj;
+                      if(null==addOrder){
+                          break;
+                      }
+                      if(addOrder.isSussess()){
+                          EventBus.getDefault().post(new EventBusType(EventStatus.ADD_ORDER_SUCCESS,addOrder));
+                      }
+                      ToastUtil.showLong(addOrder.getDesc());
+                      break;
                 case HandlerConstant.REQUST_ERROR:
                      ToastUtil.showLong(activity.getString(R.string.net_error));
                      break;
@@ -175,6 +189,7 @@ public class ConfirmPTPersenter implements View.OnClickListener{
                  break;
             //发票内容：商品明细
             case R.id.tv_goods_details:
+                 contenttype=0;
                  tvGoodDetails.setBackground(activity.getResources().getDrawable(R.drawable.bg_fp_type_yes));
                  tvGoodType.setBackground(activity.getResources().getDrawable(R.drawable.bg_fp_type_no));
                  tvGoodDetails.setTextColor(activity.getResources().getColor(android.R.color.white));
@@ -182,6 +197,7 @@ public class ConfirmPTPersenter implements View.OnClickListener{
                  break;
             //发票内容：商品分类
             case R.id.tv_goods_type:
+                 contenttype=1;
                  tvGoodDetails.setBackground(activity.getResources().getDrawable(R.drawable.bg_fp_type_no));
                  tvGoodType.setBackground(activity.getResources().getDrawable(R.drawable.bg_fp_type_yes));
                  tvGoodType.setTextColor(activity.getResources().getColor(android.R.color.white));
@@ -210,11 +226,15 @@ public class ConfirmPTPersenter implements View.OnClickListener{
                      return;
                   }
                   invoiceType=1;
+                  EventBus.getDefault().post(new EventBusType(EventStatus.SELECT_INVOICE_TYPE,invoiceType));
+                  popupWindow.dismiss();
                   break;
             //增值税发票提交
             case R.id.tv_submit_zz:
                   if(null!=zpzz.getData() && zpzz.getData().getStatus()==1){
                       invoiceType=2;
+                      EventBus.getDefault().post(new EventBusType(EventStatus.SELECT_INVOICE_TYPE,invoiceType));
+                      popupWindow.dismiss();
                       return;
                   }else{
                       Intent intent=new Intent(activity,EditZpzzActivity.class);
@@ -316,8 +336,32 @@ public class ConfirmPTPersenter implements View.OnClickListener{
             orderJson.setFreightMoney(totalYfMoney);
         }
         orderJson.setDetails(details);
-        LogUtils.e(SPUtil.gson.toJson(orderJson));
         return SPUtil.gson.toJson(orderJson);
+    }
+
+
+    /**
+     * 组装发票json
+     */
+    public String invoiceJson(){
+        InvoiceJson invoiceJson=new InvoiceJson();
+        if(invoiceType==1){
+            invoiceJson.setTitletype(titletype);
+            invoiceJson.setTitle(etTT.getText().toString().trim());
+            invoiceJson.setContenttype(contenttype);
+            invoiceJson.setUsername(etSPName.getText().toString().trim());
+            invoiceJson.setPhone(etSPMobile.getText().toString().trim());
+            invoiceJson.setAddress(etSPAddr.getText().toString().trim());
+        }else{
+            invoiceJson.setTitletype(1);
+            invoiceJson.setCompanyname(zpzz.getData().getCompanyname());
+            invoiceJson.setTaxnum(zpzz.getData().getTaxnum());
+            invoiceJson.setContenttype(0);
+            invoiceJson.setUsername(zpzz.getData().getName());
+            invoiceJson.setPhone(zpzz.getData().getPhone());
+            invoiceJson.setAddress(zpzz.getData().getAddress());
+        }
+        return SPUtil.gson.toJson(invoiceJson);
     }
 
     /**
@@ -336,9 +380,11 @@ public class ConfirmPTPersenter implements View.OnClickListener{
     }
 
     /**
-     * 获取发票类型
+     * 下单接口
      */
-    public int getInvoiceType(){
-       return invoiceType;
+    public void addOrder(int receiveaddrid,String scids,String orderparams,String invoiceparams){
+         DialogUtil.showProgress(activity,"下单中");
+         LogUtils.e(receiveaddrid+"____"+scids+"_____"+invoiceType+"_____"+orderparams+"____"+invoiceparams);
+         HttpMethod.addOrder(receiveaddrid,scids,invoiceType,orderparams,invoiceparams,handler);
     }
 }

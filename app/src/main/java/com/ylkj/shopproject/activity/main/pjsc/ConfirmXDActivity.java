@@ -4,17 +4,20 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.persenter.ConfirmPTPersenter;
+import com.ylkj.shopproject.activity.shopping.PayOrderActivity;
 import com.ylkj.shopproject.activity.user.address.AddressListActivity;
 import com.ylkj.shopproject.adapter.main.ConfirmOrderAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.AddOrder;
 import com.zxdc.utils.library.bean.AddrBean;
 import com.zxdc.utils.library.bean.Coupon;
 import com.zxdc.utils.library.bean.PJGoodDetails;
@@ -152,12 +155,28 @@ public class ConfirmXDActivity extends BaseActivity implements View.OnClickListe
                  break;
             //下单
             case R.id.tv_submit:
-//                 setClass(PayOrderActivity.class);
                  if(null==addrBean){
                      ToastUtil.showLong("请选择收货地址！");
                      return;
                  }
-                confirmPTPersenter.orderJson(goodBean,shopping,coupon,totalAllMoney,etDes);
+                 if(TextUtils.isEmpty(etDes.getText().toString())){
+                     ToastUtil.showLong("请输入订单备注！");
+                     return;
+                 }
+                 //购物车id
+                 String scids=null;
+                 if(null!=shopping){
+                     StringBuffer stringBuffer=new StringBuffer();
+                     for (int i=0;i<shopping.getData().getCartInfos().size();i++){
+                         stringBuffer.append(shopping.getData().getCartInfos().get(i).getCartid()+",");
+                     }
+                     scids=stringBuffer.substring(0,stringBuffer.length()-1);
+                 }
+                 //组装订单json
+                 String orderparams=confirmPTPersenter.orderJson(goodBean,shopping,coupon,totalAllMoney,etDes);
+                 //组装发票json
+                 String invoiceparams=confirmPTPersenter.invoiceJson();
+                 confirmPTPersenter.addOrder(addrBean.getId(),scids,orderparams,invoiceparams);
                  break;
             case R.id.lin_back:
                  finish();
@@ -188,6 +207,23 @@ public class ConfirmXDActivity extends BaseActivity implements View.OnClickListe
                       //计算并显示最后总的费用和总的数量
                       showTotalMoney();
                   }
+                 break;
+            //下单时选择的发票类型
+            case EventStatus.SELECT_INVOICE_TYPE:
+                  int invoiceType= (int) eventBusType.getObject();
+                  if(invoiceType==1){
+                      tvFP.setText("普通发票");
+                  }else{
+                      tvFP.setText("增值税发票");
+                  }
+                  break;
+            //下单成功
+            case EventStatus.ADD_ORDER_SUCCESS:
+                  AddOrder addOrder= (AddOrder) eventBusType.getObject();
+                  Intent intent=new Intent(this,PayOrderActivity.class);
+                  intent.putExtra("money",totalAllMoney);
+                  intent.putExtra("orderCode",addOrder.getData());
+                  startActivity(intent);
                   break;
         }
     }

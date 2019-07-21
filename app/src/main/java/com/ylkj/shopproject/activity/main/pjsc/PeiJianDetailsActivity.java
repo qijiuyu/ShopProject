@@ -115,8 +115,12 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  break;
             //立即购买
             case R.id.tv_buy:
+                 if(skuid==0){
+                    ToastUtil.showLong("请选择商品类型！");
+                    return;
+                 }
                  pjGoodDetails.getData().setCount(num);
-                pjGoodDetails.getData().setSkuid(skuid);
+                 pjGoodDetails.getData().setSkuid(skuid);
                  Intent intent=new Intent(this,ConfirmXDActivity.class);
                  intent.putExtra("goodBean",pjGoodDetails.getData());
                  intent.putExtra("type",0);
