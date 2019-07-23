@@ -26,7 +26,8 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".TabActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -106,6 +107,7 @@
         <activity android:name=".activity.webview.WebViewActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.RzzpActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.MoreTopicActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.MoChuangActivity"  android:screenOrientation="portrait"/>
 
 
         <activity android:name=".activity.video.PlayVideoActivity"

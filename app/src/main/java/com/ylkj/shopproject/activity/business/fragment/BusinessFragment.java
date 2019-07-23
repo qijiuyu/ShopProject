@@ -135,7 +135,7 @@ public class BusinessFragment extends BaseFragment implements MyRefreshLayoutLis
     private void getBusiness(int index){
         final LatLng latLng= (LatLng) SPUtil.getInstance(mActivity).getObject(SPUtil.LATLNG,LatLng.class);
         final ZzfuType.dataBean dataBean= BusinessActivity.typeList.get(BusinessActivity.index);
-        HttpMethod.getBusinessList(String.valueOf(latLng.latitude),String.valueOf(latLng.longitude),dataBean.getId(),page,index ,handler);
+        HttpMethod.getBusinessList(null,String.valueOf(latLng.latitude),String.valueOf(latLng.longitude),dataBean.getId(),page,index ,handler);
     }
 
 

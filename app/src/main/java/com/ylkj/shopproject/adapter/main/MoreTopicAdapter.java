@@ -57,7 +57,7 @@ public class MoreTopicAdapter extends RecyclerView.Adapter<MoreTopicAdapter.MyHo
 		holder.itemView.setTag(i);
 		holder.tvName.setText(dataBean.getName());
 		holder.tvMoney.setText(Util.setDouble(dataBean.getPrice(),2));
-		holder.tvOldMoney.setText(Util.setDouble(dataBean.getOldprice(),2));
+		holder.tvOldMoney.setText("¥"+Util.setDouble(dataBean.getOldprice(),2));
 		holder.tvOldMoney.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线
 		//展示图片
 		String imgUrl=dataBean.getImgurl();

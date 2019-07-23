@@ -14,7 +14,7 @@ import com.zxdc.utils.library.base.BaseActivity;
  */
 public class PayOrderActivity extends BaseActivity implements View.OnClickListener{
 
-    private ImageView imgWX,imgZFB;
+    private ImageView imgWX,imgZFB,imgDG;
     //1：微信，   2：支付宝
     private int payType=1;
     private double money;
@@ -40,8 +40,10 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
         tvOrder.setText(orderCode);
         imgWX=findViewById(R.id.img_wx);
         imgZFB=findViewById(R.id.img_zfb);
+        imgDG=findViewById(R.id.img_dg);
         findViewById(R.id.lin_wx).setOnClickListener(this);
         findViewById(R.id.lin_zfb).setOnClickListener(this);
+        findViewById(R.id.lin_dg).setOnClickListener(this);
         findViewById(R.id.tv_pay).setOnClickListener(this);
         findViewById(R.id.lin_back).setOnClickListener(this);
     }
@@ -54,13 +56,21 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                  payType=1;
                  imgWX.setImageDrawable(getResources().getDrawable(R.mipmap.pay_select));
                  imgZFB.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
+                 imgDG.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
                  break;
             //选择支付宝
             case R.id.lin_zfb:
                  payType=2;
                  imgWX.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
                  imgZFB.setImageDrawable(getResources().getDrawable(R.mipmap.pay_select));
+                 imgDG.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
                 break;
+            //选择对公支付
+            case R.id.lin_dg:
+                imgWX.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
+                imgZFB.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
+                imgDG.setImageDrawable(getResources().getDrawable(R.mipmap.pay_select));
+                  break;
             case R.id.tv_pay:
                  break;
             case R.id.lin_back:

@@ -13,8 +13,7 @@
         <com.zxdc.utils.library.view.OvalImage2Views
             android:id="@+id/img_icon"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/aa"/>
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/img_pt"
@@ -39,7 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rel"
         android:layout_centerHorizontal="true"
-        android:text="非愿意性莫笑"
         android:textSize="11sp"
         android:textColor="@color/color_33333"
         android:layout_marginTop="7dp"
@@ -65,7 +63,6 @@
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2000"
             android:textSize="16sp"
             android:textColor="@color/color_37C7B5"
             android:layout_marginLeft="10dp"

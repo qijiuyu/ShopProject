@@ -102,13 +102,13 @@ public class OrderNewsFragment extends BaseFragment implements MyRefreshLayoutLi
     @Override
     public void onRefresh(View view) {
         page=1;
-        HttpMethod.getNews("1",page,HandlerConstant.GET_NEWS_SUCCESS1,handler);
+        HttpMethod.getNews("0",page,HandlerConstant.GET_NEWS_SUCCESS1,handler);
     }
 
     @Override
     public void onLoadMore(View view) {
         page++;
-        HttpMethod.getNews("1",page,HandlerConstant.GET_NEWS_SUCCESS2,handler);
+        HttpMethod.getNews("0",page,HandlerConstant.GET_NEWS_SUCCESS2,handler);
     }
 
 
@@ -117,7 +117,7 @@ public class OrderNewsFragment extends BaseFragment implements MyRefreshLayoutLi
      */
     private void getNews(int index){
         if(null!=view && isVisibleToUser && listAll.size()==0){
-            HttpMethod.getNews("1",page,index,handler);
+            HttpMethod.getNews("0",page,index,handler);
         }
     }
 

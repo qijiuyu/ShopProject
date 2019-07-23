@@ -17,6 +17,7 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.JCGoodDetails;
 import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -61,6 +62,14 @@ public class JCDetailsPersenter {
                       }else{
                           ToastUtil.showLong(jcGoodDetails.getDesc());
                       }
+                      break;
+                //商品收藏回执
+                case HandlerConstant.COLLECTION_SUCCESS:
+                      final BaseBean baseBean= (BaseBean) msg.obj;
+                      if(null==baseBean){
+                          break;
+                      }
+                      ToastUtil.showLong(baseBean.getDesc());
                       break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(activity.getString(R.string.net_error));

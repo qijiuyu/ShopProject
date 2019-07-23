@@ -82,6 +82,7 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
     private Handler handler=new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
             DialogUtil.closeProgress();
+            BaseBean baseBean=null;
             switch (msg.what){
                 //查询详情回执
                 case HandlerConstant.BUSINESS_DETAILS_SUCCESS:
@@ -95,7 +96,7 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
                       break;
                 //点赞回执
                 case HandlerConstant.LIKE_BUSINESS_SUCCESS:
-                     final BaseBean baseBean= (BaseBean) msg.obj;
+                     baseBean= (BaseBean) msg.obj;
                      if(baseBean.isSussess()){
                          int num=Integer.parseInt(tvDzNum.getText().toString().trim());
                          if(dataBean.getIspraise()==1){
@@ -109,6 +110,11 @@ public class BusinessDetailsActivity extends BaseActivity implements View.OnClic
                      }
                      ToastUtil.showLong(baseBean.getDesc());
                      break;
+                //评论回执
+                case HandlerConstant.ADD_COMMENT_SUCCESS:
+                      baseBean= (BaseBean) msg.obj;
+                      ToastUtil.showLong(baseBean.getDesc());
+                      break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(getString(R.string.net_error));
                     break;

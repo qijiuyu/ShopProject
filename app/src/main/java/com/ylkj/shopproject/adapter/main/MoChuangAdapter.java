@@ -7,20 +7,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
-import com.zxdc.utils.library.bean.JCName;
+import com.zxdc.utils.library.bean.MoChuang;
 import java.util.List;
-
 /**
- * 订单消息
+ * 磨床的adapter
  */
-public class SelectJCAdapter extends BaseAdapter {
+public class MoChuangAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<JCName.DataBean> list;
-	//选中的下标
-	public int index=-1;
-	public SelectJCAdapter(Context context,List<JCName.DataBean> list) {
+	private List<MoChuang.DataBean> list;
+	public MoChuangAdapter(Context context, List<MoChuang.DataBean> list) {
 		super();
 		this.context = context;
 		this.list=list;
@@ -46,34 +44,27 @@ public class SelectJCAdapter extends BaseAdapter {
 	public View getView(int position, View view, ViewGroup parent) {
 		if(view==null){
 			holder = new ViewHolder(); 
-			view = LayoutInflater.from(context).inflate(R.layout.item_select_jc, null);
-			holder.imageView=view.findViewById(R.id.img_select);
+			view = LayoutInflater.from(context).inflate(R.layout.item_type_details, null);
+			holder.imgType=view.findViewById(R.id.img_type);
 			holder.tvName=view.findViewById(R.id.tv_name);
 			view.setTag(holder);
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
 
-		JCName.DataBean dataBean=list.get(position);
+		MoChuang.DataBean dataBean=list.get(position);
 		holder.tvName.setText(dataBean.getName());
-		if(position==index){
-			holder.imageView.setImageDrawable(context.getResources().getDrawable(R.mipmap.jx_yes_select));
-		}else{
-			holder.imageView.setImageDrawable(context.getResources().getDrawable(R.mipmap.jx_no_select));
+		String imgUrl=dataBean.getImg();
+		holder.imgType.setTag(R.id.imageid,imgUrl);
+		if(holder.imgType.getTag(R.id.imageid)!=null && imgUrl==holder.imgType.getTag(R.id.imageid)){
+			Glide.with(context).load(imgUrl).override(110,70).centerCrop().into(holder.imgType);
 		}
-		holder.imageView.setTag(position);
-		holder.imageView.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				index=(int)v.getTag();
-				SelectJCAdapter.this.notifyDataSetChanged();
-			}
-		});
 		return view;
 	}
 
 
 	private class ViewHolder{
-		private ImageView imageView;
+		private ImageView imgType;
 		private TextView tvName;
 	 }
 }

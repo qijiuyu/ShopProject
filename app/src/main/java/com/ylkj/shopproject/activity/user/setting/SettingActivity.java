@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.user.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -7,8 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.user.login.LoginActivity;
 import com.ylkj.shopproject.util.DataCleanManager;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.Util;
 
@@ -44,12 +47,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         //显示缓存
         try {
-            long cacheSize = DataCleanManager.getFolderSize(getCacheDir());
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                cacheSize += DataCleanManager.getFolderSize(getExternalCacheDir());
-            }
-            tvCache.setText(DataCleanManager.getFormatSize(cacheSize).toString());
-        }catch (Exception e){
+            tvCache.setText(DataCleanManager.getTotalCacheSize(this));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -64,7 +63,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                  break;
             //清除缓存
             case R.id.rel_clear_cache:
-                 DataCleanManager.cleanApplicationData(this,null);
+                 DataCleanManager.clearAllCache(this);
                  ToastUtil.showLong("清除缓存成功！");
                  tvCache.setText("0.0M");
                  break;
@@ -82,6 +81,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                  break;
             //退出登录
             case R.id.tv_log_out:
+                SPUtil.getInstance(this).removeAll();
+                finish();
                  break;
             case R.id.lin_back:
                  finish();

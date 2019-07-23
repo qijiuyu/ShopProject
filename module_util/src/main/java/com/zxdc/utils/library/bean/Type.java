@@ -65,6 +65,14 @@ public class Type extends BaseBean {
         private String img;
         private String name;
 
+        public TypeBean(){}
+
+        public TypeBean(int id,String img,String name){
+            this.id=id;
+            this.img=img;
+            this.name=name;
+        }
+
         public int getId() {
             return id;
         }

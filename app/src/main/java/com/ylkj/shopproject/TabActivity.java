@@ -13,7 +13,6 @@ import com.ylkj.shopproject.activity.shopping.ShoppingActivity;
 import com.ylkj.shopproject.activity.type.TypeActivity;
 import com.ylkj.shopproject.activity.user.UserActivity;
 import com.ylkj.shopproject.activity.user.login.LoginActivity;
-import com.ylkj.shopproject.activity.video.PlayVideoActivity;
 import com.ylkj.shopproject.util.AppUtils;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
 import com.zxdc.utils.library.util.StatusBarUtils;
@@ -97,8 +96,13 @@ public class TabActivity extends android.app.TabActivity implements View.OnClick
                  break;
              //购物车
             case R.id.lin_shopping:
-                 updateImg(3);
-                 tabHost.setCurrentTabByTag("购物车");
+                 if(AppUtils.isLogin()){
+                    updateImg(3);
+                    tabHost.setCurrentTabByTag("购物车");
+                 }else{
+                     intent.setClass(this, LoginActivity.class);
+                     startActivity(intent);
+                 }
                  break;
              //我的
             case R.id.lin_user:

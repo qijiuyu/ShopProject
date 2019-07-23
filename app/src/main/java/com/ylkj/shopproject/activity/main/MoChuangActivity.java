@@ -1,4 +1,4 @@
-package com.ylkj.shopproject.activity.type;
+package com.ylkj.shopproject.activity.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,39 +9,47 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.type.JCDetailsActivity;
+import com.ylkj.shopproject.activity.type.TypeListActivity;
 import com.ylkj.shopproject.activity.webview.WebViewActivity;
-import com.ylkj.shopproject.adapter.type.TypeDetailsAdapter;
+import com.ylkj.shopproject.adapter.main.MoChuangAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.Abvert;
+import com.zxdc.utils.library.bean.MoChuang;
 import com.zxdc.utils.library.bean.Type;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MeasureListView;
+import java.util.ArrayList;
 import java.util.List;
 /**
- * 二级分类
+ * 首页磨床
  */
-public class TypeDetailsActivity extends BaseActivity {
+public class MoChuangActivity extends BaseActivity {
 
     private Banner banner;
     private MeasureListView listView;
-    private TypeDetailsAdapter typeDetailsAdapter;
-    //子分类列表对象
-    private List<Type.TypeBean> list;
+    private MoChuangAdapter moChuangAdapter;
+    //数据集合
+    private List<MoChuang.DataBean> list=new ArrayList<>();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type_details);
         initView();
         //查询广告轮播图
         getAbvert();
+        //查询首页磨床
+        MoChuang();
     }
 
 
@@ -49,24 +57,14 @@ public class TypeDetailsActivity extends BaseActivity {
      * 初始化
      */
     private void initView(){
-        list= (List<Type.TypeBean>) getIntent().getSerializableExtra("children");
+        TextView tvTitle=findViewById(R.id.tv_title);
+        tvTitle.setText("磨床");
         banner=findViewById(R.id.banner);
         listView=findViewById(R.id.listView);
-        typeDetailsAdapter=new TypeDetailsAdapter(this,list);
-        listView.setAdapter(typeDetailsAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Type.TypeBean typeBean=list.get(position);
-                Intent intent=new Intent(TypeDetailsActivity.this,TypeListActivity.class);
-                intent.putExtra("typeBean",typeBean);
-                startActivity(intent);
-            }
-        });
-
         //返回
         findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                TypeDetailsActivity.this.finish();
+                MoChuangActivity.this.finish();
             }
         });
     }
@@ -90,6 +88,29 @@ public class TypeDetailsActivity extends BaseActivity {
                         ToastUtil.showLong(abvert.getDesc());
                     }
                     break;
+                 //获取磨床数据
+                case  HandlerConstant.GET_MOCHUANG_SUCCESS:
+                      final MoChuang moChuang= (MoChuang) msg.obj;
+                      if(null==moChuang){
+                          break;
+                      }
+                      if(moChuang.isSussess()){
+                          list.addAll(moChuang.getData());
+                          moChuangAdapter=new MoChuangAdapter(MoChuangActivity.this,list);
+                          listView.setAdapter(moChuangAdapter);
+                          listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                  MoChuang.DataBean dataBean=list.get(position);
+                                  Type.TypeBean typeBean=new Type.TypeBean(dataBean.getId(),dataBean.getImg(),dataBean.getName());
+                                  Intent intent=new Intent(MoChuangActivity.this,TypeListActivity.class);
+                                  intent.putExtra("typeBean",typeBean);
+                                  startActivity(intent);
+                              }
+                          });
+                      }else{
+                          ToastUtil.showLong(moChuang.getDesc());
+                      }
+                      break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(activity.getString(R.string.net_error));
                     break;
@@ -155,4 +176,14 @@ public class TypeDetailsActivity extends BaseActivity {
     public void getAbvert(){
         HttpMethod.getAbvert("2",handler);
     }
+
+
+    /**
+     * 查询首页磨床
+     */
+    private void MoChuang(){
+        DialogUtil.showProgress(this,"数据加载中");
+        HttpMethod.MoChuang(handler);
+    }
+
 }

@@ -11,12 +11,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.util.LogUtils;
 
 public class WebViewActivity extends BaseActivity {
 
     private WebView webshow;
     private String url;
+    private int type;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview);
@@ -25,6 +27,8 @@ public class WebViewActivity extends BaseActivity {
 
     @SuppressLint("JavascriptInterface")
     private void initView(){
+        type=getIntent().getIntExtra("type",0);
+        url=getIntent().getStringExtra("url");
         webshow =findViewById(R.id.webview);
         webshow.getSettings().setJavaScriptEnabled(true);
         webshow.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
@@ -33,8 +37,15 @@ public class WebViewActivity extends BaseActivity {
         webshow.setWebViewClient(new WebViewClient());
         webshow.setWebChromeClient(new WebChromeClient());
 
-        url=getIntent().getStringExtra("url");
-        webshow.loadUrl(url);
+        switch (type){
+            case 1:
+                 webshow.loadUrl(url);
+                 break;
+           //平台消息详情
+            case 2:
+                  webshow.loadUrl(HttpConstant.IP+"api/app/html/messageinfo?id="+url);
+                  break;
+        }
     }
 
 

@@ -10,9 +10,11 @@ import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.CommOrder;
 import com.zxdc.utils.library.bean.Company;
 import com.zxdc.utils.library.bean.IsNews;
+import com.zxdc.utils.library.bean.JCName;
 import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
+import com.zxdc.utils.library.bean.MoChuang;
 import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.Zpzz;
@@ -359,4 +361,16 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.ADD_ORDER)
     Call<AddOrder> addOrder(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_MAIN_MC)
+    Call<MoChuang> MoChuang(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_JC_NAME)
+    Call<JCName> getJcName(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ADD_FAULT)
+    Call<BaseBean> addFault(@FieldMap Map<String, String> map);
 }

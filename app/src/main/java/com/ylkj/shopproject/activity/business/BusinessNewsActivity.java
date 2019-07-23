@@ -47,6 +47,12 @@ public class BusinessNewsActivity extends BaseActivity  implements MyRefreshLayo
         mRefreshLayout=findViewById(R.id.re_list);
         //刷新加载
         mRefreshLayout.setMyRefreshLayoutListener(this);
+        //返回
+        findViewById(R.id.lin_back).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                BusinessNewsActivity.this.finish();
+            }
+        });
     }
 
     private Handler handler=new Handler(new Handler.Callback() {

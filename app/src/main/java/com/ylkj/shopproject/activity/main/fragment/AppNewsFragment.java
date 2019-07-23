@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.main.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -7,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.webview.WebViewActivity;
 import com.ylkj.shopproject.adapter.main.AppNewsAdapter;
 import com.zxdc.utils.library.base.BaseFragment;
 import com.zxdc.utils.library.bean.News;
@@ -90,6 +93,15 @@ public class AppNewsFragment extends BaseFragment implements MyRefreshLayoutList
             } else {
                 appNewsAdapter.notifyDataSetChanged();
             }
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    News.DataBean dataBean=listAll.get(position);
+                    Intent intent=new Intent(mActivity, WebViewActivity.class);
+                    intent.putExtra("url",String.valueOf(dataBean.getId()));
+                    intent.putExtra("type",2);
+                    startActivity(intent);
+                }
+            });
             if (list.size() < 20) {
                 mRefreshLayout.setIsLoadingMoreEnabled(false);
             }
@@ -102,13 +114,13 @@ public class AppNewsFragment extends BaseFragment implements MyRefreshLayoutList
     @Override
     public void onRefresh(View view) {
         page = 1;
-        HttpMethod.getNews("2", page, HandlerConstant.GET_NEWS_SUCCESS1, handler);
+        HttpMethod.getNews("1", page, HandlerConstant.GET_NEWS_SUCCESS1, handler);
     }
 
     @Override
     public void onLoadMore(View view) {
         page++;
-        HttpMethod.getNews("2", page, HandlerConstant.GET_NEWS_SUCCESS2, handler);
+        HttpMethod.getNews("1", page, HandlerConstant.GET_NEWS_SUCCESS2, handler);
     }
 
 
@@ -117,7 +129,7 @@ public class AppNewsFragment extends BaseFragment implements MyRefreshLayoutList
      */
     private void getNews(int index) {
         if (null != view && isVisibleToUser && listAll.size() == 0) {
-            HttpMethod.getNews("2", page, index, handler);
+            HttpMethod.getNews("1", page, index, handler);
         }
     }
 

@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.shopping.PayOrderActivity;
 import com.ylkj.shopproject.activity.user.evaluation.EvaluationActivity;
 import com.ylkj.shopproject.activity.user.persenter.OrderPersenter;
 import com.ylkj.shopproject.view.HorizontalListView;
@@ -164,9 +165,14 @@ public class OrderAdapter extends BaseAdapter {
         holder.tvFk.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final MyOrder.DataBean dataBean= (MyOrder.DataBean) v.getTag();
+				Intent intent=new Intent();
                 switch (dataBean.getStatus()){
                     //去付款
                     case 0:
+						 intent.setClass(context,PayOrderActivity.class);
+						 intent.putExtra("money",dataBean.getPayprice());
+						 intent.putExtra("orderCode",dataBean.getCode());
+						 context.startActivity(intent);
                          break;
                     //确认收货
                     case 2:
@@ -174,7 +180,7 @@ public class OrderAdapter extends BaseAdapter {
                          break;
                     //去评价
                     case 3:
-						 Intent intent=new Intent(context,EvaluationActivity.class);
+						 intent.setClass(context,EvaluationActivity.class);
 						 context.startActivity(intent);
                          break;
                 }

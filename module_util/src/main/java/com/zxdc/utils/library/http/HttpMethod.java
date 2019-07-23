@@ -13,9 +13,11 @@ import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.CommOrder;
 import com.zxdc.utils.library.bean.Company;
 import com.zxdc.utils.library.bean.IsNews;
+import com.zxdc.utils.library.bean.JCName;
 import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
+import com.zxdc.utils.library.bean.MoChuang;
 import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.Zpzz;
@@ -851,8 +853,11 @@ public class HttpMethod extends BaseRequst {
     /**
      * 获取生意圈列表接口
      */
-    public static void getBusinessList(String lat,String lng,int type,int page,final int index,final Handler handler) {
+    public static void getBusinessList(String title,String lat,String lng,int type,int page,final int index,final Handler handler) {
         Map<String, String> map = new HashMap<>();
+        if(!TextUtils.isEmpty(title)){
+            map.put("title",title);
+        }
         map.put("lat",lat);
         map.put("lng",lng);
         if(type!=0){
@@ -1517,6 +1522,65 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.ADD_ORDER_SUCCESS, response.body());
             }
             public void onFailure(Call<AddOrder> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+
+    /**
+     * 查询首页磨床
+     */
+    public static void MoChuang(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).MoChuang(map).enqueue(new Callback<MoChuang>() {
+            public void onResponse(Call<MoChuang> call, Response<MoChuang> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_MOCHUANG_SUCCESS, response.body());
+            }
+            public void onFailure(Call<MoChuang> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 查询首页磨床
+     */
+    public static void getJcName(String searchkey,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        if(!TextUtils.isEmpty(searchkey)){
+            map.put("searchkey",searchkey);
+        }
+        Http.getRetrofit().create(HttpApi.class).getJcName(map).enqueue(new Callback<JCName>() {
+            public void onResponse(Call<JCName> call, Response<JCName> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_JC_NAME_SUCCESS, response.body());
+            }
+            public void onFailure(Call<JCName> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 提交报修接口
+     */
+    public static void addFault(String address,String machinetype,String productdate,String description,String mpurl,String machineurl,String otherurl,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("address",address);
+        map.put("machinetype",machinetype);
+        map.put("productdate",productdate);
+        map.put("description",description);
+        map.put("mpurl",mpurl);
+        map.put("machineurl",machineurl);
+        map.put("otherurl",otherurl);
+        Http.getRetrofit().create(HttpApi.class).addFault(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.ADD_FAULT_SUCCESS, response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

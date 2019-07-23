@@ -21,7 +21,7 @@
                 android:layout_width="9.5dp"
                 android:layout_height="18dp"
                 android:layout_marginRight="20dp"
-                android:src="@mipmap/write_back"/>
+                android:src="@mipmap/back_icon"/>
 
         </LinearLayout>
 
@@ -37,7 +37,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"

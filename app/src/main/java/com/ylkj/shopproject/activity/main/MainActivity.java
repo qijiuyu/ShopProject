@@ -74,6 +74,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         mainPersenter.mainRQ();
         //获取首页热门
         mainPersenter.mainHot();
+        //消息列表入口红点接口
+        mainPersenter.isNews();
     }
 
 
@@ -102,8 +104,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         switch (v.getId()){
             //磨床
             case R.id.lin_mc:
-                Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                 setClass(MoChuangActivity.class);
                  break;
             //配件商城
             case R.id.lin_pj:

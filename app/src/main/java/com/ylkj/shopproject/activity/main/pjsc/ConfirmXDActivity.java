@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -235,6 +236,9 @@ public class ConfirmXDActivity extends BaseActivity implements View.OnClickListe
         switch (resultCode){
             //展示收货地址信息
             case 100:
+                if(null==data){
+                    return;
+                }
                  addrBean= (AddrBean) data.getSerializableExtra("addrBean");
                  showAddress();
                  break;
@@ -287,7 +291,7 @@ public class ConfirmXDActivity extends BaseActivity implements View.OnClickListe
         if(null!=coupon){
             totalAllMoney=Util.sub(totalAllMoney,coupon.getFacevalue());
         }
-        tvTotalMoney.setText("共"+totalNum+"件   总金额"+totalAllMoney);
+        tvTotalMoney.setText(Html.fromHtml("共<font color='#37C7B5'>"+totalNum+"</font>件   总金额：<font color='#37C7B5'>"+totalAllMoney+"</font>"));
     }
 
 

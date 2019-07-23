@@ -237,4 +237,13 @@ public class HttpConstant {
     //下单接口
     public static final String ADD_ORDER="api/app/order/add";
 
+    //查询首页磨床
+    public static final String GET_MAIN_MC="api/app/category/getindexcategory";
+
+    //获取机床机型列表接口
+    public static final String GET_JC_NAME="api/app/product/getmachinelist";
+
+    //提交报修接口
+    public static final String ADD_FAULT="api/app/repairs/add";
+
 }

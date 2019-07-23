@@ -58,7 +58,7 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
         //实例化MVP
         jcDetailsPersenter=new JCDetailsPersenter(this);
         initView();
-        //查询商品详情
+        //查询机床商品详情
         jcDetailsPersenter.getJCDetails(spuid);
     }
 
@@ -93,8 +93,12 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
                  break;
             //平台消息
             case R.id.tv_app:
+                  List<String> list=new ArrayList<>();
+                  for (int i=0;i<jcDetailsPersenter.imgList.size();i++){
+                        list.add(jcDetailsPersenter.imgList.get(i).getUrl());
+                  }
                  Intent intent=new Intent(this, ShowImgActivity.class);
-                 intent.putExtra("imgs", SPUtil.gson.toJson(jcDetailsPersenter.imgList));
+                 intent.putExtra("imgs", SPUtil.gson.toJson(list));
                  startActivity(intent);
                  break;
             //客服
@@ -122,6 +126,11 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
                   colorList=jcGoodDetails.getData().getMachineAttrs().get(i);
                   break;
               }
+        }
+
+        //设置默认轮播图
+        if(null!=colorList){
+            jcDetailsPersenter.setBanner(banner,colorList.getMachineAttrValues().get(0).getSpuColorImgList());
         }
 
         //展示颜色数据

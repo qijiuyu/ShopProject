@@ -82,4 +82,7 @@ public class HandlerConstant {
     public static final int GET_MORE_TOPIC_SUCCESS2=1178;
     public static final int GET_ORDER_ADDR_SUCCESS=1179;
     public static final int ADD_ORDER_SUCCESS=1180;
+    public static final int GET_MOCHUANG_SUCCESS=1181;
+    public static final int GET_JC_NAME_SUCCESS=1182;
+    public static final int ADD_FAULT_SUCCESS=1183;
 }

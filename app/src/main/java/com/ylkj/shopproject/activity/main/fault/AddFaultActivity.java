@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -15,21 +16,28 @@ import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.persenter.AddFaultPersenter;
 import com.ylkj.shopproject.activity.selectphoto.bean.Bimp;
 import com.ylkj.shopproject.activity.selectphoto.bean.ImageItem;
+import com.ylkj.shopproject.activity.user.address.AddressListActivity;
 import com.ylkj.shopproject.adapter.selectphoto.GridImageAdapter;
+import com.ylkj.shopproject.eventbus.EventBusType;
+import com.ylkj.shopproject.eventbus.EventStatus;
 import com.ylkj.shopproject.util.PicturesUtil;
 import com.ylkj.shopproject.util.SelectPhoto;
 import com.zxdc.utils.library.base.BaseActivity;
-import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.AddrBean;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.BitMapUtil;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MyGridView;
 import com.zxdc.utils.library.view.OvalImage2Views;
 import com.zxdc.utils.library.view.time.TimePickerView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * 在线报修
  */
@@ -44,17 +52,24 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
     //选择的图片类型 0：品牌  1：机场照片
     private int imgType;
     /**
-     * mpCropPath：名牌剪裁的图片
-     * jcCropPath：机床剪裁的图片
+     * mpFile：名牌剪裁的图片
+     * jcFile：机床剪裁的图片
      */
-    private String mpCropPath,jcCropPath;
+    private File mpFile,jcFile;
     //时间选择器
     private TimePickerView timePickerView;
+    //收货地址对象
+    private AddrBean addrBean;
+    private List<File> fileList=new ArrayList<>();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fault);
+        //注册EventBus
+        EventBus.getDefault().register(this);
         addFaultPersenter=new AddFaultPersenter(this);
         initView();
+        //获取收货地址列表
+        addFaultPersenter.getOrderAddr();
     }
 
 
@@ -75,6 +90,8 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
         imgFault2.setOnClickListener(this);
         tvJxName.setOnClickListener(this);
         tvTime.setOnClickListener(this);
+        findViewById(R.id.rel_select_addr).setOnClickListener(this);
+        findViewById(R.id.rel_addr).setOnClickListener(this);
         findViewById(R.id.tv_add_jx).setOnClickListener(this);
         findViewById(R.id.tv_confirm).setOnClickListener(this);
         findViewById(R.id.lin_back).setOnClickListener(this);
@@ -97,10 +114,17 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         Intent intent=new Intent();
         switch (v.getId()){
+            //选择地址
+            case R.id.rel_addr:
+            case R.id.rel_select_addr:
+                intent.setClass(this,AddressListActivity.class);
+                intent.putExtra("type",1);
+                startActivityForResult(intent,100);
+                break;
             //选择机型名称
             case R.id.tv_jx_name:
                  intent.setClass(this,SelectJCActivity.class);
-                 startActivityForResult(intent,100);
+                 startActivityForResult(intent,200);
                  break;
             //添加机型名称
             case R.id.tv_add_jx:
@@ -125,6 +149,35 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
                  break;
             //提交
             case R.id.tv_confirm:
+                  String jxName=tvJxName.getText().toString().trim();
+                  String time=tvTime.getText().toString().trim();
+                  String content=etContent.getText().toString().trim();
+                  if(addrBean==null){
+                      ToastUtil.showLong("请选择地址");
+                      return;
+                  }
+                  if(TextUtils.isEmpty(jxName)){
+                      ToastUtil.showLong("请选择机型名称");
+                      return;
+                  }
+                  if(TextUtils.isEmpty(time)){
+                      ToastUtil.showLong("请选择出厂日期");
+                      return;
+                  }
+                if(TextUtils.isEmpty(content)){
+                    ToastUtil.showLong("请输入故障信息");
+                    return;
+                }
+                if(null==mpFile){
+                    ToastUtil.showLong("请选择名牌照片");
+                    return;
+                }
+                if(null==jcFile){
+                    ToastUtil.showLong("请选择机床照片");
+                    return;
+                }
+                addFaultPersenter.setContent(String.valueOf(addrBean.getId()),jxName,time,content);
+                addFaultPersenter.uploadImg(mpFile,jcFile);
                  break;
             case R.id.lin_back:
                  finish();
@@ -133,38 +186,23 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-    private Handler handler=new Handler(new Handler.Callback() {
-        public boolean handleMessage(Message msg) {
-            DialogUtil.closeProgress();
-            switch (msg.what){
-                case HandlerConstant.REQUST_ERROR:
-                    ToastUtil.showLong(activity.getString(R.string.net_error));
-                    break;
-            }
-            return false;
-        }
-    });
-
-
-    /**
-     * 展示收货地址
-     */
-    private void showAddress(){
-//        findViewById(R.id.rel_select_addr).setVisibility(View.GONE);
-//        findViewById(R.id.rel_addr).setVisibility(View.VISIBLE);
-//        Address.AddressBean addressBean=addrList.get(0);
-//        tvUserName.setText(addressBean.getName());
-//        tvMobile.setText(addressBean.getMobile());
-//        tvAddress.setText(addressBean.getAddress());
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            //展示收货地址信息
+            case 100:
+                if(null==data){
+                    return;
+                }
+                addrBean= (AddrBean) data.getSerializableExtra("addrBean");
+                showAddress();
+                break;
             //返回自定义的机型名称
             case 200:
+                if(null==data){
+                    return;
+                }
                  final String name=data.getStringExtra("name");
                  tvJxName.setText(name);
                  break;
@@ -185,13 +223,12 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
                 break;
             //返回裁剪的图片
             case SelectPhoto.CODE_RESULT_REQUEST:
-                 final File f = new File(SelectPhoto.crop);
                  if(imgType==0){
-                     mpCropPath=SelectPhoto.crop;
-                     Glide.with(AddFaultActivity.this).load(Uri.fromFile(f)).into(imgFault1);
+                     mpFile= new File(SelectPhoto.crop);
+                     Glide.with(AddFaultActivity.this).load(Uri.fromFile(mpFile)).into(imgFault1);
                  }else{
-                     jcCropPath=SelectPhoto.crop;
-                     Glide.with(AddFaultActivity.this).load(Uri.fromFile(f)).into(imgFault2);
+                     jcFile= new File(SelectPhoto.crop);
+                     Glide.with(AddFaultActivity.this).load(Uri.fromFile(jcFile)).into(imgFault2);
                  }
                 break;
             //返回拍照图片
@@ -219,4 +256,40 @@ public class AddFaultActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+
+    /**
+     * EventBus注解
+     */
+    @Subscribe
+    public void onEvent(EventBusType eventBusType) {
+        switch (eventBusType.getStatus()) {
+            //查询收货地址
+            case EventStatus.GET_MY_ADDRESS:
+                addrBean= (AddrBean) eventBusType.getObject();
+                //展示收货地址信息
+                showAddress();
+                break;
+        }
+    }
+
+
+    /**
+     * 展示收货地址
+     */
+    private void showAddress(){
+        if(null==addrBean){
+            return;
+        }
+        findViewById(R.id.rel_select_addr).setVisibility(View.GONE);
+        findViewById(R.id.rel_addr).setVisibility(View.VISIBLE);
+        tvUserName.setText(addrBean.getName());
+        tvMobile.setText(addrBean.getMobile());
+        tvAddress.setText(addrBean.getAddress());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
