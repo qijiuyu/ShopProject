@@ -103,6 +103,7 @@ public class ConfirmXDActivity extends BaseActivity implements View.OnClickListe
     private void showGood(){
         goodBean= (PJGoodDetails.goodBean) getIntent().getSerializableExtra("goodBean");
         shopping= (Shopping) getIntent().getSerializableExtra("shopping");
+        coupon= (Coupon.DataBean) getIntent().getSerializableExtra("coupon");
         //展示商品详情页的
         if(null!=goodBean){
             //商品基本信息
@@ -201,13 +202,8 @@ public class ConfirmXDActivity extends BaseActivity implements View.OnClickListe
             //下单页选中的优惠券
             case EventStatus.SELECT_ORDER_COUPON:
                   coupon= (Coupon.DataBean) eventBusType.getObject();
-                  if(null!=coupon){
-                      tvYHQ.setText("满"+coupon.getFullreductionvalue()+"减"+coupon.getFacevalue());
-                      //满减优惠
-                      tvYhMoney.setText("-¥"+coupon.getFacevalue());
-                      //计算并显示最后总的费用和总的数量
-                      showTotalMoney();
-                  }
+                  //计算并显示最后总的费用和总的数量
+                  showTotalMoney();
                  break;
             //下单时选择的发票类型
             case EventStatus.SELECT_INVOICE_TYPE:
@@ -289,6 +285,9 @@ public class ConfirmXDActivity extends BaseActivity implements View.OnClickListe
         }
         //减去优惠费用
         if(null!=coupon){
+            tvYHQ.setText("满"+coupon.getFullreductionvalue()+"减"+coupon.getFacevalue());
+            //满减优惠
+            tvYhMoney.setText("-¥"+coupon.getFacevalue());
             totalAllMoney=Util.sub(totalAllMoney,coupon.getFacevalue());
         }
         tvTotalMoney.setText(Html.fromHtml("共<font color='#37C7B5'>"+totalNum+"</font>件   总金额：<font color='#37C7B5'>"+totalAllMoney+"</font>"));

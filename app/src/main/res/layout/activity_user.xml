@@ -131,101 +131,181 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="20dp">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_weight="1">
 
-                        <com.zxdc.utils.library.view.ClickTextView
-                            android:id="@+id/tv_dfk"
+                        <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:drawableTop="@mipmap/order_dfk"
-                            android:text="待付款"
-                            android:textColor="@color/color_33333"
-                            android:textSize="12sp"
-                            android:drawablePadding="9dp"/>
+                            android:layout_centerInParent="true">
 
-                    </LinearLayout>
+                            <com.zxdc.utils.library.view.ClickTextView
+                                android:id="@+id/tv_dfk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@mipmap/order_dfk"
+                                android:text="待付款"
+                                android:textColor="@color/color_33333"
+                                android:textSize="12sp"
+                                android:drawablePadding="9dp"/>
 
-                    <LinearLayout
+                            <TextView
+                                android:id="@+id/tv_dfk_num"
+                                android:visibility="gone"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@mipmap/red_icon"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:layout_gravity="right"/>
+
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_weight="1">
 
-                        <com.zxdc.utils.library.view.ClickTextView
-                            android:id="@+id/tv_dfh"
+                        <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:drawableTop="@mipmap/order_dfh"
-                            android:text="待发货"
-                            android:textColor="@color/color_33333"
-                            android:textSize="12sp"
-                            android:drawablePadding="9dp"/>
+                            android:layout_centerInParent="true">
 
-                    </LinearLayout>
+                            <com.zxdc.utils.library.view.ClickTextView
+                                android:id="@+id/tv_dfh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@mipmap/order_dfk"
+                                android:text="待发货"
+                                android:textColor="@color/color_33333"
+                                android:textSize="12sp"
+                                android:drawablePadding="9dp"/>
 
-                    <LinearLayout
+                            <TextView
+                                android:id="@+id/tv_dfh_num"
+                                android:visibility="gone"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@mipmap/red_icon"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:layout_gravity="right"/>
+
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_weight="1">
 
-                        <com.zxdc.utils.library.view.ClickTextView
-                            android:id="@+id/tv_dsh"
+                        <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:drawableTop="@mipmap/order_dsh"
-                            android:text="待收货"
-                            android:textColor="@color/color_33333"
-                            android:textSize="12sp"
-                            android:drawablePadding="9dp"/>
+                            android:layout_centerInParent="true">
 
-                    </LinearLayout>
+                            <com.zxdc.utils.library.view.ClickTextView
+                                android:id="@+id/tv_dsh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@mipmap/order_dfk"
+                                android:text="待收货"
+                                android:textColor="@color/color_33333"
+                                android:textSize="12sp"
+                                android:drawablePadding="9dp"/>
 
-                    <LinearLayout
+                            <TextView
+                                android:id="@+id/tv_dsh_num"
+                                android:visibility="gone"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@mipmap/red_icon"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:layout_gravity="right"/>
+
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_weight="1">
 
-                        <com.zxdc.utils.library.view.ClickTextView
-                            android:id="@+id/tv_dpj"
+                        <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:drawableTop="@mipmap/order_dpj"
-                            android:text="待评价"
-                            android:textColor="@color/color_33333"
-                            android:textSize="12sp"
-                            android:drawablePadding="9dp"/>
+                            android:layout_centerInParent="true">
 
-                    </LinearLayout>
+                            <com.zxdc.utils.library.view.ClickTextView
+                                android:id="@+id/tv_dpj"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@mipmap/order_dfk"
+                                android:text="待评价"
+                                android:textColor="@color/color_33333"
+                                android:textSize="12sp"
+                                android:drawablePadding="9dp"/>
 
-                    <LinearLayout
+                            <TextView
+                                android:id="@+id/tv_dpj_num"
+                                android:visibility="gone"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@mipmap/red_icon"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:layout_gravity="right"/>
+
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_weight="1">
 
-                        <com.zxdc.utils.library.view.ClickTextView
-                            android:id="@+id/tv_sh"
+                        <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center"
-                            android:drawableTop="@mipmap/order_sh"
-                            android:text="售后"
-                            android:textColor="@color/color_33333"
-                            android:textSize="12sp"
-                            android:drawablePadding="9dp"/>
+                            android:layout_centerInParent="true">
 
-                    </LinearLayout>
+                            <com.zxdc.utils.library.view.ClickTextView
+                                android:id="@+id/tv_sh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@mipmap/order_dfk"
+                                android:text="售后"
+                                android:textColor="@color/color_33333"
+                                android:textSize="12sp"
+                                android:drawablePadding="9dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_sh_num"
+                                android:visibility="gone"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@mipmap/red_icon"
+                                android:text="3"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:layout_gravity="right"/>
+
+                        </FrameLayout>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

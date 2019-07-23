@@ -56,7 +56,7 @@ public class PeiJianDetailsTypeAdapter extends BaseAdapter {
 		holder.tvName.setText(proSpecsBean.getSpecsname());
 
 		//展示具体规则数据
-		pjDetailsTypeDataAdapter=new PJDetailsTypeDataAdapter(context,proSpecsBean.getProSpecsVals());
+		pjDetailsTypeDataAdapter=new PJDetailsTypeDataAdapter(context,proSpecsBean.getProSpecsVals(),proSpecsBean.getSpecsid());
 		holder.gridView.setAdapter(pjDetailsTypeDataAdapter);
 		return view;
 	}

@@ -16,7 +16,9 @@ import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
 import com.zxdc.utils.library.bean.MoChuang;
 import com.zxdc.utils.library.bean.OrderAddr;
+import com.zxdc.utils.library.bean.OrderComm;
 import com.zxdc.utils.library.bean.OrderDetails;
+import com.zxdc.utils.library.bean.OrderNum;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
@@ -373,4 +375,12 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.ADD_FAULT)
     Call<BaseBean> addFault(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.GET_ORDER_COMM)
+    Call<OrderComm> getOrderComm(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.ORDER_NUM)
+    Call<OrderNum> getOrderNum(@FieldMap Map<String, String> map);
 }

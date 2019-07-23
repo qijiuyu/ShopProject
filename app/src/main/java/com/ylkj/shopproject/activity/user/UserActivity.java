@@ -26,6 +26,7 @@ import com.ylkj.shopproject.activity.user.zpzz.EditZpzzActivity;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.Certification;
 import com.zxdc.utils.library.bean.IsNews;
+import com.zxdc.utils.library.bean.OrderNum;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -39,7 +40,7 @@ import com.zxdc.utils.library.view.CircleImageView;
 public class UserActivity extends BaseActivity implements View.OnClickListener{
 
     private CircleImageView imgUser;
-    private TextView tvName,tvZpStatus,tvJgStatus;
+    private TextView tvName,tvZpStatus,tvJgStatus,tvDFKnum,tvDFHnum,tvDSHnum,tvDPJnum,tvSHnum;
     //用户个人信息对象
     private UserInfo userInfo;
     //增票资质对象
@@ -63,6 +64,11 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
         tvName=findViewById(R.id.tv_name);
         tvZpStatus=findViewById(R.id.tv_zp_status);
         tvJgStatus=findViewById(R.id.tv_jg_status);
+        tvDFKnum=findViewById(R.id.tv_dfk_num);
+        tvDFHnum=findViewById(R.id.tv_dfh_num);
+        tvDSHnum=findViewById(R.id.tv_dsh_num);
+        tvDPJnum=findViewById(R.id.tv_dpj_num);
+        tvSHnum=findViewById(R.id.tv_sh_num);
         imgUser.setOnClickListener(this);
         findViewById(R.id.img_customer).setOnClickListener(this);
         findViewById(R.id.tv_dfk).setOnClickListener(this);
@@ -153,6 +159,16 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
                         findViewById(R.id.img_news).setVisibility(View.VISIBLE);
                     }
                     break;
+                //获取订单红点数接口
+                case HandlerConstant.GET_ORDER_NUM_SUCCESS:
+                      final OrderNum orderNum= (OrderNum) msg.obj;
+                      if(null==orderNum){
+                          break;
+                      }
+                      if(orderNum.isSussess()){
+                          showOrderNum(orderNum.getData());
+                      }
+                      break;
                 case HandlerConstant.REQUST_ERROR:
                     ToastUtil.showLong(getString(R.string.net_error));
                     break;
@@ -271,6 +287,43 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
+    /**
+     * 显示订单红点个数
+     */
+    private void showOrderNum(OrderNum.DataBean dataBean){
+        if(dataBean.getDfk()>0){
+            tvDFKnum.setText(String.valueOf(dataBean.getDfk()));
+            tvDFKnum.setVisibility(View.VISIBLE);
+        }else{
+            tvDFKnum.setVisibility(View.GONE);
+        }
+        if(dataBean.getDfh()>0){
+            tvDFHnum.setText(String.valueOf(dataBean.getDfk()));
+            tvDFHnum.setVisibility(View.VISIBLE);
+        }else{
+            tvDFHnum.setVisibility(View.GONE);
+        }
+        if(dataBean.getDsh()>0){
+            tvDSHnum.setText(String.valueOf(dataBean.getDfk()));
+            tvDSHnum.setVisibility(View.VISIBLE);
+        }else{
+            tvDSHnum.setVisibility(View.GONE);
+        }
+        if(dataBean.getDpj()>0){
+            tvDPJnum.setText(String.valueOf(dataBean.getDfk()));
+            tvDPJnum.setVisibility(View.VISIBLE);
+        }else{
+            tvDPJnum.setVisibility(View.GONE);
+        }
+        if(dataBean.getShsq()>0){
+            tvSHnum.setText(String.valueOf(dataBean.getDfk()));
+            tvSHnum.setVisibility(View.VISIBLE);
+        }else{
+            tvSHnum.setVisibility(View.GONE);
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -310,10 +363,19 @@ public class UserActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
+    /**
+     * 获取订单红点数接口
+     */
+    public void getOrderNum(){
+        HttpMethod.getOrderNum(handler);
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         getZpzz();
         getCertifiCation();
+        getOrderNum();
     }
 }

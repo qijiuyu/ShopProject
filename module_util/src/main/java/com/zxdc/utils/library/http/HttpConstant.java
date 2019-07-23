@@ -246,4 +246,10 @@ public class HttpConstant {
     //提交报修接口
     public static final String ADD_FAULT="api/app/repairs/add";
 
+    //查看评价接口
+    public static final String GET_ORDER_COMM="api/app/comment/showone";
+
+    //获取订单红点数接口
+    public static final String ORDER_NUM="api/app/order/getcount";
+
 }

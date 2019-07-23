@@ -2,12 +2,14 @@ package com.ylkj.shopproject.activity.main.persenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.main.pjsc.SelectYHQActivity;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.youth.banner.Banner;
@@ -17,12 +19,16 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.PJGoodDetails;
+import com.zxdc.utils.library.bean.Shopping;
+import com.zxdc.utils.library.bean.json.YhqJson;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.List;
 public class PeiJianDetailsPersenter {
 
@@ -154,9 +160,33 @@ public class PeiJianDetailsPersenter {
     /**
      * 加入购物车
      */
-    public void addCar(int skuid,int num){
+    public void addCar(String skuid,int num){
         DialogUtil.showProgress(activity,"加入购物车中");
         HttpMethod.addCar(skuid,num,handler);
+    }
+
+
+    /**
+     * 组装优惠券json
+     */
+    public void couponJson(PJGoodDetails.goodBean goodBean){
+        YhqJson yhqJson=new YhqJson();
+        List<YhqJson.goodList> list=new ArrayList<>();
+        double totalMoney=0;
+        if(null!=goodBean){
+            //总费用
+            totalMoney=goodBean.getPrice()*goodBean.getCount();
+            //商品信息
+            YhqJson.goodList goodList=new YhqJson.goodList();
+            goodList.setProid(goodBean.getSpuid());
+            goodList.setPromoney(goodBean.getPrice());
+            list.add(goodList);
+        }
+        yhqJson.setMoney(totalMoney);
+        yhqJson.setProlist(list);
+        Intent intent=new Intent(activity, SelectYHQActivity.class);
+        intent.putExtra("parameter",SPUtil.gson.toJson(yhqJson));
+        activity.startActivity(intent);
     }
 
 }

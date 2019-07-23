@@ -19,7 +19,9 @@ import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
 import com.zxdc.utils.library.bean.MoChuang;
 import com.zxdc.utils.library.bean.OrderAddr;
+import com.zxdc.utils.library.bean.OrderComm;
 import com.zxdc.utils.library.bean.OrderDetails;
+import com.zxdc.utils.library.bean.OrderNum;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
@@ -695,9 +697,9 @@ public class HttpMethod extends BaseRequst {
     /**
      * 加入购物车
      */
-    public static void addCar(int skuid,int procount,final Handler handler) {
+    public static void addCar(String skuid,int procount,final Handler handler) {
         Map<String, String> map = new HashMap<>();
-        map.put("skuid",String.valueOf(skuid));
+        map.put("skuid",skuid);
         map.put("procount",String.valueOf(procount));
         Http.getRetrofit().create(HttpApi.class).addCar(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
@@ -1585,4 +1587,38 @@ public class HttpMethod extends BaseRequst {
             }
         });
     }
+
+
+    /**
+     * 查看评价接口
+     */
+    public static void getOrderComm(int id,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id",String.valueOf(id));
+        Http.getRetrofit().create(HttpApi.class).getOrderComm(map).enqueue(new Callback<OrderComm>() {
+            public void onResponse(Call<OrderComm> call, Response<OrderComm> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_ORDER_COMM_SUCCESS, response.body());
+            }
+            public void onFailure(Call<OrderComm> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取订单红点数接口
+     */
+    public static void getOrderNum(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).getOrderNum(map).enqueue(new Callback<OrderNum>() {
+            public void onResponse(Call<OrderNum> call, Response<OrderNum> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_ORDER_NUM_SUCCESS, response.body());
+            }
+            public void onFailure(Call<OrderNum> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
 }

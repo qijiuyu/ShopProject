@@ -1,6 +1,7 @@
 package com.ylkj.shopproject.adapter.main;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,13 @@ public class PJDetailsTypeDataAdapter extends BaseAdapter {
 	private Context context;
 	private List<PJGoodDetails.proSpecsVal> list;
 	private int index=-1;
-	public PJDetailsTypeDataAdapter(Context context, List<PJGoodDetails.proSpecsVal> list) {
+	//类型id
+	private int specsid;
+	public PJDetailsTypeDataAdapter(Context context, List<PJGoodDetails.proSpecsVal> list,int specsid) {
 		super();
 		this.context = context;
 		this.list=list;
+		this.specsid=specsid;
 	}
 
 	@Override
@@ -72,13 +76,32 @@ public class PJDetailsTypeDataAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				index=(int)v.getTag();
 				final PJGoodDetails.proSpecsVal proSpecsVal=list.get(index);
-				if(PeiJianDetailsActivity.skuid!=0){
-					if(PeiJianDetailsActivity.skuid!=proSpecsVal.getSkuid()){
-						return;
+
+				if(!TextUtils.isEmpty(PeiJianDetailsActivity.skuid)){
+					//如果根类型相同
+					if(PeiJianDetailsActivity.specsid==specsid){
+
 					}
+
+					String[] skuids=PeiJianDetailsActivity.skuid.split(",");
+					for (int i=0;i<skuids.length;i++){
+						  if(skuids[i].equals(proSpecsVal.getSkuid())){
+						  	  if(TextUtils.isEmpty(PeiJianDetailsActivity.skuid2)){
+								  PeiJianDetailsActivity.skuid2=proSpecsVal.getSkuid();
+							  }else{
+						  	  	  if(!PeiJianDetailsActivity.skuid2.equals(proSpecsVal.getSkuid())){
+						  	  	  	break;
+								  }
+							  }
+							  PJDetailsTypeDataAdapter.this.notifyDataSetChanged();
+						  	  break;
+						  }
+					}
+				}else {
+					PeiJianDetailsActivity.skuid=proSpecsVal.getSkuid();
+					PeiJianDetailsActivity.specsid=specsid;
+					PJDetailsTypeDataAdapter.this.notifyDataSetChanged();
 				}
-				PeiJianDetailsActivity.skuid=proSpecsVal.getSkuid();
-				PJDetailsTypeDataAdapter.this.notifyDataSetChanged();
 			}
 		});
 		return view;

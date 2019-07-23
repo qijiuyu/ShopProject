@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.youth.banner.Banner;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.Coupon;
 import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.Util;
@@ -22,6 +24,9 @@ import com.zxdc.utils.library.view.MeasureListView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 配件商品详情
@@ -41,7 +46,11 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
     //商品id
     private int spuid;
     //商品分类中选中的规格skuid
-    public static int skuid;
+    public static String skuid,skuid2;
+    //商品分类中选中的类型id
+    public static int specsid;
+    //选中优惠券的对象
+    private Coupon.DataBean coupon;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peijian_details);
@@ -57,7 +66,8 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
      * 初始化
      */
     private void initView(){
-        skuid=0;
+        skuid=null;
+        skuid2=null;
         spuid=getIntent().getIntExtra("spuid",0);
         banner=findViewById(R.id.banner);
         tvName=findViewById(R.id.tv_name);
@@ -67,13 +77,13 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
         tvYfMoney=findViewById(R.id.tv_yf_money);
         listView=findViewById(R.id.list_type);
         tvNum=findViewById(R.id.tv_num);
-        findViewById(R.id.tv_yhq).setOnClickListener(this);
         findViewById(R.id.img_remove).setOnClickListener(this);
         findViewById(R.id.img_add).setOnClickListener(this);
         findViewById(R.id.img_kf).setOnClickListener(this);
         findViewById(R.id.img_sc).setOnClickListener(this);
         findViewById(R.id.img_shopping).setOnClickListener(this);
         findViewById(R.id.tv_buy).setOnClickListener(this);
+        findViewById(R.id.rel_yhq).setOnClickListener(this);
         findViewById(R.id.tv_add_shopping).setOnClickListener(this);
     }
 
@@ -82,7 +92,8 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             //领取优惠券
-            case R.id.tv_yhq:
+            case R.id.rel_yhq:
+                 peiJianDetailsPersenter.couponJson(pjGoodDetails.getData());
                  break;
             //减数量
             case R.id.img_remove:
@@ -91,11 +102,13 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  }
                  --num;
                  tvNum.setText(String.valueOf(num));
+                 pjGoodDetails.getData().setCount(num);
                  break;
             //加数量
             case R.id.img_add:
                  num++;
                  tvNum.setText(String.valueOf(num));
+                 pjGoodDetails.getData().setCount(num);
                  break;
             //客服
             case R.id.img_kf:
@@ -107,7 +120,7 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
             //加入购物车
             case R.id.tv_add_shopping:
             case R.id.img_shopping:
-                 if(skuid==0){
+                 if(TextUtils.isEmpty(skuid2)){
                      ToastUtil.showLong("请选择商品类型！");
                      return;
                  }
@@ -115,14 +128,14 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  break;
             //立即购买
             case R.id.tv_buy:
-                 if(skuid==0){
+                if(TextUtils.isEmpty(skuid2)){
                     ToastUtil.showLong("请选择商品类型！");
                     return;
                  }
-                 pjGoodDetails.getData().setCount(num);
-                 pjGoodDetails.getData().setSkuid(skuid);
+                 pjGoodDetails.getData().setSkuid(Integer.parseInt(skuid2));
                  Intent intent=new Intent(this,ConfirmXDActivity.class);
                  intent.putExtra("goodBean",pjGoodDetails.getData());
+                 intent.putExtra("coupon",coupon);
                  intent.putExtra("type",0);
                  startActivity(intent);
                  break;
@@ -170,6 +183,14 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
             case EventStatus.COLLECTION_SUCCESS:
                   pjGoodDetails.getData().setIscollect(1);
                   break;
+            //下单页选中的优惠券
+            case EventStatus.SELECT_ORDER_COUPON:
+                coupon= (Coupon.DataBean) eventBusType.getObject();
+                if(null!=coupon){
+                    TextView tvYhq=findViewById(R.id.tv_yhq);
+                    tvYhq.setText("满"+coupon.getFullreductionvalue()+"减"+coupon.getFacevalue());
+                }
+                break;
         }
     }
 

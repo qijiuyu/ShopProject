@@ -250,15 +250,15 @@ public class PJGoodDetails extends BaseBean {
 
     public  static class proSpecsVal implements Serializable{
         //商品skuid
-        private int skuid;
+        private String skuid;
         //商品规格值名称
         private String valuename;
 
-        public int getSkuid() {
+        public String getSkuid() {
             return skuid;
         }
 
-        public void setSkuid(int skuid) {
+        public void setSkuid(String skuid) {
             this.skuid = skuid;
         }
 
