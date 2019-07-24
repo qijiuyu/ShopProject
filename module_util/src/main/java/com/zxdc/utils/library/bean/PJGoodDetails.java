@@ -197,6 +197,9 @@ public class PJGoodDetails extends BaseBean {
         private int id;
         //商品sku价格
         private double price;
+        //商品库存数量
+        private int stock;
+        private tgdtoBean tgdto;
 
         public int getId() {
             return id;
@@ -212,6 +215,71 @@ public class PJGoodDetails extends BaseBean {
 
         public void setPrice(double price) {
             this.price = price;
+        }
+
+        public int getStock() {
+            return stock;
+        }
+
+        public void setStock(int stock) {
+            this.stock = stock;
+        }
+
+        public tgdtoBean getTgdto() {
+            return tgdto;
+        }
+
+        public void setTgdto(tgdtoBean tgdto) {
+            this.tgdto = tgdto;
+        }
+    }
+
+
+    public static class tgdtoBean implements Serializable{
+        private int tgid;
+        private int tgcount;
+        private double tgprice;
+        private String starttime;
+        private String endtime;
+
+        public int getTgid() {
+            return tgid;
+        }
+
+        public void setTgid(int tgid) {
+            this.tgid = tgid;
+        }
+
+        public int getTgcount() {
+            return tgcount;
+        }
+
+        public void setTgcount(int tgcount) {
+            this.tgcount = tgcount;
+        }
+
+        public double getTgprice() {
+            return tgprice;
+        }
+
+        public void setTgprice(double tgprice) {
+            this.tgprice = tgprice;
+        }
+
+        public String getStarttime() {
+            return starttime;
+        }
+
+        public void setStarttime(String starttime) {
+            this.starttime = starttime;
+        }
+
+        public String getEndtime() {
+            return endtime;
+        }
+
+        public void setEndtime(String endtime) {
+            this.endtime = endtime;
         }
     }
 
@@ -253,6 +321,8 @@ public class PJGoodDetails extends BaseBean {
         private String skuid;
         //商品规格值名称
         private String valuename;
+        //是否默认选中(0:否 1:是)
+        private int ischeck;
 
         public String getSkuid() {
             return skuid;
@@ -268,6 +338,14 @@ public class PJGoodDetails extends BaseBean {
 
         public void setValuename(String valuename) {
             this.valuename = valuename;
+        }
+
+        public int getIscheck() {
+            return ischeck;
+        }
+
+        public void setIscheck(int ischeck) {
+            this.ischeck = ischeck;
         }
     }
 }

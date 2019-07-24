@@ -9,17 +9,17 @@ import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.bean.PJGoodDetails;
+import com.zxdc.utils.library.bean.Secreening;
 import com.zxdc.utils.library.view.MyGridView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PeiJianDetailsTypeAdapter extends BaseAdapter {
+public class ScreeningTypeAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<PJGoodDetails.proSpecsBean> list;
-	private PJDetailsTypeDataAdapter pjDetailsTypeDataAdapter;
-	public PeiJianDetailsTypeAdapter(Context context, List<PJGoodDetails.proSpecsBean> list) {
+	private List<Secreening.DataBean> list;
+	private ScreeningTypeDataAdapter screeningTypeDataAdapter;
+	public ScreeningTypeAdapter(Context context, List<Secreening.DataBean> list) {
 		super();
 		this.context = context;
 		this.list=list;
@@ -52,12 +52,12 @@ public class PeiJianDetailsTypeAdapter extends BaseAdapter {
 		}else{
 			holder=(ViewHolder)view.getTag();
 		}
-		final PJGoodDetails.proSpecsBean proSpecsBean=list.get(position);
-		holder.tvName.setText(proSpecsBean.getSpecsname());
+		final Secreening.DataBean dataBean=list.get(position);
+		holder.tvName.setText(dataBean.getName());
 
 		//展示具体规则数据
-		pjDetailsTypeDataAdapter=new PJDetailsTypeDataAdapter(context,proSpecsBean.getProSpecsVals(),position);
-		holder.gridView.setAdapter(pjDetailsTypeDataAdapter);
+		screeningTypeDataAdapter=new ScreeningTypeDataAdapter(context,dataBean.getSearchVals(),dataBean.getIscheckbox(),position);
+		holder.gridView.setAdapter(screeningTypeDataAdapter);
 		return view;
 	}
 

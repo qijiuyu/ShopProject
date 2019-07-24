@@ -252,4 +252,10 @@ public class HttpConstant {
     //获取订单红点数接口
     public static final String ORDER_NUM="api/app/order/getcount";
 
+    //对公支付
+    public static final String PAY_DG="api/app/order/changepaytype";
+
+    //获取配件商品筛选值列表接口
+    public static final String SCREENING="api/app/product/getsearchvalue";
+
 }

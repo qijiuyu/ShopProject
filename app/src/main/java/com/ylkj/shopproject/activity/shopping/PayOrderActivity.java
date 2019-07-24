@@ -1,6 +1,8 @@
 package com.ylkj.shopproject.activity.shopping;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +10,11 @@ import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.http.HandlerConstant;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.ToastUtil;
 
 /**
  * 支付界面
@@ -67,15 +74,54 @@ public class PayOrderActivity extends BaseActivity implements View.OnClickListen
                 break;
             //选择对公支付
             case R.id.lin_dg:
+                payType=3;
                 imgWX.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
                 imgZFB.setImageDrawable(getResources().getDrawable(R.mipmap.select_btn));
                 imgDG.setImageDrawable(getResources().getDrawable(R.mipmap.pay_select));
                   break;
             case R.id.tv_pay:
+                 switch (payType){
+                     //对公支付
+                     case 3:
+                          dgPay();
+                          break;
+                 }
                  break;
             case R.id.lin_back:
                  finish();
                  break;
         }
+    }
+
+
+    private Handler handler=new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+            switch (msg.what){
+                //对公支付回执
+                case HandlerConstant.DG_PAY_SUCCESS:
+                      final BaseBean baseBean= (BaseBean) msg.obj;
+                      if(null==baseBean){
+                          break;
+                      }
+                      if(baseBean.isSussess()){
+
+                      }else{
+                          ToastUtil.showLong(baseBean.getDesc());
+                      }
+                      break;
+                case HandlerConstant.REQUST_ERROR:
+                    ToastUtil.showLong(getString(R.string.net_error));
+                    break;
+            }
+            return false;
+        }
+    });
+
+    /**
+     * 对公支付
+     */
+    private void dgPay(){
+        DialogUtil.showProgress(this,"支付中");
+        HttpMethod.dgPay(handler);
     }
 }

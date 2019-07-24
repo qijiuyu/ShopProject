@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.main.pjsc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +13,6 @@ import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.persenter.PeiJianListPersenter;
 import com.ylkj.shopproject.activity.main.search.SearchActivity;
 import com.ylkj.shopproject.adapter.main.PeiJianListAdapter;
-import com.ylkj.shopproject.adapter.main.SearchResultAdapter;
 import com.ylkj.shopproject.eventbus.EventBusType;
 import com.ylkj.shopproject.eventbus.EventStatus;
 import com.zxdc.utils.library.base.BaseActivity;
@@ -36,7 +36,7 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
     private PeiJianListAdapter peiJianListAdapter;
     private PeiJianListPersenter peiJianListPersenter;
     //侧滑菜单
-    public static DrawerLayout mDrawerLayout;
+    public DrawerLayout mDrawerLayout;
     //分类ID
     private int typeId;
     /**
@@ -56,7 +56,7 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
         initView();
         //获取配件商品列表
         DialogUtil.showProgress(this,"数据加载中");
-        peiJianListPersenter.getPJGoodList(HandlerConstant.GET_PJ_GOODS_LIST_SUCCESS1,typeId,page);
+        peiJianListPersenter.getPJGoodList(HandlerConstant.GET_PJ_GOODS_LIST_SUCCESS1,typeId,page,null);
     }
 
 
@@ -96,6 +96,7 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
             //筛选
             case R.id.lin_screening:
                  mDrawerLayout.openDrawer(Gravity.RIGHT);
+                 EventBus.getDefault().post(new EventBusType(EventStatus.OPEN_SCREENING,typeId));
                  break;
             case R.id.lin_back:
                  finish();
@@ -119,10 +120,15 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
             listAll.addAll(list);
             peiJianListAdapter=new PeiJianListAdapter(this,listAll,new PeiJianListAdapter.OnItemClickListener(){
                 public void onItemClick(int position) {
-                    setClass(PeiJianDetailsActivity.class);
-
-                    //这是进入拼团详情界面
-//                setClass(PinTuanDetailsActivity.class);
+                    PJGoodList.GoodList goodList=listAll.get(position);
+                    Intent intent=new Intent();
+                    if(goodList.getIstg()==1){
+                        intent.setClass(PeiJianListActivity.this,PinTuanDetailsActivity.class);
+                    }else{
+                        intent.setClass(PeiJianListActivity.this,PeiJianDetailsActivity.class);
+                    }
+                    intent.putExtra("spuid",goodList.getSpuid());
+                    startActivity(intent);
                 }
             });
             recyclerView.setAdapter(peiJianListAdapter);
@@ -138,13 +144,13 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
     @Override
     public void onRefresh(View view) {
         page=1;
-        peiJianListPersenter.getPJGoodList(HandlerConstant.GET_PJ_GOODS_LIST_SUCCESS1,typeId,page);
+        peiJianListPersenter.getPJGoodList(HandlerConstant.GET_PJ_GOODS_LIST_SUCCESS1,typeId,page,null);
     }
 
     @Override
     public void onLoadMore(View view) {
         page++;
-        peiJianListPersenter.getPJGoodList(HandlerConstant.GET_PJ_GOODS_LIST_SUCCESS1,typeId,page);
+        peiJianListPersenter.getPJGoodList(HandlerConstant.GET_PJ_GOODS_LIST_SUCCESS1,typeId,page,null);
     }
 
 
@@ -168,6 +174,14 @@ public class PeiJianListActivity extends BaseActivity implements MyRefreshLayout
             //选择默认/新品查询
             case EventStatus.PJSC_SELECT_TYPE:
                  break;
+            //筛选选中的字符串
+            case EventStatus.SCREENING_DATA:
+                  mDrawerLayout.closeDrawers();
+                  String searchkey= (String) eventBusType.getObject();
+                  DialogUtil.showProgress(this,"数据加载中");
+                  page=1;
+                  peiJianListPersenter.getPJGoodList(HandlerConstant.GET_PJ_GOODS_LIST_SUCCESS1,typeId,page,searchkey);
+                  break;
         }
     }
 

@@ -89,4 +89,13 @@ public class EventStatus {
     //下单时选择的发票类型
     public static final int SELECT_INVOICE_TYPE=134;
 
+    //配件详情页选中规格
+    public static final int SELECT_SKUID=135;
+
+    //打开筛选界面
+    public static final int OPEN_SCREENING=136;
+
+    //筛选选中的字符串
+    public static final int SCREENING_DATA=137;
+
 }

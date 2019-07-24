@@ -47,11 +47,7 @@ public class PeiJianDetailsPersenter {
             switch (msg.what){
                 //获取配件商品详情接口
                 case HandlerConstant.GET_PJ_DETAILS_SUCCESS:
-                     final String message= (String) msg.obj;
-                     if(TextUtils.isEmpty(message)){
-                         break;
-                     }
-                     final PJGoodDetails pjGoodDetails= SPUtil.gson.fromJson(message,PJGoodDetails.class);
+                     final PJGoodDetails pjGoodDetails= (PJGoodDetails) msg.obj;
                      if(null==pjGoodDetails){
                          break;
                      }
@@ -169,13 +165,13 @@ public class PeiJianDetailsPersenter {
     /**
      * 组装优惠券json
      */
-    public void couponJson(PJGoodDetails.goodBean goodBean){
+    public void couponJson(PJGoodDetails.goodBean goodBean,int skuCount,double skuPrice){
         YhqJson yhqJson=new YhqJson();
         List<YhqJson.goodList> list=new ArrayList<>();
         double totalMoney=0;
         if(null!=goodBean){
             //总费用
-            totalMoney=goodBean.getPrice()*goodBean.getCount();
+            totalMoney=skuCount*skuPrice;
             //商品信息
             YhqJson.goodList goodList=new YhqJson.goodList();
             goodList.setProid(goodBean.getSpuid());

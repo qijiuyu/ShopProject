@@ -21,4 +21,10 @@
         android:layout_marginTop="15dp"
         android:numColumns="3"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_F8F8F8"
+        android:layout_marginTop="15dp"/>
+
 </LinearLayout>

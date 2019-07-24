@@ -113,7 +113,7 @@ public class PeiJianListPersenter {
 
 
     //获取配件商品列表
-    public void getPJGoodList(int index,int typeId,int page){
-        HttpMethod.getPJGoodList("2",String.valueOf(typeId),page,index,handler);
+    public void getPJGoodList(int index,int typeId,int page,String searchkey){
+        HttpMethod.getPJGoodList("2",String.valueOf(typeId),searchkey,page,index,handler);
     }
 }

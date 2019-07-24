@@ -1,11 +1,13 @@
 package com.ylkj.shopproject.adapter.main;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +54,18 @@ public class PeiJianListAdapter extends RecyclerView.Adapter<PeiJianListAdapter.
 		if(null==goodList){
 			return;
 		}
+		if(goodList.getIstg()==0){
+			holder.imgPT.setVisibility(View.GONE);
+			holder.tvNum.setVisibility(View.GONE);
+			holder.tvOldMoney.setVisibility(View.GONE);
+		}else{
+			holder.imgPT.setVisibility(View.VISIBLE);
+			holder.tvNum.setVisibility(View.VISIBLE);
+			holder.tvOldMoney.setVisibility(View.VISIBLE);
+			holder.tvNum.setText(goodList.getTgcount()+"人团");
+			holder.tvOldMoney.setText("¥"+goodList.getOldprice());
+			holder.tvOldMoney.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线
+		}
 		holder.itemView.setTag(i);
 		holder.tvName.setText(goodList.getName());
 		holder.tvMoney.setText(Util.setDouble(goodList.getPrice(),2));
@@ -70,12 +84,16 @@ public class PeiJianListAdapter extends RecyclerView.Adapter<PeiJianListAdapter.
 
 	public class MyHolder extends RecyclerView.ViewHolder {
 		OvalImage2Views img;
-		TextView tvName,tvMoney;
+		ImageView imgPT;
+		TextView tvName,tvMoney,tvNum,tvOldMoney;
 		public MyHolder(@NonNull View itemView) {
 			super(itemView);
 			img=itemView.findViewById(R.id.img_icon);
+			imgPT=itemView.findViewById(R.id.img_pt);
 			tvName = itemView.findViewById(R.id.tv_name);
 			tvMoney=itemView.findViewById(R.id.tv_money);
+			tvNum=itemView.findViewById(R.id.tv_num);
+			tvOldMoney=itemView.findViewById(R.id.tv_old_money);
 		}
 	}
 }

@@ -50,6 +50,6 @@ public class TypeListPersenter {
 
     //获取机床商品列表
     public void getGoodList(int index,int typeId,int page){
-        HttpMethod.getPJGoodList("1",String.valueOf(typeId),page,index,handler);
+        HttpMethod.getPJGoodList("1",String.valueOf(typeId),null,page,index,handler);
     }
 }

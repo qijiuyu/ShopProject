@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.pjsc.PeiJianListActivity;
+import com.ylkj.shopproject.activity.main.pjsc.PeiJianTypeActivity;
 import com.zxdc.utils.library.bean.PJType;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.MyGridView;
 import java.util.List;
 public class PeiJianDataAdapter extends BaseAdapter {
@@ -54,10 +57,20 @@ public class PeiJianDataAdapter extends BaseAdapter {
 
 		final PJType.Children children=list.get(position);
 		holder.tvName.setText(children.getName());
+
 		peiJianDataImgAdapter=new PeiJianDataImgAdapter(context,children.getChildren());
 		holder.gridView.setAdapter(peiJianDataImgAdapter);
-		holder.gridView.setClickable(false);
-		holder.gridView.setPressed(false);
+
+		holder.gridView.setTag(children.getChildren());
+		holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				List<PJType.TypeBean> list= (List<PJType.TypeBean>) parent.getTag();
+				PJType.TypeBean typeBean=list.get(position);
+				Intent intent=new Intent(context,PeiJianListActivity.class);
+				intent.putExtra("typeId",typeBean.getId());
+				context.startActivity(intent);
+			}
+		});
 		return view;
 	}
 

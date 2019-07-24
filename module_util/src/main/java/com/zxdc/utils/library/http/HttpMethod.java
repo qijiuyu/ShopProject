@@ -22,6 +22,8 @@ import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.OrderComm;
 import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.OrderNum;
+import com.zxdc.utils.library.bean.PJGoodDetails;
+import com.zxdc.utils.library.bean.Secreening;
 import com.zxdc.utils.library.bean.Zpzz;
 import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
@@ -433,10 +435,13 @@ public class HttpMethod extends BaseRequst {
     /**
      * 获取配件商品列表
      */
-    public static void getPJGoodList(String protype,String classid,int page,final int index,final Handler handler) {
+    public static void getPJGoodList(String protype,String classid,String searchkey,int page,final int index,final Handler handler) {
         Map<String, String> map = new HashMap<>();
         map.put("protype",protype);
         map.put("classid",classid);
+        if(!TextUtils.isEmpty(searchkey)){
+            map.put("searchkey",searchkey);
+        }
         map.put("page",String.valueOf(page));
         map.put("size","20");
         Http.getRetrofit().create(HttpApi.class).getPJGoodList(map).enqueue(new Callback<PJGoodList>() {
@@ -680,17 +685,17 @@ public class HttpMethod extends BaseRequst {
      * 获取配件商品详情接口
      */
     public static void getPJDetails(String spuid,final Handler handler) {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("spuid",spuid);
-//        Http.getRetrofit().create(HttpApi.class).getPJDetails(map).enqueue(new Callback<PJGoodDetails>() {
-//            public void onResponse(Call<PJGoodDetails> call, Response<PJGoodDetails> response) {
-//                BaseRequst.sendMessage(handler, HandlerConstant.GET_PJ_DETAILS_SUCCESS, response.body());
-//            }
-//            public void onFailure(Call<PJGoodDetails> call, Throwable t) {
-//                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
-//            }
-//        });
-        Http.getMonth(HttpConstant.GET_PJ_GOOD_DETAILS+"?spuid="+spuid,handler,HandlerConstant.GET_PJ_DETAILS_SUCCESS);
+        Map<String, String> map = new HashMap<>();
+        map.put("spuid",spuid);
+        Http.getRetrofit().create(HttpApi.class).getPJDetails(map).enqueue(new Callback<PJGoodDetails>() {
+            public void onResponse(Call<PJGoodDetails> call, Response<PJGoodDetails> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_PJ_DETAILS_SUCCESS, response.body());
+            }
+            public void onFailure(Call<PJGoodDetails> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+//        Http.getMonth(HttpConstant.GET_PJ_GOOD_DETAILS+"?spuid="+spuid,handler,HandlerConstant.GET_PJ_DETAILS_SUCCESS);
     }
 
 
@@ -1616,6 +1621,39 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.GET_ORDER_NUM_SUCCESS, response.body());
             }
             public void onFailure(Call<OrderNum> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 对公支付
+     */
+    public static void dgPay(final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).dgPay(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.DG_PAY_SUCCESS, response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 获取配件商品筛选值列表接口
+     */
+    public static void Secreening(int classid,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("classid",String.valueOf(classid));
+        Http.getRetrofit().create(HttpApi.class).Secreening(map).enqueue(new Callback<Secreening>() {
+            public void onResponse(Call<Secreening> call, Response<Secreening> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.GET_SECREENING_SUCCESS, response.body());
+            }
+            public void onFailure(Call<Secreening> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

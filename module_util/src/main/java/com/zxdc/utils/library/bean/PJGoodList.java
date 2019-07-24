@@ -29,6 +29,12 @@ public class PJGoodList extends BaseBean {
         private double price;
         //商品原价
         private double oldprice;
+        //是否团购(0:否 1:是)
+        private int istg;
+        //成团人数
+        private int tgcount;
+        //商品skuid
+        private int skuid;
 
         public int getSpuid() {
             return spuid;
@@ -68,6 +74,30 @@ public class PJGoodList extends BaseBean {
 
         public void setOldprice(double oldprice) {
             this.oldprice = oldprice;
+        }
+
+        public int getIstg() {
+            return istg;
+        }
+
+        public void setIstg(int istg) {
+            this.istg = istg;
+        }
+
+        public int getTgcount() {
+            return tgcount;
+        }
+
+        public void setTgcount(int tgcount) {
+            this.tgcount = tgcount;
+        }
+
+        public int getSkuid() {
+            return skuid;
+        }
+
+        public void setSkuid(int skuid) {
+            this.skuid = skuid;
         }
     }
 }

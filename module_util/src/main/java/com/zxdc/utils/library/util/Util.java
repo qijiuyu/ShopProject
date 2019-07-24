@@ -11,6 +11,9 @@ import android.widget.RelativeLayout;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -188,5 +191,24 @@ public class Util extends ClassLoader {
             e.printStackTrace();
         }
         return "";
+    }
+
+
+    /**
+     * 判断两个数组中是否有相同的元素
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static boolean isRepeat(String str1,String str2){
+        String[] strOne=str1.split(",");
+        String[] strTwo=str2.split(",");
+        boolean has = false;
+        Set<String> set = new HashSet<>(Arrays.asList(strOne));
+        set.retainAll(Arrays.asList(strTwo));
+        if(set.size() > 0){
+            has =  true;
+        }
+        return has;
     }
 }

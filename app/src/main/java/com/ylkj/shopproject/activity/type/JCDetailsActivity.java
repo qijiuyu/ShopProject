@@ -141,22 +141,22 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
             listColor.setAdapter(selectColorAdapter);
         }
 
-       //展示类型数据
+
         for (int i=0;i<jcGoodDetails.getData().getMachineAttrs().size();i++){
+              //获取类型数据
               if(jcGoodDetails.getData().getMachineAttrs().get(i).getDirection().equals("0")){
                   typeList.add(jcGoodDetails.getData().getMachineAttrs().get(i));
               }
+              //获取名称列表数据
+             if(jcGoodDetails.getData().getMachineAttrs().get(i).getDirection().equals("1")){
+                 nameList.add(jcGoodDetails.getData().getMachineAttrs().get(i));
+             }
         }
+        //展示类型数据
         jc_details_type_adapter=new JC_Details_Type_Adapter(this,typeList);
         listType.setAdapter(jc_details_type_adapter);
 
-
         //展示名称列表数据
-        for (int i=0;i<jcGoodDetails.getData().getMachineAttrs().size();i++){
-            if(jcGoodDetails.getData().getMachineAttrs().get(i).getDirection().equals("1")){
-                nameList.add(jcGoodDetails.getData().getMachineAttrs().get(i));
-            }
-        }
         jc_details_name_adapter=new JC_Details_Name_Adapter(this,nameList);
         listName.setAdapter(jc_details_name_adapter);
     }
