@@ -15,6 +15,8 @@ import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
 import com.zxdc.utils.library.bean.MoChuang;
+import com.zxdc.utils.library.bean.MyTuan;
+import com.zxdc.utils.library.bean.MyTuanDetails;
 import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.OrderComm;
 import com.zxdc.utils.library.bean.OrderDetails;
@@ -392,4 +394,12 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.SCREENING)
     Call<Secreening> Secreening(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.MY_TUAN)
+    Call<MyTuan> myTuan(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.MY_TUAN_DETAILS)
+    Call<MyTuanDetails> tuanDetails(@FieldMap Map<String, String> map);
 }

@@ -1,6 +1,8 @@
 package com.ylkj.shopproject.activity.main.pjsc;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
@@ -10,7 +12,12 @@ import com.ylkj.shopproject.activity.main.persenter.PeiJianDetailsPersenter;
 import com.ylkj.shopproject.adapter.main.PeiJianDetailsTypeAdapter;
 import com.youth.banner.Banner;
 import com.zxdc.utils.library.base.BaseActivity;
+import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.TimerUtil;
 import com.zxdc.utils.library.view.MeasureListView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 拼团商品详情
@@ -25,6 +32,7 @@ public class PinTuanDetailsActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pintuan_details);
         initView();
+        showTime();
     }
 
     /**
@@ -57,6 +65,14 @@ public class PinTuanDetailsActivity extends BaseActivity implements View.OnClick
     }
 
 
+    private Handler handler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            return false;
+        }
+    });
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -84,4 +100,58 @@ public class PinTuanDetailsActivity extends BaseActivity implements View.OnClick
                  break;
         }
     }
+
+
+    private int time;
+    private TimerUtil timerUtil;
+    private void showTime(){
+        try {
+            String startTime="2018-09-09 16:39:00";
+            String endTime="2018-09-29 16:39:00";
+            SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = format.parse(startTime);
+            Date date2 = format.parse(endTime);
+            //日期转时间戳（毫秒）
+            Long time1=date.getTime()/1000;
+            Long time2=date2.getTime()/1000;
+            Long along=time2-time1;
+            time=along.intValue();
+            LogUtils.e(time1+"____________"+time2+"________"+time);
+
+            timerUtil=new TimerUtil(0, 1000, new TimerUtil.TimerCallBack() {
+                public void onFulfill() {
+                    timerTask();
+                }
+            });
+            timerUtil.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 开始计时器
+     */
+    private void timerTask(){
+        time--;
+        final int day=time/86400;
+        if(day>0){
+            time=time-(day*86400);
+        }
+        final int hoursInt = time / 3600;
+        final int minutesInt = (time - hoursInt * 3600) / 60;
+        final int secondsInt = time - hoursInt * 3600 - minutesInt * 60;
+        handler.post(new Runnable() {
+            public void run() {
+                if(hoursInt==0){
+                    LogUtils.e(String.format("%02d", minutesInt) + ":" + String.format("%02d", secondsInt));
+                } else{
+                    LogUtils.e(day+"天:"+String.format("%02d", hoursInt) + ":" + String.format("%02d", minutesInt) + ":" + String.format("%02d", secondsInt));
+                }
+            }
+        });
+
+    }
+
 }

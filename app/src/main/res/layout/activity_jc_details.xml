@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="详情"
+            android:text="机床详情"
             android:textColor="@color/color_33333"
             android:textSize="18sp"/>
 
@@ -197,7 +197,6 @@
                 android:id="@+id/tv_total_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥1,000"
                 android:textSize="17sp"
                 android:textColor="@color/color_37C7B5"
                 android:layout_centerVertical="true"

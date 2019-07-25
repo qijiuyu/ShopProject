@@ -89,4 +89,7 @@ public class HandlerConstant {
     public static final int GET_ORDER_NUM_SUCCESS=1185;
     public static final int DG_PAY_SUCCESS=1186;
     public static final int GET_SECREENING_SUCCESS=1187;
+    public static final int MY_TUAN_LIST_SUCCESS1=1188;
+    public static final int MY_TUAN_LIST_SUCCESS2=1189;
+    public static final int MY_TUAN_DETAILS_SUCCESS=1190;
 }

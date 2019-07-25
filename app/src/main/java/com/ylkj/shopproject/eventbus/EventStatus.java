@@ -98,4 +98,13 @@ public class EventStatus {
     //筛选选中的字符串
     public static final int SCREENING_DATA=137;
 
+    //组装机床总金额
+    public static final int JC_TOTAL_MONEY=138;
+
+    //我的拼团详情
+    public static final int MY_TUAN_DETAILS=139;
+
+    //计算倒计时
+    public static final int TUAN_DETAILS_TIME=140;
+
 }

@@ -18,6 +18,8 @@ import com.zxdc.utils.library.bean.MainHot;
 import com.zxdc.utils.library.bean.MainJX;
 import com.zxdc.utils.library.bean.MainRQ;
 import com.zxdc.utils.library.bean.MoChuang;
+import com.zxdc.utils.library.bean.MyTuan;
+import com.zxdc.utils.library.bean.MyTuanDetails;
 import com.zxdc.utils.library.bean.OrderAddr;
 import com.zxdc.utils.library.bean.OrderComm;
 import com.zxdc.utils.library.bean.OrderDetails;
@@ -1654,6 +1656,44 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.GET_SECREENING_SUCCESS, response.body());
             }
             public void onFailure(Call<Secreening> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 我的拼团列表
+     */
+    public static void myTuan(int status,int pageindex,final int index,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        if(status!=0){
+            map.put("status",String.valueOf(status));
+        }
+        map.put("pageindex",String.valueOf(pageindex));
+        map.put("pagesize","20");
+        Http.getRetrofit().create(HttpApi.class).myTuan(map).enqueue(new Callback<MyTuan>() {
+            public void onResponse(Call<MyTuan> call, Response<MyTuan> response) {
+                BaseRequst.sendMessage(handler, index, response.body());
+            }
+            public void onFailure(Call<MyTuan> call, Throwable t) {
+                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
+            }
+        });
+    }
+
+
+    /**
+     * 团购详情
+     */
+    public static void tuanDetails(String ugnum,final Handler handler) {
+        Map<String, String> map = new HashMap<>();
+        map.put("ugnum",ugnum);
+        Http.getRetrofit().create(HttpApi.class).tuanDetails(map).enqueue(new Callback<MyTuanDetails>() {
+            public void onResponse(Call<MyTuanDetails> call, Response<MyTuanDetails> response) {
+                BaseRequst.sendMessage(handler, HandlerConstant.MY_TUAN_DETAILS_SUCCESS, response.body());
+            }
+            public void onFailure(Call<MyTuanDetails> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

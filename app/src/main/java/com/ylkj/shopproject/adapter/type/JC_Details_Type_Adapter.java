@@ -60,7 +60,7 @@ public class JC_Details_Type_Adapter extends BaseAdapter {
 		holder.tvMoney.setText("¥"+ Util.setDouble(machineAttrsList.getPrice(),2));
 
 		//显示规格值
-		jc_details_type_dataAdapter=new JC_Details_Type_DataAdapter(context,machineAttrsList.getMachineAttrValues(),machineAttrsList.getIsmany());
+		jc_details_type_dataAdapter=new JC_Details_Type_DataAdapter(context,machineAttrsList.getMachineAttrValues(),machineAttrsList.getIsmany(),position);
 		holder.gridView.setAdapter(jc_details_type_dataAdapter);
 		return view;
 	}

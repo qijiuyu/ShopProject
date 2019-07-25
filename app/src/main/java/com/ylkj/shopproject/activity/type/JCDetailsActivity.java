@@ -24,14 +24,18 @@ import com.zxdc.utils.library.view.MeasureListView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 机床详情页
  */
 public class JCDetailsActivity extends BaseActivity implements View.OnClickListener{
 
     private Banner banner;
-    private TextView tvDes,tvApp,tvColor,tvColorMoney;
+    private TextView tvDes,tvApp,tvColor,tvColorMoney,tvTotalMoney;
     private HorizontalListView listColor;
     private MeasureListView listType,listName;
     //选择颜色的adapter
@@ -50,6 +54,12 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
     private List<JCGoodDetails.machineAttrsList> typeList=new ArrayList<>();
     //展示名称数据的集合
     private List<JCGoodDetails.machineAttrsList> nameList=new ArrayList<>();
+    //选中颜色的费用
+    private double colorMoney=0;
+    //存储选中类型的费用
+    public static Map<Integer,Double> typeMap=new HashMap<>();
+    //存储选中名称的费用
+    public static Map<Integer,Double> nameMap=new HashMap<>();
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jc_details);
@@ -74,6 +84,7 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
         tvApp=findViewById(R.id.tv_app);
         tvColor=findViewById(R.id.tv_color);
         tvColorMoney=findViewById(R.id.tv_color_money);
+        tvTotalMoney=findViewById(R.id.tv_total_money);
         listColor=findViewById(R.id.list_color);
         listName=findViewById(R.id.list_name);
         listType=findViewById(R.id.list_type);
@@ -119,6 +130,7 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
      * 展示界面数据
      */
     private void showUIData(){
+        tvTotalMoney.setText("¥"+jcGoodDetails.getData().getPrice());
         //获取颜色列表对象
         JCGoodDetails.machineAttrsList colorList=null;
         for (int i=0;i<jcGoodDetails.getData().getMachineAttrs().size();i++){
@@ -136,7 +148,8 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
         //展示颜色数据
         if(colorList!=null){
             tvColor.setText(colorList.getName());
-            tvColorMoney.setText("¥"+ Util.setDouble(colorList.getPrice(),2));
+            colorMoney=colorList.getPrice();
+            tvColorMoney.setText("¥"+ Util.setDouble(colorMoney,2));
             selectColorAdapter=new SelectColorAdapter(this,colorList.getMachineAttrValues());
             listColor.setAdapter(selectColorAdapter);
         }
@@ -176,11 +189,39 @@ public class JCDetailsActivity extends BaseActivity implements View.OnClickListe
             //选择对应颜色
             case EventStatus.SELECT_JC_COLOR:
                   final JCGoodDetails.machineValueList machineValueList= (JCGoodDetails.machineValueList) eventBusType.getObject();
-                  tvColorMoney.setText("¥"+ Util.setDouble(machineValueList.getPrice(),2));
+                  colorMoney=machineValueList.getPrice();
+                  tvColorMoney.setText("¥"+ Util.setDouble(colorMoney,2));
+                  //展示总的费用
+                  getTotalMoney();
                   //设置轮播图
                   jcDetailsPersenter.setBanner(banner,machineValueList.getSpuColorImgList());
                   break;
+            //选完颜色，类型，名称后，展示总的费用
+            case EventStatus.JC_TOTAL_MONEY:
+                  getTotalMoney();
+                  break;
         }
+    }
+
+
+    /**
+     * 展示总的费用
+     */
+    private void getTotalMoney(){
+        double totalMoney=0;
+        //加上颜色费用
+        totalMoney=Util.sum(totalMoney,colorMoney);
+        //加上类型费用
+        Set<Integer> typeSet = typeMap.keySet();
+        for (Integer in : typeSet){
+            totalMoney=Util.sum(totalMoney,typeMap.get(in));
+        }
+        //加上名称费用
+        Set<Integer> nameSet = nameMap.keySet();
+        for (Integer in : nameSet){
+            totalMoney=Util.sum(totalMoney,nameMap.get(in));
+        }
+        tvTotalMoney.setText("¥"+totalMoney);
     }
 
     @Override

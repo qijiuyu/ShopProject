@@ -64,7 +64,7 @@ public class JC_Details_Name_Adapter extends BaseAdapter {
 		holder.tvName.setText(machineAttrsList.getName());
 
 		//展示规格值
-		jc_details_name_data_adapter=new JC_Details_Name_Data_Adapter(context,machineAttrsList.getMachineAttrValues(),machineAttrsList.getIsmany());
+		jc_details_name_data_adapter=new JC_Details_Name_Data_Adapter(context,machineAttrsList.getMachineAttrValues(),machineAttrsList.getIsmany(),position);
 		holder.listView.setAdapter(jc_details_name_data_adapter);
 		return view;
 	}

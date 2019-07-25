@@ -141,6 +141,7 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                     return;
                  }
                  pjGoodDetails.getData().setSkuid(Integer.parseInt(skuid));
+                 pjGoodDetails.getData().setPrice(skuPrice);
                  Intent intent=new Intent(this,ConfirmXDActivity.class);
                  intent.putExtra("goodBean",pjGoodDetails.getData());
                  intent.putExtra("coupon",coupon);

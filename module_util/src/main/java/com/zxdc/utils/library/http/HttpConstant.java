@@ -258,4 +258,10 @@ public class HttpConstant {
     //获取配件商品筛选值列表接口
     public static final String SCREENING="api/app/product/getsearchvalue";
 
+    //我的拼团列表
+    public static final String MY_TUAN="api/app/order/gettglist";
+
+    //团购详情
+    public static final String MY_TUAN_DETAILS="api/app/order/gettgdetail";
+
 }

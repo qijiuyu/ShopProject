@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 public class MyCollectionFragment extends BaseFragment {
 
-    private View  view;
     private ListView listView;
     private MyCollectionAdapter myCollectionAdapter;
     //fragment是否可见
@@ -46,11 +45,10 @@ public class MyCollectionFragment extends BaseFragment {
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_my_tuan, container, false);
-        listView=view.findViewById(R.id.listView);
+        listView=new ListView(mActivity);
         //获取收藏数据
         myCollection();
-        return view;
+        return listView;
     }
 
 
@@ -116,7 +114,7 @@ public class MyCollectionFragment extends BaseFragment {
         switch (eventBusType.getStatus()){
             //取消收藏
             case EventStatus.CANCLE_COLLECTION:
-                  if(getUserVisibleHint() && null!=view){
+                  if(getUserVisibleHint() && null!=listView){
                       spuid= (int) eventBusType.getObject();
                       cancleColl();
                   }
@@ -129,7 +127,7 @@ public class MyCollectionFragment extends BaseFragment {
      * 获取收藏数据
      */
     private void myCollection(){
-        if(isVisibleToUser && null!=view && list.size()==0){
+        if(isVisibleToUser && null!=listView && list.size()==0){
             DialogUtil.showProgress(mActivity,"数据加载中");
             HttpMethod.myCollection(String.valueOf(++MyCollectionActivity.index),handler);
         }
