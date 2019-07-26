@@ -175,6 +175,7 @@ public class MainPersenter {
                         case 1:
                              intent.setClass(activity, WebViewActivity.class);
                              intent.putExtra("url",dataBean.getUrl());
+                             intent.putExtra("title",dataBean.getName());
                              intent.putExtra("type",1);
                              break;
                         //跳转机床商品

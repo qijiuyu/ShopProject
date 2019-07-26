@@ -27,7 +27,6 @@ import com.zxdc.utils.library.bean.OrderNum;
 import com.zxdc.utils.library.bean.PJGoodDetails;
 import com.zxdc.utils.library.bean.Secreening;
 import com.zxdc.utils.library.bean.Zpzz;
-import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.Business;
@@ -582,23 +581,6 @@ public class HttpMethod extends BaseRequst {
 
 
     /**
-     * 单页类型（0：关于我们，1：融资租赁）
-     */
-    public static void about(String type,final Handler handler) {
-        Map<String, String> map = new HashMap<>();
-        map.put("type",type);
-        Http.getRetrofit().create(HttpApi.class).about(map).enqueue(new Callback<About>() {
-            public void onResponse(Call<About> call, Response<About> response) {
-                BaseRequst.sendMessage(handler, HandlerConstant.GET_ABOUT_SUCCESS, response.body());
-            }
-            public void onFailure(Call<About> call, Throwable t) {
-                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
-            }
-        });
-    }
-
-
-    /**
      * 查询购物车
      */
     public static void getCarList(final Handler handler) {
@@ -660,23 +642,6 @@ public class HttpMethod extends BaseRequst {
                 BaseRequst.sendMessage(handler, HandlerConstant.GET_CAR_LIST_SUCCESS, response.body());
             }
             public void onFailure(Call<Shopping> call, Throwable t) {
-                BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
-            }
-        });
-    }
-
-
-    /**
-     * 根据id获取增值服务详情接口
-     */
-    public static void getServiceInfo(String id,final Handler handler) {
-        Map<String, String> map = new HashMap<>();
-        map.put("id",id);
-        Http.getRetrofit().create(HttpApi.class).getServiceInfo(map).enqueue(new Callback<About>() {
-            public void onResponse(Call<About> call, Response<About> response) {
-                BaseRequst.sendMessage(handler, HandlerConstant.GET_SERVICE_INFO_SUCCESS, response.body());
-            }
-            public void onFailure(Call<About> call, Throwable t) {
                 BaseRequst.sendMessage(handler, HandlerConstant.REQUST_ERROR, null);
             }
         });

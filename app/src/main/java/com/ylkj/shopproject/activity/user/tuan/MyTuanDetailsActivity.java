@@ -68,15 +68,6 @@ public class MyTuanDetailsActivity extends BaseActivity implements View.OnClickL
         tvPayType=findViewById(R.id.tv_pay_type);
         tvPlay=findViewById(R.id.tv_play);
         findViewById(R.id.lin_back).setOnClickListener(this);
-
-        pinTuanStatusAdapter=new PinTuanStatusAdapter(this,null,new PinTuanStatusAdapter.OnItemClickListener(){
-            public void onItemClick(int position) {
-
-            }
-        });
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 5);
-        listView.setLayoutManager(gridLayoutManager);//网格布局
-        listView.setAdapter(pinTuanStatusAdapter);
     }
 
     @Override
@@ -128,6 +119,16 @@ public class MyTuanDetailsActivity extends BaseActivity implements View.OnClickL
                 tvPayType.setText("支付方式：对公支付");
                  break;
         }
+
+        //展示拼团的用户
+        pinTuanStatusAdapter=new PinTuanStatusAdapter(this,dataBean.getUserslist(),dataBean.getGcount(),new PinTuanStatusAdapter.OnItemClickListener(){
+            public void onItemClick(int position) {
+
+            }
+        });
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 5);
+        listView.setLayoutManager(gridLayoutManager);//网格布局
+        listView.setAdapter(pinTuanStatusAdapter);
     }
 
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.user.login.LoginActivity;
+import com.ylkj.shopproject.activity.webview.WebViewActivity;
 import com.ylkj.shopproject.util.DataCleanManager;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.util.SPUtil;
@@ -77,7 +78,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                  break;
             //关于我们
             case R.id.rel_about:
-                 setClass(AboutActivity.class);
+                 Intent intent=new Intent(this, WebViewActivity.class);
+                 intent.putExtra("type",3);
+                 startActivity(intent);
                  break;
             //退出登录
             case R.id.tv_log_out:

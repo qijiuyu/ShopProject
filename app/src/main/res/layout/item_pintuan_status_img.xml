@@ -9,6 +9,18 @@
         android:layout_height="35dp"
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ee"/>
+        android:src="@mipmap/wenhao"/>
+
+    <TextView
+        android:id="@+id/tv_launch"
+        android:layout_width="25dp"
+        android:layout_height="10dp"
+        android:background="@color/color_CE5798"
+        android:text="团长"
+        android:textColor="@android:color/white"
+        android:textSize="7sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
 
 </RelativeLayout>

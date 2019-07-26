@@ -97,14 +97,12 @@
         <activity android:name=".activity.city.ProvinceActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.city.CityActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.city.AreaActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.setting.AboutActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.zzfu.ZzfwDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.business.BusinessDetailsActivity"  android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".activity.business.BusinessNewsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.certification.CertificationActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.SelectYHQActivity"  android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".activity.webview.WebViewActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.main.RzzpActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.MoreTopicActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.MoChuangActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.pjsc.PinTuanDetailsActivity"  android:screenOrientation="portrait"/>

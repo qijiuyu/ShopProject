@@ -87,6 +87,9 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_play:
                   final String play=tvPlay.getText().toString().trim();
                   if(play.equals("结算")){
+                      if(null==shopping || null==shopping.getData()){
+                          return;
+                      }
                       Intent intent=new Intent(this,ConfirmXDActivity.class);
                       intent.putExtra("shopping",shopping);
                       startActivity(intent);

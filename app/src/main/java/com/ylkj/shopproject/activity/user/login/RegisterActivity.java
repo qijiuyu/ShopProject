@@ -1,5 +1,6 @@
 package com.ylkj.shopproject.activity.user.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ylkj.shopproject.R;
+import com.ylkj.shopproject.activity.webview.WebViewActivity;
 import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -50,6 +52,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.lin_login).setOnClickListener(this);
         findViewById(R.id.tv_register).setOnClickListener(this);
         findViewById(R.id.lin_back).setOnClickListener(this);
+        findViewById(R.id.lin_xy).setOnClickListener(this);
     }
 
 
@@ -102,6 +105,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.lin_login:
                  setClass(LoginActivity.class);
                  break;
+            case R.id.lin_xy:
+                 Intent intent=new Intent(this, WebViewActivity.class);
+                 intent.putExtra("type",5);
+                 startActivity(intent);
+                  break;
             case R.id.lin_back:
                  finish();
                  break;

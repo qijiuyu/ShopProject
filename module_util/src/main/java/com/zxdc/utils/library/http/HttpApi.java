@@ -23,7 +23,6 @@ import com.zxdc.utils.library.bean.OrderDetails;
 import com.zxdc.utils.library.bean.OrderNum;
 import com.zxdc.utils.library.bean.Secreening;
 import com.zxdc.utils.library.bean.Zpzz;
-import com.zxdc.utils.library.bean.About;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.Business;
@@ -156,10 +155,6 @@ public interface HttpApi {
     Call<BaseBean> collection(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
-    @POST(HttpConstant.ABOUT)
-    Call<About> about(@FieldMap Map<String, String> map);
-
-    @FormUrlEncoded
     @POST(HttpConstant.CAR_LIST)
     Call<Shopping> getCarList(@FieldMap Map<String, String> map);
 
@@ -174,10 +169,6 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.CHANGE_COUNT)
     Call<Shopping> changeCount(@FieldMap Map<String, String> map);
-
-    @FormUrlEncoded
-    @POST(HttpConstant.ZZFW_INFO)
-    Call<About> getServiceInfo(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST(HttpConstant.GET_PJ_GOOD_DETAILS)

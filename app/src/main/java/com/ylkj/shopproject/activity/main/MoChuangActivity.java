@@ -156,6 +156,7 @@ public class MoChuangActivity extends BaseActivity {
                             intent.setClass(activity, WebViewActivity.class);
                             intent.putExtra("url",dataBean.getUrl());
                             intent.putExtra("type",1);
+                            intent.putExtra("title",dataBean.getName());
                             break;
                         //跳转机床商品
                         case 2:

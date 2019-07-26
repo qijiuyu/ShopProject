@@ -78,9 +78,6 @@ public class HttpConstant {
     //收藏/取消收藏商品
     public static final String COLLECTION="api/app/collect/collect";
 
-    //单页类型（0：关于我们，1：融资租赁）
-    public static final String ABOUT="api/app/user/aboutus";
-
     //查询购物车
     public static final String CAR_LIST="api/app/cart/getcartlist";
 

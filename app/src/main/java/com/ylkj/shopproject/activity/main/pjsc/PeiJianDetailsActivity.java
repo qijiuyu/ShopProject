@@ -29,7 +29,7 @@ import java.util.Map;
 public class PeiJianDetailsActivity extends BaseActivity implements View.OnClickListener{
 
     private Banner banner;
-    private TextView tvName,tvDes,tvNewMoney,tvOldMoney,tvYfMoney,tvNum;
+    private TextView tvName,tvDes,tvNewMoney,tvOldMoney,tvYfMoney,tvNum,btn_good,btn_details;
     private MeasureListView listView;
     private PeiJianDetailsTypeAdapter peiJianDetailsTypeAdapter;
     //MVP实例
@@ -74,6 +74,10 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
         tvYfMoney=findViewById(R.id.tv_yf_money);
         listView=findViewById(R.id.list_type);
         tvNum=findViewById(R.id.tv_num);
+        btn_good=findViewById(R.id.btn_good);
+        btn_details=findViewById(R.id.btn_details);
+        btn_good.setOnClickListener(this);
+        btn_details.setOnClickListener(this);
         findViewById(R.id.img_remove).setOnClickListener(this);
         findViewById(R.id.img_add).setOnClickListener(this);
         findViewById(R.id.img_kf).setOnClickListener(this);
@@ -148,6 +152,12 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  intent.putExtra("type",0);
                  startActivity(intent);
                  break;
+            case R.id.btn_good:
+                  showDetails(1);
+                  break;
+            case R.id.btn_details:
+                  showDetails(2);
+                  break;
         }
     }
 
@@ -223,6 +233,34 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                 skuPrice=goodBean.getSkuList().get(i).getPrice();
                 break;
             }
+        }
+    }
+
+
+    /**
+     * 切换商品和详情
+     */
+    private void showDetails(int type){
+        if(type==1){
+            btn_good.setBackgroundDrawable(getResources().getDrawable(R.drawable.top_rounded));
+            btn_good.setTextColor(getResources().getColor(android.R.color.white));
+            btn_details.setBackgroundDrawable(getResources().getDrawable(R.drawable.bottom_rounded));
+            btn_details.setTextColor(getResources().getColor(R.color.color_33333));
+            findViewById(R.id.scro_details).setVisibility(View.GONE);
+        }else{
+            btn_good.setBackgroundDrawable(getResources().getDrawable(R.drawable.top_rounded2));
+            btn_good.setTextColor(getResources().getColor(R.color.color_33333));
+            btn_details.setBackgroundDrawable(getResources().getDrawable(R.drawable.bottom_rounded2));
+            btn_details.setTextColor(getResources().getColor(android.R.color.white));
+            findViewById(R.id.scro_details).setVisibility(View.VISIBLE);
+        }
+        if(null!=pjGoodDetails){
+            final PJGoodDetails.goodBean goodBean=pjGoodDetails.getData();
+            if(null==goodBean){
+                return;
+            }
+            TextView tvDetails=findViewById(R.id.tv_details);
+            tvDetails.setText(Html.fromHtml(goodBean.getDiscription()));
         }
     }
 

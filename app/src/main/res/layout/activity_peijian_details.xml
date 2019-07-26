@@ -223,54 +223,6 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp">
-
-        <LinearLayout
-            android:id="@+id/lin_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp">
-
-            <ImageView
-                android:layout_width="9.5dp"
-                android:layout_height="18dp"
-                android:layout_marginRight="20dp"
-                android:src="@mipmap/write_back"/>
-
-        </LinearLayout>
-
-         <LinearLayout
-             android:layout_width="128dp"
-             android:layout_height="26dp"
-             android:layout_centerInParent="true"
-             android:orientation="horizontal">
-             
-             <TextView
-                 android:layout_width="64dp"
-                 android:layout_height="match_parent"
-                 android:background="@drawable/top_rounded"
-                 android:text="商品"
-                 android:textColor="@color/color_33333"
-                 android:textSize="14sp"
-                 android:gravity="center"/>
-
-             <TextView
-                 android:layout_width="64dp"
-                 android:layout_height="match_parent"
-                 android:background="@drawable/bottom_rounded"
-                 android:text="详情"
-                 android:textColor="@android:color/white"
-                 android:textSize="14sp"
-                 android:gravity="center"/>
-
-         </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white">
@@ -337,6 +289,75 @@
             android:gravity="center"
             android:background="@color/color_37C7B5"
             android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scro_details"
+        android:visibility="gone"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:paddingTop="80dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp">
+
+        <LinearLayout
+            android:id="@+id/lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:layout_width="9.5dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/back_icon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="128dp"
+            android:layout_height="26dp"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_good"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/top_rounded"
+                android:text="商品"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/btn_details"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bottom_rounded"
+                android:text="详情"
+                android:textColor="@color/color_33333"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

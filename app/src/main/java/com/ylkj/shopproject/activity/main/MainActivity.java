@@ -17,6 +17,7 @@ import com.ylkj.shopproject.activity.main.search.SearchActivity;
 import com.ylkj.shopproject.activity.main.zzfu.ZzfuTypeActivity;
 import com.ylkj.shopproject.activity.type.JCDetailsActivity;
 import com.ylkj.shopproject.activity.user.login.LoginActivity;
+import com.ylkj.shopproject.activity.webview.WebViewActivity;
 import com.ylkj.shopproject.adapter.main.HotPartsAdapter;
 import com.ylkj.shopproject.adapter.main.NewsRecommendedAdapter;
 import com.ylkj.shopproject.adapter.main.SentimentRecommendedAdapter;
@@ -120,7 +121,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
                 break;
             //融资租赁
             case R.id.lin_zl:
-                 setClass(RzzpActivity.class);
+                Intent intent=new Intent(this, WebViewActivity.class);
+                intent.putExtra("type",4);
+                startActivity(intent);
                  break;
             //搜索
             case R.id.lin_search:
