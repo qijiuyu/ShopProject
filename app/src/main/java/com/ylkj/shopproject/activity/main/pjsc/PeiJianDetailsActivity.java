@@ -29,7 +29,7 @@ import java.util.Map;
 public class PeiJianDetailsActivity extends BaseActivity implements View.OnClickListener{
 
     private Banner banner;
-    private TextView tvName,tvDes,tvNewMoney,tvOldMoney,tvYfMoney,tvNum,btn_good,btn_details;
+    private TextView tvName,tvDes,tvNewMoney,tvOldMoney,tvYfMoney,tvNum,btn_good,btn_details,tvDay,tvHour,tvMinutes,tvSecounds;
     private MeasureListView listView;
     private PeiJianDetailsTypeAdapter peiJianDetailsTypeAdapter;
     //MVP实例
@@ -43,13 +43,9 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
     //选中优惠券的对象
     private Coupon.DataBean coupon;
     //选中的sku规格值
-    private Map<Integer,String> selectSku=new HashMap<>();
-    //选中的skuid
-    private String skuid;
-    //选中规格的单价
-    private double skuPrice=0;
-    //选中规格的库存
-    private int skuCount;
+    private Map<String,String> selectSku=new HashMap<>();
+    //选中的规格对象
+    private PJGoodDetails.skuBean skuBean;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peijian_details);
@@ -69,6 +65,10 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
         banner=findViewById(R.id.banner);
         tvName=findViewById(R.id.tv_name);
         tvDes=findViewById(R.id.tv_des);
+        tvDay=findViewById(R.id.tv_day);
+        tvHour=findViewById(R.id.tv_hour);
+        tvMinutes=findViewById(R.id.tv_minutes);
+        tvSecounds=findViewById(R.id.tv_secounds);
         tvNewMoney=findViewById(R.id.tv_new_money);
         tvOldMoney=findViewById(R.id.tv_old_money);
         tvYfMoney=findViewById(R.id.tv_yf_money);
@@ -86,6 +86,7 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
         findViewById(R.id.tv_buy).setOnClickListener(this);
         findViewById(R.id.rel_yhq).setOnClickListener(this);
         findViewById(R.id.tv_add_shopping).setOnClickListener(this);
+        findViewById(R.id.lin_back).setOnClickListener(this);
     }
 
 
@@ -94,9 +95,10 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
         switch (v.getId()){
             //领取优惠券
             case R.id.rel_yhq:
-                 //保存已选中的规格
-                 saveSelectSkuid();
-                 peiJianDetailsPersenter.couponJson(pjGoodDetails.getData(),skuCount,skuPrice);
+                 if(!saveSelectSkuid()){
+                     ToastUtil.showLong("请选择完整的商品类型！");
+                 }
+                peiJianDetailsPersenter.couponJson(pjGoodDetails.getData(),skuBean.getStock(),skuBean.getPrice());
                  break;
             //减数量
             case R.id.img_remove:
@@ -109,9 +111,11 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  break;
             //加数量
             case R.id.img_add:
-                //保存已选中的规格
-                saveSelectSkuid();
-                 if(num==skuCount){
+                 if(!saveSelectSkuid()){
+                     ToastUtil.showLong("请选择完整的商品类型！");
+                     return;
+                 }
+                 if(num==skuBean.getStock()){
                      return;
                  }
                  num++;
@@ -128,24 +132,17 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
             //加入购物车
             case R.id.tv_add_shopping:
             case R.id.img_shopping:
-                 //保存已选中的规格
-                 saveSelectSkuid();
-                if(selectSku.size()<pjGoodDetails.getData().getProSpecsList().size()){
-                    ToastUtil.showLong("请选择完整的商品类型！");
-                     return;
+                 if(!saveSelectSkuid()){
+                     ToastUtil.showLong("请选择完整的商品类型！");
                  }
-                 peiJianDetailsPersenter.addCar(skuid,num);
+                 peiJianDetailsPersenter.addCar(String.valueOf(skuBean.getId()),num);
                  break;
             //立即购买
             case R.id.tv_buy:
-                //保存已选中的规格
-                saveSelectSkuid();
-                if(selectSku.size()<pjGoodDetails.getData().getProSpecsList().size()){
-                    ToastUtil.showLong("请选择完整的商品类型！");
+                 if(!saveSelectSkuid()){
+                     ToastUtil.showLong("请选择完整的商品类型！");
                     return;
                  }
-                 pjGoodDetails.getData().setSkuid(Integer.parseInt(skuid));
-                 pjGoodDetails.getData().setPrice(skuPrice);
                  Intent intent=new Intent(this,ConfirmXDActivity.class);
                  intent.putExtra("goodBean",pjGoodDetails.getData());
                  intent.putExtra("coupon",coupon);
@@ -157,6 +154,9 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                   break;
             case R.id.btn_details:
                   showDetails(2);
+                  break;
+            case R.id.lin_back:
+                  finish();
                   break;
         }
     }
@@ -183,6 +183,9 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
         //展示商品类型
         peiJianDetailsTypeAdapter=new PeiJianDetailsTypeAdapter(this,goodBean.getProSpecsList());
         listView.setAdapter(peiJianDetailsTypeAdapter);
+
+        //判断是否是团购
+        judgeTG();
     }
 
 
@@ -201,38 +204,66 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                 }
             }
         }
-        peiJianDetailsTypeAdapter=new PeiJianDetailsTypeAdapter(this,goodBean.getProSpecsList());
-        listView.setAdapter(peiJianDetailsTypeAdapter);
+        peiJianDetailsTypeAdapter.notifyDataSetChanged();
     }
 
 
     /**
      * 保存已选中的规格
      */
-    private void saveSelectSkuid(){
+    private boolean saveSelectSkuid(){
         selectSku.clear();
-        //存储已默认选中的规格值
+        String skuid=null;
+        //存储已选中的规格值
         final PJGoodDetails.goodBean goodBean=pjGoodDetails.getData();
         for (int i=0;i<goodBean.getProSpecsList().size();i++){
-                int specsid=goodBean.getProSpecsList().get(i).getSpecsid();
                 for (int j=0;j<goodBean.getProSpecsList().get(i).getProSpecsVals().size();j++){
                         if(goodBean.getProSpecsList().get(i).getProSpecsVals().get(j).getIscheck()==1){
-                            selectSku.put(specsid,goodBean.getProSpecsList().get(i).getProSpecsVals().get(j).getSkuid());
-                            if(goodBean.getProSpecsList().get(i).getProSpecsVals().get(j).getSkuid().indexOf(",")==-1){
-                                skuid=goodBean.getProSpecsList().get(i).getProSpecsVals().get(j).getSkuid();
-                            }
+                            skuid=goodBean.getProSpecsList().get(i).getProSpecsVals().get(j).getSkuid();
+                            selectSku.put(skuid,skuid);
                             continue;
                         }
                 }
         }
+        if(selectSku.size()<pjGoodDetails.getData().getProSpecsList().size()){
+            return false;
+        }
 
-        //获取规格库存
+        //遍历map获取最终规格的skuId
+        for (Map.Entry<String, String> entry : selectSku.entrySet()) {
+              if(entry.getValue().indexOf(",")==-1){
+                  skuid=entry.getValue();
+                  break;
+              }
+        }
+
+        //获取选中的规格对象
         for (int i=0;i<goodBean.getSkuList().size();i++){
             if(Integer.parseInt(skuid)==goodBean.getSkuList().get(i).getId()){
-                skuCount=goodBean.getSkuList().get(i).getStock();
-                skuPrice=goodBean.getSkuList().get(i).getPrice();
+                skuBean=goodBean.getSkuList().get(i);
+                //给全局商品对象赋值上最终规格的id和价格
+                pjGoodDetails.getData().setPrice(skuBean.getPrice());
+                pjGoodDetails.getData().setSkuid(skuBean.getId());
                 break;
             }
+        }
+        return true;
+    }
+
+
+    /**\
+     * 判断是否是团购
+     */
+    private void judgeTG(){
+        if(!saveSelectSkuid()){
+            return;
+        }
+        boolean b=peiJianDetailsPersenter.isTG(skuBean);
+        if(b){
+            findViewById(R.id.lin_time).setVisibility(View.VISIBLE);
+            peiJianDetailsPersenter.startCountdown(skuBean);
+        }else{
+            findViewById(R.id.lin_time).setVisibility(View.GONE);
         }
     }
 
@@ -293,7 +324,10 @@ public class PeiJianDetailsActivity extends BaseActivity implements View.OnClick
                  int[] postion= (int[]) eventBusType.getObject();
                  if(null!=postion && postion.length==2){
                      pjGoodDetails.getData().getProSpecsList().get(postion[0]).getProSpecsVals().get(postion[1]).setIscheck(1);
+                     //刷新界面规格列表
                      updateType(pjGoodDetails.getData().getProSpecsList().get(postion[0]).getProSpecsVals().get(postion[1]).getSkuid());
+                     //判断是否是团购
+                     judgeTG();
                  }
                  break;
         }

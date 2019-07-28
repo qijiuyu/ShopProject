@@ -65,8 +65,13 @@ public class WebViewActivity extends BaseActivity {
                 break;
             //注册协议
             case 5:
-                tvTitle.setText("注册协议 ");
+                tvTitle.setText("注册协议");
                 webshow.loadUrl(HttpConstant.IP+"api/app/html/newsinfo?type=2");
+                break;
+            //增值服务详情
+            case 6:
+                tvTitle.setText("服务详情");
+                webshow.loadUrl(HttpConstant.IP+"api/app/html/serviceinfo?id="+url);
                 break;
         }
 

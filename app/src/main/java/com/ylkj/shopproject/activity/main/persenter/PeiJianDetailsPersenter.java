@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.ylkj.shopproject.R;
@@ -15,25 +14,32 @@ import com.ylkj.shopproject.eventbus.EventStatus;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.PJGoodDetails;
-import com.zxdc.utils.library.bean.Shopping;
 import com.zxdc.utils.library.bean.json.YhqJson;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.SPUtil;
+import com.zxdc.utils.library.util.TimerUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 public class PeiJianDetailsPersenter {
 
     private Activity activity;
     private List<PJGoodDetails.imgList> imgList;
+    //计时器对象
+    private TimerUtil timerUtil;
+    //时间格式
+    private SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public PeiJianDetailsPersenter(Activity activity){
         this.activity=activity;
@@ -105,11 +111,6 @@ public class PeiJianDetailsPersenter {
         banner.isAutoPlay(true);
         //设置指示器的位置，小点点，居中显示
         banner.setIndicatorGravity(BannerConfig.RIGHT);
-        banner.setOnBannerListener(new OnBannerListener() {
-            public void OnBannerClick(int position) {
-                ToastUtil.showLong(position+"");
-            }
-        });
         //banner设置方法全部调用完毕时最后调用
         banner.start();
     }
@@ -185,4 +186,78 @@ public class PeiJianDetailsPersenter {
         activity.startActivity(intent);
     }
 
+
+    /**
+     * 判断选中的规格是否是团购
+     */
+    public boolean isTG(PJGoodDetails.skuBean skuBean){
+        if(null==skuBean){
+            return false;
+        }
+        if(null!=timerUtil){
+            timerUtil.stop();
+        }
+        if(skuBean.getIstg()==1){
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * 开始倒计时
+     */
+    private int time;
+    public void startCountdown(PJGoodDetails.skuBean skuBean){
+        if(null==skuBean){
+            return;
+        }
+        try {
+            Date endDate = format.parse(skuBean.getTgdto().getEndtime());
+            //日期转时间戳（毫秒）
+            Long startTime=System.currentTimeMillis()/1000;
+            Long endTime=endDate.getTime()/1000;
+            Long along=endTime-startTime;
+            time=along.intValue();
+            timerUtil=new TimerUtil(0, 1000, new TimerUtil.TimerCallBack() {
+                public void onFulfill() {
+                    timerTask();
+                }
+            });
+            timerUtil.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 开始计时器
+     */
+    private void timerTask(){
+        time--;
+        if(time<0){
+            return;
+        }
+        final int day=time/86400;
+        if(day>0){
+            time=time-(day*86400);
+        }
+        final int hoursInt = time / 3600;
+        final int minutesInt = (time - hoursInt * 3600) / 60;
+        final int secondsInt = time - hoursInt * 3600 - minutesInt * 60;
+        handler.post(new Runnable() {
+            public void run() {
+                if(hoursInt==0){
+                    LogUtils.e(String.format("%02d", minutesInt) + ":" + String.format("%02d", secondsInt));
+                } else{
+                    LogUtils.e(day+"天:"+String.format("%02d", hoursInt) + ":" + String.format("%02d", minutesInt) + ":" + String.format("%02d", secondsInt));
+                }
+            }
+        });
+        if(time==0){
+            timerUtil.stop();
+        }
+
+    }
 }

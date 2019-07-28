@@ -22,6 +22,110 @@
                 android:layout_height="311dp">
             </com.youth.banner.Banner>
 
+            <LinearLayout
+                android:id="@+id/lin_time"
+                android:visibility="gone"
+                android:layout_width="193dp"
+                android:layout_height="71.5dp"
+                android:orientation="vertical"
+                android:background="@mipmap/pintuan_bg"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="77.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="距拼团时间结束"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8.5dp"
+                    android:layout_marginLeft="47dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20.5dp"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_day"
+                        android:layout_width="20.5dp"
+                        android:layout_height="24dp"
+                        android:background="@mipmap/pintuan_time"
+                        android:text="12"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_024D8F"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="天"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_hour"
+                        android:layout_width="20.5dp"
+                        android:layout_height="24dp"
+                        android:background="@mipmap/pintuan_time"
+                        android:text="23"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_024D8F"
+                        android:gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_minutes"
+                        android:layout_width="20.5dp"
+                        android:layout_height="24dp"
+                        android:background="@mipmap/pintuan_time"
+                        android:text="13"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_024D8F"
+                        android:gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_secounds"
+                        android:layout_width="20.5dp"
+                        android:layout_height="24dp"
+                        android:background="@mipmap/pintuan_time"
+                        android:text="23"
+                        android:textSize="17sp"
+                        android:textColor="@color/color_024D8F"
+                        android:gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="315dp"
                 android:layout_height="72dp"

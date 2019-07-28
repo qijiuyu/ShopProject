@@ -50,7 +50,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':module_util')
     compile project(':vitamio')
     compile files('libs/alipaySdk-20180601.jar')
     compile files('libs/wechat-sdk-android-with-mta-1.0.2.jar')
@@ -59,4 +58,7 @@ dependencies {
     compile files('libs/umeng-share-QQ-simplify-6.9.4.jar')
     compile files('libs/umeng-share-wechat-simplify-6.9.4.jar')
     compile files('libs/umeng-sharetool-6.9.4.jar')
+    //侧滑菜单
+    compile 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
+    compile project(':module_util')
 }

@@ -199,6 +199,8 @@ public class PJGoodDetails extends BaseBean {
         private double price;
         //商品库存数量
         private int stock;
+        //是否团购(0:否 1:是)
+        private int istg;
         private tgdtoBean tgdto;
 
         public int getId() {
@@ -231,6 +233,14 @@ public class PJGoodDetails extends BaseBean {
 
         public void setTgdto(tgdtoBean tgdto) {
             this.tgdto = tgdto;
+        }
+
+        public int getIstg() {
+            return istg;
+        }
+
+        public void setIstg(int istg) {
+            this.istg = istg;
         }
     }
 

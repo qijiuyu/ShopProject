@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.ylkj.shopproject.R;
 import com.ylkj.shopproject.activity.main.zzfu.ZzfuTypeActivity;
 import com.ylkj.shopproject.activity.main.zzfu.ZzfwDetailsActivity;
+import com.ylkj.shopproject.activity.webview.WebViewActivity;
 import com.ylkj.shopproject.adapter.main.AppNewsAdapter;
 import com.ylkj.shopproject.adapter.main.ZzfuTypeAdapter;
 import com.zxdc.utils.library.base.BaseFragment;
@@ -73,8 +74,9 @@ public class ZzfuFragment extends BaseFragment {
                          listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                  ZzfuTypeList.ListBean listBean=list.get(position);
-                                 Intent intent=new Intent(mActivity, ZzfwDetailsActivity.class);
-                                 intent.putExtra("listBean",listBean);
+                                 Intent intent=new Intent(mActivity, WebViewActivity.class);
+                                 intent.putExtra("type",6);
+                                 intent.putExtra("url",String.valueOf(listBean.getId()));
                                  startActivity(intent);
                              }
                          });
