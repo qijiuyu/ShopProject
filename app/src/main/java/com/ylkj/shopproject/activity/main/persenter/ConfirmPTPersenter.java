@@ -354,12 +354,14 @@ public class ConfirmPTPersenter implements View.OnClickListener{
             invoiceJson.setAddress(etSPAddr.getText().toString().trim());
         }else{
             invoiceJson.setTitletype(1);
-            invoiceJson.setCompanyname(zpzz.getData().getCompanyname());
-            invoiceJson.setTaxnum(zpzz.getData().getTaxnum());
-            invoiceJson.setContenttype(0);
-            invoiceJson.setUsername(zpzz.getData().getName());
-            invoiceJson.setPhone(zpzz.getData().getPhone());
-            invoiceJson.setAddress(zpzz.getData().getAddress());
+            if(zpzz!=null){
+                invoiceJson.setCompanyname(zpzz.getData().getCompanyname());
+                invoiceJson.setTaxnum(zpzz.getData().getTaxnum());
+                invoiceJson.setContenttype(0);
+                invoiceJson.setUsername(zpzz.getData().getName());
+                invoiceJson.setPhone(zpzz.getData().getPhone());
+                invoiceJson.setAddress(zpzz.getData().getAddress());
+            }
         }
         return SPUtil.gson.toJson(invoiceJson);
     }
